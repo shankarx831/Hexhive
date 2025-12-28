@@ -91,9 +91,9 @@ const CertificateGenerator = () => {
             <section className="hero hero--program">
                 <div className="container hero-content">
                     <div className="hero-text">
-                        <h1 className="hero-title">Internship Certificate Generator</h1>
+                        <h1 className="hero-title">Internship Certificate </h1>
                         <p className="hero-subtitle">
-                            Create, customize, and download official internship completion certificates.
+                        
                         </p>
                     </div>
                 </div>
