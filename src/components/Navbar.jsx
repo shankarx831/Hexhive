@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth(); // Hooks must be inside component
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  // --- ADDED "Invoice" HERE ---
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Programs', path: '/programs' },
-    { name: 'Certificate', path: '/certificate' },
-    { name: 'Invoice', path: '/invoice' }, // <--- NEW LINK
+    // Show tools only if user is logged in
+    ...(user ? [
+      { name: 'Certificate', path: '/certificate' },
+      { name: 'Invoice', path: '/invoice' }
+    ] : []),
     { name: 'Enroll Now', path: '/register' },
   ];
 
@@ -49,6 +53,20 @@ const Navbar = () => {
                 {link.name}
               </NavLink>
             ))}
+            {!user && (
+              <NavLink to="/login" className="px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-primary hover:bg-gray-50">
+                Login
+              </NavLink>
+            )}
+            {user && (
+              <button
+                onClick={logout}
+                className="px-3 py-2 rounded-md text-sm font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
+                title={`Logged in as ${user.username}`}
+              >
+                Logout
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,6 +101,19 @@ const Navbar = () => {
               {link.name}
             </NavLink>
           ))}
+          {!user && (
+            <NavLink to="/login" onClick={closeMenu} className="block px-3 py-4 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary">
+              Login
+            </NavLink>
+          )}
+          {user && (
+            <button
+              onClick={() => { logout(); closeMenu(); }}
+              className="block w-full text-left px-3 py-4 rounded-md text-base font-medium text-red-600 hover:bg-red-50 hover:text-red-700"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

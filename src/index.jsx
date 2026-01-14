@@ -18,6 +18,11 @@ import Register from './pages/Register';
 import CertificateGenerator from './pages/CertificateGenerator';
 import InvoiceGenerator from './pages/InvoiceGenerator';
 
+// Auth
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
+import PrivateRoute from './components/PrivateRoute';
+
 // --- POLYFILLS (Must run AFTER imports) ---
 window.Buffer = Buffer;
 
@@ -34,16 +39,30 @@ const root = createRoot(document.getElementById('root'));
 
 // ✅ Switched to HashRouter for GitHub Pages compatibility
 root.render(
-  <HashRouter>
-    <ScrollToTop />
-    <Routes>
-      <Route path="/" element={<Layout><Home /></Layout>} />
-      <Route path="/programs" element={<Layout><Programs /></Layout>} />
-      <Route path="/register" element={<Layout><Register /></Layout>} />
-      <Route path="/certificate" element={<Layout><CertificateGenerator /></Layout>} />
+  <AuthProvider>
+    <HashRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/programs" element={<Layout><Programs /></Layout>} />
+        <Route path="/register" element={<Layout><Register /></Layout>} />
 
-      {/* Invoice page with Layout */}
-      <Route path="/invoice" element={<Layout><InvoiceGenerator /></Layout>} />
-    </Routes>
-  </HashRouter>
+        {/* PUBLIC: Login Page */}
+        <Route path="/login" element={<Layout><Login /></Layout>} />
+
+        {/* PROTECTED ROUTES */}
+        <Route path="/certificate" element={
+          <PrivateRoute>
+            <Layout><CertificateGenerator /></Layout>
+          </PrivateRoute>
+        } />
+
+        <Route path="/invoice" element={
+          <PrivateRoute>
+            <Layout><InvoiceGenerator /></Layout>
+          </PrivateRoute>
+        } />
+      </Routes>
+    </HashRouter>
+  </AuthProvider>
 );
