@@ -164,8 +164,8 @@ const Register = () => {
                 >
                   <option value="" disabled>Select your qualification</option>
                   <option value="high-school">High School / Secondary</option>
-                  <option value="bachelor">Bachelor's Degree</option>
-                  <option value="master">Master's Degree</option>
+                  <option value="bachelor">Bachelor&apos;s Degree</option>
+                  <option value="master">Master&apos;s Degree</option>
                   <option value="diploma">Diploma</option>
                   <option value="other">Other</option>
                 </select>

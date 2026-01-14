@@ -200,7 +200,7 @@ const CertificateGenerator = () => {
                                 fileName={`Certificate_${formData.name.replace(/\s+/g, '_')}.pdf`}
                                 className="w-full inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                             >
-                                {({ blob, url, loading, error }) =>
+                                {({ loading }) =>
                                     loading ? 'Generating PDF...' : 'Download Certificate'
                                 }
                             </PDFDownloadLink>

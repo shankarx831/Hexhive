@@ -75,7 +75,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 id="features-heading" className="text-3xl md:text-4xl font-black font-heading text-primary mb-4">Why HexHive Stands Out</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">We don't just teach code; we build careers.</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">We don&apos;t just teach code; we build careers.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -85,7 +85,7 @@ const Home = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" className="fill-accent"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" /></svg>
               </div>
               <h3 className="text-xl font-bold text-primary mb-3">Industry-Aligned Curriculum</h3>
-              <p className="text-gray-600 leading-relaxed">Content co-created with hiring managers from top tech companies to ensure you learn what's in demand.</p>
+              <p className="text-gray-600 leading-relaxed">Content co-created with hiring managers from top tech companies to ensure you learn what&apos;s in demand.</p>
             </div>
             {/* Feature 2 */}
             <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-t-4 border-accent group">
