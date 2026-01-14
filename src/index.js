@@ -32,9 +32,12 @@ const Layout = ({ children }) => (
 
 const root = createRoot(document.getElementById('root'));
 
-// ✅ basename added for GitHub Pages
+// ✅ basename updated to use PUBLIC_URL or fallback to '/'
 root.render(
-  <BrowserRouter basename="/hexhive-app">
+  <BrowserRouter
+    basename={process.env.PUBLIC_URL || '/'}
+    future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+  >
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
