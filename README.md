@@ -1,70 +1,158 @@
-# Getting Started with Create React App
+# HexHive Solutions Experience Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![HexHive Logo](public/favicon_transparent.png)
 
-## Available Scripts
+A comprehensive React-based web application for HexHive Solutions, featuring program details, student registration, and automated document generation tools (Certificates & Invoices).
 
-In the project directory, you can run:
+**Live Demo:** [https://shankarx831.github.io/Hexhive](https://shankarx831.github.io/Hexhive)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Tech Stack & Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This project was recently migrated from Create React App (Webpack) to **Vite** for improved performance and development experience.
 
-### `npm test`
+*   **Core Framework:** [React v18](https://reactjs.org/)
+*   **Build Tool:** [Vite](https://vitejs.dev/) (Fast HMR & Optimized Builds)
+*   **Styling:** [Tailwind CSS v3](https://tailwindcss.com/) (Utility-first styling system)
+*   **Routing:** [React Router v6](https://reactrouter.com/) (HashRouter for GitHub Pages compatibility)
+*   **PDF Generation:** `@react-pdf/renderer` (Client-side PDF creation)
+*   **Deployment:** GitHub Pages (via `gh-pages`)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Architecture Overview
 
-### `npm run build`
+The application is a **Single Page Application (SPA)** that runs entirely in the browser.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+*   **Entry Point:** `src/index.jsx` mounts the React root.
+*   **Routing:** `src/App.jsx` handles client-side routing.
+*   **State Management:** Local component state (Hooks).
+*   **Assets:** Optimized SVG/PNG assets in `public/`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✨ Key Features
 
-### `npm run eject`
+1.  **Landing Page (`Home.jsx`)**:
+    *   Interactive Hero section with gradients.
+    *   Animated statistics counters (`IntersectionObserver`).
+    *   Responsive Grid layouts for feature showcases.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2.  **Programs (`Programs.jsx`)**:
+    *   Detailed course curriculum (DevOps, Full Stack).
+    *   Interactive Accordion UI for course details.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.  **Registration (`Register.jsx`)**:
+    *   Comprehensive enrollment form.
+    *   Real-time form validation.
+    *   Integration with Formspree for submissions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4.  **Tools**:
+    *   **Certificate Generator:** Generates downloadable completion certificates instantly.
+    *   **Invoice Generator:** A fully functional invoice creation tool for billing.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🛠️ Setup & Development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Prerequisites
+*   Node.js (v16+)
+*   npm
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Installation
 
-### Code Splitting
+```bash
+# Clone the repository
+git clone https://github.com/shankarx831/Hexhive.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Navigate to project
+cd hexhive-app
 
-### Analyzing the Bundle Size
+# Install dependencies
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Development Server
 
-### Making a Progressive Web App
+Start the fast Vite development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm start
+# OR
+npm run dev
+```
 
-### Advanced Configuration
+Runs on [http://localhost:3000](http://localhost:3000).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Production Build
 
-### Deployment
+Create an optimized build in the `build/` directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm run build
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📦 File Structure
+
+```
+hexhive-app/
+├── public/              # Static assets (favicons, manifests)
+├── src/
+│   ├── components/      # Reusable UI components (Navbar, Footer, PDFs)
+│   ├── pages/           # Route components (Home, Register, Programs)
+│   ├── utils/           # Helper functions
+│   ├── App.jsx          # Main routing logic
+│   ├── index.jsx        # Entry point
+│   ├── index.css        # Global Tailwind directives
+│   └── ...
+├── vite.config.js       # Vite configuration
+├── tailwind.config.js   # Tailwind theme customization
+└── package.json         # Dependencies & Scripts
+```
+
+---
+
+## 🚀 Deployment
+
+The site is hosted on **GitHub Pages**.
+
+### Automated Deployment Script
+We use a custom shell script to handle building, committing, and deploying in one go.
+
+```bash
+./deploy.sh
+```
+
+**What this script does:**
+1.  Prompts for a commit message.
+2.  Commits all changes to the `main` branch.
+3.  Pushes to GitHub.
+4.  Runs `npm run build` (Vite build).
+5.  Runs `gh-pages -d build` to publish to the `gh-pages` branch.
+
+### Manual Deployment
+If you prefer manual deployment:
+
+```bash
+npm run build
+npm run deploy
+```
+
+---
+
+## 🛡️ Linting & Code Quality
+
+The project enforces code quality using **ESLint**.
+
+```bash
+# Check for lint errors
+npx eslint src
+
+# Config file
+.eslintrc.js
+```
+
+---
+
+© 2025 HexHive Solutions.
