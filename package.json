@@ -2,6 +2,7 @@
   "name": "hexhive-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/shankarx831/Hexhive.git", 
   "dependencies": {
     "@react-pdf/renderer": "^3.1.14",
     "@testing-library/jest-dom": "^5.17.0",
@@ -17,15 +18,18 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
+ "scripts": {
+  "start": "react-scripts start",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
+},
   "eslintConfig": {
     "extends": [
       "react-app",

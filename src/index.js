@@ -32,9 +32,9 @@ const Layout = ({ children }) => (
 
 const root = createRoot(document.getElementById('root'));
 
-// ❌ React.StrictMode REMOVED
+// ✅ basename added for GitHub Pages
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/hexhive-app">
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
