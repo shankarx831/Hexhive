@@ -88,7 +88,7 @@ const InvoiceGenerator = () => {
 
   return (
     // Adjusted height to account for Navbar (h-20 = 5rem)
-    <div className="flex flex-col md:flex-row h-[calc(100vh-5rem)] font-sans bg-gray-50 overflow-hidden">
+    <div className="flex flex-col md:flex-row h-[calc(100vh-5rem)] font-sans bg-cream overflow-hidden">
 
       {/* LEFT: FORM */}
       <div className="w-full md:w-[40%] bg-white border-r shadow-xl z-10 flex flex-col h-full">

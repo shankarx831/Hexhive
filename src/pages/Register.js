@@ -38,7 +38,7 @@ const Register = () => {
     const newErrors = {};
     if (!formData.program) newErrors.program = 'Program is required.';
     if (!formData.name.trim()) newErrors.name = 'Full name is required.';
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email address is required.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -64,144 +64,169 @@ const Register = () => {
   };
 
   return (
-    <main>
-      <section className="hero hero--register" aria-labelledby="register-hero-heading">
-        <div className="container hero-content">
-          <div className="hero-text">
-            <h1 id="register-hero-heading" className="hero-title">Enroll in a HexHive Program</h1>
-            <center><p className="hero-subtitle">Fill out the form below and a career advisor will contact you shortly.</p></center>
-          </div>
+    <main className="flex-grow">
+      <section className="relative bg-primary text-white py-20 text-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-light -z-10"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 id="register-hero-heading" className="text-4xl md:text-5xl font-black font-heading mb-6">Enroll in a HexHive Program</h1>
+          <center><p className="text-xl text-gray-200 max-w-2xl">Fill out the form below and a career advisor will contact you shortly.</p></center>
         </div>
       </section>
 
-      <section className="form-section container" aria-labelledby="register-heading">
-        <div className="form-card">
-          <h2 id="register-heading">Registration Form</h2>
-          <form 
-            className="register-form" 
-            id="registrationForm" 
-            action="https://formspree.io/f/xandzywo" 
+      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 flex justify-center" aria-labelledby="register-heading">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-8 md:p-12 border border-gray-100">
+          <h2 id="register-heading" className="text-3xl font-bold font-heading text-primary text-center mb-10">Registration Form</h2>
+          <form
+            className="space-y-6"
+            id="registrationForm"
+            action="https://formspree.io/f/xandzywo"
             method="POST"
             onSubmit={handleSubmit}
             noValidate
           >
-            <fieldset>
+            <fieldset className="space-y-6 m-0 p-0 border-none">
               <legend className="sr-only">Registration Details</legend>
 
-              <label htmlFor="program">Select Program <span aria-label="required">*</span></label>
-              <select 
-                id="program" 
-                name="program" 
-                required 
-                value={formData.program} 
-                onChange={handleChange}
-                aria-invalid={!!errors.program}
-              >
-                <option value="" disabled>Choose a program to enroll in</option>
-                <option value="advisor">Talk to an Advisor</option>
-                <option value="devops">DevOps Engineering (6 Months)</option>
-                <option value="fullstack">Full-Stack Development (6 Months)</option>
-                <option value="internship">Tech Internship Program (3 Months)</option>
-              </select>
-              <div className="error-message" role="alert">{errors.program}</div>
+              <div>
+                <label htmlFor="program" className="block text-sm font-bold text-gray-700 mb-2">Select Program <span className="text-red-500">*</span></label>
+                <select
+                  id="program"
+                  name="program"
+                  required
+                  value={formData.program}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.program}
+                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.program ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                >
+                  <option value="" disabled>Choose a program to enroll in</option>
+                  <option value="advisor">Talk to an Advisor</option>
+                  <option value="devops">DevOps Engineering (6 Months)</option>
+                  <option value="fullstack">Full-Stack Development (6 Months)</option>
+                  <option value="internship">Tech Internship Program (3 Months)</option>
+                </select>
+                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.program}</div>
+              </div>
 
-              <label htmlFor="name">Full Name <span aria-label="required">*</span></label>
-              <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required 
-                placeholder="e.g., Jane Doe" 
-                value={formData.name}
-                onChange={handleChange}
-                aria-invalid={!!errors.name}
-              />
-              <div className="error-message" role="alert">{errors.name}</div>
+              <div>
+                <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Full Name <span className="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="e.g., Jane Doe"
+                  value={formData.name}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.name}
+                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                />
+                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.name}</div>
+              </div>
 
-              <label htmlFor="email">Email Address <span aria-label="required">*</span></label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                placeholder="you@example.com" 
-                value={formData.email}
-                onChange={handleChange}
-                aria-invalid={!!errors.email}
-              />
-              <div className="error-message" role="alert">{errors.email}</div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">Email Address <span className="text-red-500">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.email}
+                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                />
+                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.email}</div>
+              </div>
 
-              <label htmlFor="phone">Phone Number</label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                placeholder="+91 98765 43210" 
-                value={formData.phone}
-                onChange={handleChange}
-              />
-              <div className="error-message" role="alert"></div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                />
+                <div className="h-5"></div>
+              </div>
 
-              <label htmlFor="education">Highest Education</label>
-              <select 
-                id="education" 
-                name="education"
-                value={formData.education}
-                onChange={handleChange}
-              >
-                <option value="" disabled>Select your qualification</option>
-                <option value="high-school">High School / Secondary</option>
-                <option value="bachelor">Bachelor's Degree</option>
-                <option value="master">Master's Degree</option>
-                <option value="diploma">Diploma</option>
-                <option value="other">Other</option>
-              </select>
+              <div>
+                <label htmlFor="education" className="block text-sm font-bold text-gray-700 mb-2">Highest Education</label>
+                <select
+                  id="education"
+                  name="education"
+                  value={formData.education}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                >
+                  <option value="" disabled>Select your qualification</option>
+                  <option value="high-school">High School / Secondary</option>
+                  <option value="bachelor">Bachelor's Degree</option>
+                  <option value="master">Master's Degree</option>
+                  <option value="diploma">Diploma</option>
+                  <option value="other">Other</option>
+                </select>
+                <div className="h-5"></div>
+              </div>
 
-              <label htmlFor="experience">Relevant Experience (Years)</label>
-              <input 
-                type="number" 
-                id="experience" 
-                name="experience" 
-                min="0" 
-                max="50" 
-                placeholder="e.g., 2" 
-                value={formData.experience}
-                onChange={handleChange}
-              />
+              <div>
+                <label htmlFor="experience" className="block text-sm font-bold text-gray-700 mb-2">Relevant Experience (Years)</label>
+                <input
+                  type="number"
+                  id="experience"
+                  name="experience"
+                  min="0"
+                  max="50"
+                  placeholder="e.g., 2"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                />
+                <div className="h-5"></div>
+              </div>
 
-              <label htmlFor="goals">Your Career Goals <span aria-label="required">*</span></label>
-              <textarea 
-                id="goals" 
-                name="goals" 
-                rows="4" 
-                required 
-                placeholder="Tell us about your aspirations..."
-                value={formData.goals}
-                onChange={handleChange}
-                aria-invalid={!!errors.goals}
-              ></textarea>
-              <div className="error-message" role="alert">{errors.goals}</div>
+              <div>
+                <label htmlFor="goals" className="block text-sm font-bold text-gray-700 mb-2">Your Career Goals <span className="text-red-500">*</span></label>
+                <textarea
+                  id="goals"
+                  name="goals"
+                  rows="4"
+                  required
+                  placeholder="Tell us about your aspirations..."
+                  value={formData.goals}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.goals}
+                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.goals ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                ></textarea>
+                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.goals}</div>
+              </div>
 
-              <label htmlFor="source">How did you hear about us? <span aria-label="required">*</span></label>
-              <select 
-                id="source" 
-                name="source" 
-                required
-                value={formData.source}
-                onChange={handleChange}
-                aria-invalid={!!errors.source}
-              >
-                <option value="" disabled>Select an option</option>
-                <option value="search">Search Engine (Google, etc.)</option>
-                <option value="social">Social Media</option>
-                <option value="referral">Referral</option>
-                <option value="event">Event/Webinar</option>
-                <option value="advertisement">Advertisement</option>
-                <option value="other">Other</option>
-              </select>
-              <div className="error-message" role="alert">{errors.source}</div>
+              <div>
+                <label htmlFor="source" className="block text-sm font-bold text-gray-700 mb-2">How did you hear about us? <span className="text-red-500">*</span></label>
+                <select
+                  id="source"
+                  name="source"
+                  required
+                  value={formData.source}
+                  onChange={handleChange}
+                  aria-invalid={!!errors.source}
+                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white text-gray-900 focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.source ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                >
+                  <option value="" disabled>Select an option</option>
+                  <option value="search">Search Engine (Google, etc.)</option>
+                  <option value="social">Social Media</option>
+                  <option value="referral">Referral</option>
+                  <option value="event">Event/Webinar</option>
+                  <option value="advertisement">Advertisement</option>
+                  <option value="other">Other</option>
+                </select>
+                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.source}</div>
+              </div>
             </fieldset>
-            <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%', marginTop: 'var(--spacing-6)' }}> Submit Application </button>
+            <button type="submit" className="w-full bg-accent text-white font-bold py-4 px-6 rounded-lg hover:bg-accent-light transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"> Submit Application </button>
           </form>
         </div>
       </section>

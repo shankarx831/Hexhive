@@ -6,12 +6,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#004030', 
-        'primary-light': '#005c45',
-        accent: '#4A9782', 
-        'accent-light': '#7bb8a6',
+        primary: {
+          DEFAULT: '#004030',
+          light: '#007a5e',
+          dark: '#00221a',
+        },
+        accent: {
+          DEFAULT: '#4A9782',
+          light: '#7bb8a6',
+          dark: '#2a6d5a',
+        },
         cream: '#FFF9E5',
         light: '#DCD0A8',
+        dark: '#222222', // text-dark alias
+        background: '#FFF9E5',
+        text: {
+          dark: '#222222',
+          light: '#f0f0f0',
+        }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
