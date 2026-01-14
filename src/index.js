@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Buffer } from 'buffer';
 
 // Import CSS
@@ -32,12 +32,9 @@ const Layout = ({ children }) => (
 
 const root = createRoot(document.getElementById('root'));
 
-// ✅ basename updated to use PUBLIC_URL or fallback to '/'
+// ✅ Switched to HashRouter for GitHub Pages compatibility
 root.render(
-  <BrowserRouter
-    basename={process.env.PUBLIC_URL || '/'}
-    future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-  >
+  <HashRouter>
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
@@ -48,5 +45,5 @@ root.render(
       {/* Standalone page (no layout) */}
       <Route path="/invoice" element={<InvoiceGenerator />} />
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
