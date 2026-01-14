@@ -25,10 +25,11 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80" onClick={closeMenu}>
               <img
-                src={process.env.PUBLIC_URL + '/logo_full.png'}
+                src={process.env.PUBLIC_URL + '/favicon_transparent.png'}
                 alt="HexHive"
                 className="h-12 w-auto object-contain"
               />
+              <span className="text-3xl font-bold text-primary">HexHive</span> {/* Bigger text */}
             </Link>
           </div>
 
