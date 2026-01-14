@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/shankarx831/Hexhive.git/static/css/main.44a4293c.css",
-    "main.js": "/shankarx831/Hexhive.git/static/js/main.abd84a4a.js",
-    "index.html": "/shankarx831/Hexhive.git/index.html",
-    "main.44a4293c.css.map": "/shankarx831/Hexhive.git/static/css/main.44a4293c.css.map",
-    "main.abd84a4a.js.map": "/shankarx831/Hexhive.git/static/js/main.abd84a4a.js.map"
+    "main.css": "/Hexhive/static/css/main.44a4293c.css",
+    "main.js": "/Hexhive/static/js/main.905c4525.js",
+    "index.html": "/Hexhive/index.html",
+    "main.44a4293c.css.map": "/Hexhive/static/css/main.44a4293c.css.map",
+    "main.905c4525.js.map": "/Hexhive/static/js/main.905c4525.js.map"
   },
   "entrypoints": [
     "static/css/main.44a4293c.css",
-    "static/js/main.abd84a4a.js"
+    "static/js/main.905c4525.js"
   ]
 }
