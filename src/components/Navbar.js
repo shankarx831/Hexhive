@@ -1,68 +1,89 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { Menu, X, Hexagon } from 'lucide-react';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => setIsMenuOpen(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isMenuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isMenuOpen]);
+  // --- ADDED "Invoice" HERE ---
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Programs', path: '/programs' },
+    { name: 'Certificate', path: '/certificate' },
+    { name: 'Invoice', path: '/invoice' }, // <--- NEW LINK
+    { name: 'Enroll Now', path: '/register' },
+  ];
 
   return (
-    <header className="site-header" role="banner">
-      <div className="container header-inner">
-        <Link to="/" className="logo-link" aria-label="HexHive Home" onClick={closeMenu}>
-          <div className="logo">
-            <img src={`${process.env.PUBLIC_URL}/favicon_transparent.png`} alt="HexHive" className="logo-img" width="90" height="90" />
-            <span className="logo-text">HexHive</span>
+    <nav className="sticky top-0 z-50 bg-white shadow-md font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-20">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link to="/" className="flex items-center space-x-2 text-primary hover:text-primary-light transition-colors" onClick={closeMenu}>
+              <Hexagon className="h-10 w-10 text-accent fill-current" />
+              <span className="font-heading font-black text-2xl tracking-tight">HexHive</span>
+            </Link>
           </div>
-        </Link>
 
-        <nav className="main-nav" role="navigation" aria-label="Main navigation">
-          <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Home</NavLink>
-          <NavLink to="/programs" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Programs</NavLink>
-          <NavLink to="/certificate" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Certificate</NavLink>
-          <NavLink to="/register" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>Enroll Now</NavLink>
-        </nav>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex md:items-center md:space-x-8">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
+                    isActive
+                      ? 'text-primary bg-accent/10 ring-1 ring-accent'
+                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
+            ))}
+          </div>
 
-        <button
-          ref={buttonRef}
-          className="mobile-menu-toggle"
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-          aria-label="Toggle navigation menu"
-          onClick={toggleMenu}
-        >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-        </button>
+          {/* Mobile Menu Button */}
+          <div className="flex items-center md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-accent hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              aria-expanded={isOpen}
+            >
+              <span className="sr-only">Open main menu</span>
+              {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div id="mobile-menu" className="mobile-menu" hidden={!isMenuOpen} ref={menuRef}>
-        <NavLink to="/" className="nav-link mobile-nav-link" onClick={closeMenu}>Home</NavLink>
-        <NavLink to="/programs" className="nav-link mobile-nav-link" onClick={closeMenu}>Programs</NavLink>
-        <NavLink to="/certificate" className="nav-link mobile-nav-link" onClick={closeMenu}>Certificate</NavLink>
-        <NavLink to="/register" className="nav-link mobile-nav-link" onClick={closeMenu}>Enroll Now</NavLink>
+      {/* Mobile Menu Panel */}
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white border-t border-gray-100`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `block px-3 py-4 rounded-md text-base font-medium ${
+                  isActive
+                    ? 'bg-primary text-white'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
