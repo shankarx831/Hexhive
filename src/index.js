@@ -42,8 +42,8 @@ root.render(
       <Route path="/register" element={<Layout><Register /></Layout>} />
       <Route path="/certificate" element={<Layout><CertificateGenerator /></Layout>} />
 
-      {/* Standalone page (no layout) */}
-      <Route path="/invoice" element={<InvoiceGenerator />} />
+      {/* Invoice page with Layout */}
+      <Route path="/invoice" element={<Layout><InvoiceGenerator /></Layout>} />
     </Routes>
   </HashRouter>
 );
