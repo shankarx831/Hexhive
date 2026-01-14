@@ -23,9 +23,12 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center space-x-2 text-primary hover:text-primary-light transition-colors" onClick={closeMenu}>
-              <Hexagon className="h-10 w-10 text-accent fill-current" />
-              <span className="font-heading font-black text-2xl tracking-tight">HexHive</span>
+            <Link to="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80" onClick={closeMenu}>
+              <img
+                src={process.env.PUBLIC_URL + '/logo_full.png'}
+                alt="HexHive"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
           </div>
 
@@ -36,10 +39,9 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
-                    isActive
-                      ? 'text-primary bg-accent/10 ring-1 ring-accent'
-                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                  `px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${isActive
+                    ? 'text-primary bg-accent/10 ring-1 ring-accent'
+                    : 'text-gray-700 hover:text-primary hover:bg-gray-50'
                   }`
                 }
               >
@@ -71,10 +73,9 @@ const Navbar = () => {
               to={link.path}
               onClick={closeMenu}
               className={({ isActive }) =>
-                `block px-3 py-4 rounded-md text-base font-medium ${
-                  isActive
-                    ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
+                `block px-3 py-4 rounded-md text-base font-medium ${isActive
+                  ? 'bg-primary text-white'
+                  : 'text-gray-700 hover:bg-gray-50 hover:text-primary'
                 }`
               }
             >
