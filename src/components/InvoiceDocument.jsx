@@ -80,6 +80,9 @@ const InvoiceDocument = ({ data, totals, options }) => {
             <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>BILL TO:</Text>
             <View style={styles.row}><Text style={styles.label}>Name:</Text><Text style={styles.value}>{data.customerName}</Text></View>
             <View style={styles.row}><Text style={styles.label}>Address:</Text><Text style={styles.value}>{data.customerAddr}</Text></View>
+            {data.customerPhone && (
+              <View style={styles.row}><Text style={styles.label}>Phone:</Text><Text style={styles.value}>{data.customerPhone}</Text></View>
+            )}
 
             {showGst && (
               <View style={styles.row}><Text style={styles.label}>GSTIN:</Text><Text style={styles.value}>{data.buyerGst}</Text></View>

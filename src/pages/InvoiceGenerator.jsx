@@ -17,6 +17,7 @@ const InvoiceGenerator = () => {
     date: new Date().toISOString().split('T')[0],
     customerName: '',
     customerAddr: '',
+    customerPhone: '',
     buyerGst: '',
     items: [
       { id: 1, desc: 'Web Development Services', qty: 1, total: 1000 }
@@ -164,6 +165,7 @@ const InvoiceGenerator = () => {
           <div className="space-y-3 mb-6">
             <input name="customerName" value={data.customerName} onChange={handleChange} placeholder="Customer Name" className={inputClass} />
             <input name="customerAddr" value={data.customerAddr} onChange={handleChange} placeholder="Address" className={inputClass} />
+            <input name="customerPhone" value={data.customerPhone} onChange={handleChange} placeholder="Phone Number" className={inputClass} />
             <input name="buyerGst" value={data.buyerGst} onChange={handleChange} placeholder="GSTIN" className={inputClass} />
           </div>
 
