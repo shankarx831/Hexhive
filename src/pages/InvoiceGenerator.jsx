@@ -229,7 +229,7 @@ const DownloadButton = ({ data, totals, invNo, options }) => {
 
   // Force update when data changes
   useEffect(() => {
-    updateInstance();
+    updateInstance(<InvoiceDocument data={data} totals={totals} options={options} />);
   }, [data, totals, options, updateInstance]);
 
   if (instance.loading) {

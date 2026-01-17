@@ -69,7 +69,7 @@ const InvoiceDocument = ({ data, totals, options }) => {
           <Image src={logoUrl} style={styles.logoImage} />
           <View style={styles.titleSection}>
             <Text style={styles.companyName}>HEXHIVE SOLUTIONS</Text>
-            <Text style={styles.companyAddress}>No.58, Canteen Street, First Floor</Text>
+            <Text style={styles.companyAddress}>Pondicherry - 605001,No.58, Canteen Street, First Floor</Text>
             <Text style={styles.companyAddress}>Pondicherry - 605001</Text>
             <Text style={styles.companyAddress}>Ph: +91 9751 397500 | Email: contact@hexhive.solutions</Text>
             <Text style={styles.companyAddress}>GSTIN : 34AAAAA0000A1Z5   State Code : 34</Text>
