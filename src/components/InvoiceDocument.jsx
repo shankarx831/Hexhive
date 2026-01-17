@@ -88,7 +88,7 @@ const InvoiceDocument = ({ data, totals, options }) => {
           <View style={styles.metaGroup}>
             <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>INVOICE DETAILS:</Text>
             <View style={styles.row}><Text style={styles.label}>Invoice No:</Text><Text style={styles.value}>{data.invNo}</Text></View>
-            <View style={styles.row}><Text style={styles.label}>Date:</Text><Text style={styles.value}>{data.date.split('-').reverse().join('.')} {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</Text></View>
+            <View style={styles.row}><Text style={styles.label}>Date:</Text><Text style={styles.value}>{data.date.split('-').reverse().join('.')} {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</Text></View>
             <View style={styles.row}><Text style={styles.label}>Place of Supply:</Text><Text style={styles.value}>Pondicherry (34)</Text></View>
           </View>
         </View>
