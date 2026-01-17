@@ -17,12 +17,13 @@ const COLOR_ACCENT = '#4A9782';
 
 const styles = StyleSheet.create({
   page: { padding: 30, paddingTop: 120, fontFamily: 'Helvetica', fontSize: 10, lineHeight: 1.2 },
-  header: { position: 'absolute', top: 30, left: 30, right: 30, height: 90, flexDirection: 'row', borderBottomWidth: 2, borderBottomColor: COLOR_PRIMARY, paddingBottom: 10 },
+  header: { position: 'absolute', top: 30, left: 30, right: 30, height: 90, flexDirection: 'row' },
+  separator: { height: 2, backgroundColor: COLOR_PRIMARY, marginTop: 5, marginBottom: 15 },
   logoImage: { width: 70, height: 70, objectFit: 'contain', marginRight: 20 },
   titleSection: { flexGrow: 1, justifyContent: 'center', alignItems: 'flex-end' },
-  companyName: { fontSize: 24, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', color: COLOR_PRIMARY, marginBottom: 4 },
+  companyName: { fontSize: 24, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', color: COLOR_PRIMARY, marginBottom: -1 },
   companyAddress: { fontSize: 9, color: '#444', textAlign: 'right', marginBottom: 2 },
-  taxTitle: { fontSize: 14, fontFamily: 'Helvetica-Bold', color: COLOR_ACCENT, marginTop: 8, textTransform: 'uppercase', letterSpacing: 1 },
+  taxTitle: { fontSize: 14, fontFamily: 'Helvetica-Bold', color: COLOR_ACCENT, marginTop: 15, textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center', width: '100%' },
   metaContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 10 },
   metaGroup: { width: '48%' },
   row: { flexDirection: 'row', marginBottom: 4 },
@@ -30,13 +31,12 @@ const styles = StyleSheet.create({
   value: { flex: 1, fontSize: 9, fontFamily: 'Helvetica' },
   gstBar: { borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#e5e7eb', backgroundColor: '#f9fafb', flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4, paddingHorizontal: 4, marginBottom: 10 },
   gstText: { fontSize: 9, color: '#333' },
-  tableContainer: { marginTop: 0, borderWidth: 1, borderColor: '#e5e7eb', flexGrow: 1 },
+  tableContainer: { marginTop: 0, borderWidth: 1, borderColor: '#e5e7eb' },
   tableHeader: { flexDirection: 'row', backgroundColor: COLOR_PRIMARY, color: 'white', height: 24, alignItems: 'center', textAlign: 'center', fontFamily: 'Helvetica-Bold', fontSize: 9 },
   col1: { width: '8%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4 },
-  col2: { width: '52%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4, textAlign: 'left' },
+  col2: { width: '62%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4, textAlign: 'left' },
   col3: { width: '12%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4 },
-  col4: { width: '18%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4, textAlign: 'right' },
-  col5: { width: '10%', height: '100%', padding: 4 },
+  col4: { width: '18%', height: '100%', padding: 4, textAlign: 'right' },
   rowStyle: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', alignItems: 'flex-start', fontSize: 10, paddingVertical: 0 },
   footerSection: { flexDirection: 'row', borderTopWidth: 2, borderTopColor: COLOR_PRIMARY, paddingTop: 10, marginTop: 0 },
   footerLeft: { width: '60%', paddingRight: 20 },
@@ -69,15 +69,13 @@ const InvoiceDocument = ({ data, totals, options }) => {
           <Image src={logoUrl} style={styles.logoImage} />
           <View style={styles.titleSection}>
             <Text style={styles.companyName}>HEXHIVE SOLUTIONS</Text>
-            <Text style={styles.companyAddress}>Pondicherry - 605001,No.58, Canteen Street, First Floor</Text>
-            <Text style={styles.companyAddress}>Pondicherry - 605001</Text>
+            <Text style={{ ...styles.companyAddress, fontFamily: 'Helvetica-Bold' }}>Pondicherry - 605001,No.58, Canteen Street, First Floor</Text>
             <Text style={styles.companyAddress}>Ph: +91 9751 397500 | Email: contact@hexhive.solutions</Text>
             <Text style={styles.companyAddress}>GSTIN : 34AAAAA0000A1Z5   State Code : 34</Text>
-            <Text style={styles.taxTitle}>TAX INVOICE</Text>
           </View>
         </View>
-
-        <View style={styles.metaContainer}>
+        <Text style={styles.taxTitle}>TAX INVOICE</Text>
+        <View style={styles.separator} />        <View style={styles.metaContainer}>
           <View style={styles.metaGroup}>
             <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>BILL TO:</Text>
             <View style={styles.row}><Text style={styles.label}>Name:</Text><Text style={styles.value}>{data.customerName}</Text></View>
@@ -90,7 +88,7 @@ const InvoiceDocument = ({ data, totals, options }) => {
           <View style={styles.metaGroup}>
             <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>INVOICE DETAILS:</Text>
             <View style={styles.row}><Text style={styles.label}>Invoice No:</Text><Text style={styles.value}>{data.invNo}</Text></View>
-            <View style={styles.row}><Text style={styles.label}>Date:</Text><Text style={styles.value}>{data.date.split('-').reverse().join('.')}</Text></View>
+            <View style={styles.row}><Text style={styles.label}>Date:</Text><Text style={styles.value}>{data.date.split('-').reverse().join('.')} {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</Text></View>
             <View style={styles.row}><Text style={styles.label}>Place of Supply:</Text><Text style={styles.value}>Pondicherry (34)</Text></View>
           </View>
         </View>
@@ -117,7 +115,6 @@ const InvoiceDocument = ({ data, totals, options }) => {
             <Text style={styles.col2}>Description</Text>
             <Text style={styles.col3}>Qty</Text>
             <Text style={styles.col4}>Amount</Text>
-            <Text style={styles.col5}></Text>
           </View>
 
           {data.items.map((item, idx) => (
@@ -126,18 +123,11 @@ const InvoiceDocument = ({ data, totals, options }) => {
               <Text style={[styles.col2]}>{item.desc}</Text>
               <Text style={[styles.col3, { textAlign: 'center' }]}>{item.qty}</Text>
               <Text style={[styles.col4]}>{Number(item.total).toLocaleString('en-IN')}</Text>
-              <Text style={[styles.col5]}></Text>
             </View>
           ))}
-
-          <View style={{ flexGrow: 1, flexDirection: 'row' }}>
-            <View style={{ ...styles.col1, borderRightWidth: 1, borderColor: '#e5e7eb' }} />
-            <View style={{ ...styles.col2, borderRightWidth: 1, borderColor: '#e5e7eb' }} />
-            <View style={{ ...styles.col3, borderRightWidth: 1, borderColor: '#e5e7eb' }} />
-            <View style={{ ...styles.col4, borderRightWidth: 1, borderColor: '#e5e7eb' }} />
-            <View style={styles.col5} />
-          </View>
         </View>
+
+        <View style={{ flexGrow: 1 }} />
 
         <View style={styles.footerSection} wrap={false}>
           <View style={styles.footerLeft}>
@@ -170,12 +160,12 @@ const InvoiceDocument = ({ data, totals, options }) => {
             </View>
             <View style={styles.grandTotalRow}>
               <Text style={styles.grandTotalText}>Grand Total</Text>
-              <Text style={styles.grandTotalText}>₹ {totals.grandTotal.toLocaleString('en-IN')}</Text>
+              <Text style={styles.grandTotalText}>Rs. {totals.grandTotal.toLocaleString('en-IN')}</Text>
             </View>
           </View>
         </View>
 
-        <View style={styles.signatureArea}>
+        <View style={styles.signatureArea} wrap={false}>
           <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 10, color: COLOR_PRIMARY }}>For HEXHIVE SOLUTIONS</Text>
           <View style={{ height: 40 }} />
           <Text style={{ fontSize: 8 }}>Authorized Signatory</Text>
