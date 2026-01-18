@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Buffer } from 'buffer';
 
 // Import CSS
@@ -40,7 +40,7 @@ const root = createRoot(document.getElementById('root'));
 // ✅ Switched to HashRouter for GitHub Pages compatibility
 root.render(
   <AuthProvider>
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout><Home /></Layout>} />
@@ -63,6 +63,6 @@ root.render(
           </PrivateRoute>
         } />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   </AuthProvider>
 );

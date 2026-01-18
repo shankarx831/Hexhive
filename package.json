@@ -30,7 +30,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d build",
     "test": "echo 'Test script needs update for Vite' && exit 0"
   },

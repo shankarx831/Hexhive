@@ -144,6 +144,85 @@ const Programs = () => {
             </div>
           </div>
 
+          {/* Embedded Systems Accordion */}
+          <div className="glass-card overflow-hidden" id="embedded">
+            <h3 className="m-0">
+              <button
+                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'embedded' ? 'bg-primary/95 text-white backdrop-blur-md' : 'bg-transparent text-primary hover:bg-white/50 dark:text-white dark:hover:bg-white/10'}`}
+                type="button"
+                aria-expanded={activeAccordion === 'embedded'}
+                onClick={() => toggleAccordion('embedded')}
+              >
+                <span className="flex-grow">Embedded Systems & IoT</span>
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-4 ${activeAccordion === 'embedded' ? 'bg-accent/20 text-white' : 'bg-accent text-white'}`}>40 Hours</span>
+                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'embedded' ? 'rotate-180 text-white' : 'text-primary dark:text-white'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
+              </button>
+            </h3>
+            <div id="embedded-content" className={`transition-all duration-300 ease-in-out overflow-hidden ${activeAccordion === 'embedded' ? 'max-h-[3000px] opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={activeAccordion !== 'embedded'}>
+              <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-700">
+                <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed transition-colors">Master the hardware-software interface. Dive into microcontrollers, real-time operating systems, and IoT protocols.</p>
+
+                <div className="space-y-8">
+                  {/* Module 1 */}
+                  <div>
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2">Module 1: Foundations of Embedded Systems (8 hours)</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">
+                      <li><strong>Introduction:</strong> What is an embedded system?, Applications in IoT, automotive, robotics</li>
+                      <li><strong>Basic Electronics:</strong> Voltage, current, resistance, Ohm’s law, Digital vs. analog signals</li>
+                      <li><strong>Microcontroller Basics:</strong> Architecture overview, GPIO, timers, interrupts</li>
+                      <li><strong>Lab:</strong> LED blinking, button input</li>
+                    </ul>
+                  </div>
+
+                  {/* Module 2 */}
+                  <div>
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2">Module 2: Programming for Embedded Systems (10 hours)</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">
+                      <li><strong>Embedded C Fundamentals:</strong> Variables, loops, functions, Standard C vs embedded C</li>
+                      <li><strong>Development Tools:</strong> IDEs (Arduino IDE, Keil, MPLAB), Compilers and debuggers</li>
+                      <li><strong>Hands-on Labs:</strong> Sensor interfacing (temperature, light), PWM for motor control</li>
+                    </ul>
+                  </div>
+
+                  {/* Module 3 */}
+                  <div>
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2">Module 3: Communication & Interfaces (8 hours)</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">
+                      <li><strong>Protocols:</strong> UART, SPI, I2C, CAN bus basics</li>
+                      <li><strong>Peripheral Interfacing:</strong> ADC/DAC, LCD/OLED displays</li>
+                      <li><strong>Lab:</strong> Multi-sensor integration, Display + input project</li>
+                    </ul>
+                  </div>
+
+                  {/* Module 4 */}
+                  <div>
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2">Module 4: Real-Time Systems & RTOS (8 hours)</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">
+                      <li><strong>Real-Time Concepts:</strong> Polling vs. interrupts, Task scheduling</li>
+                      <li><strong>RTOS Basics:</strong> FreeRTOS introduction, Tasks, semaphores, queues</li>
+                      <li><strong>Lab:</strong> Implement multitasking with FreeRTOS</li>
+                    </ul>
+                  </div>
+
+                  {/* Module 5 */}
+                  <div>
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2">Module 5: Capstone & Industry Practices (6 hours)</h4>
+                    <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-300">
+                      <li><strong>Capstone Project:</strong> IoT device with cloud backend, Robotics control system, or Industrial automation prototype</li>
+                      <li><strong>Professional Practices:</strong> Documentation & design patterns, Agile/DevOps in embedded development</li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 mt-8 border-t border-gray-200 dark:border-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2 transition-colors">Ideal For</h4>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Electronics engineers, hobbyists, computer science students interested in hardware.</p>
+                    <Link to="/register?program=embedded" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Enroll in Embedded Systems</Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Internship Accordion */}
           <div className="glass-card overflow-hidden" id="internship">
             <h3 className="m-0">
