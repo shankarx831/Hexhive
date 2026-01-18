@@ -33,7 +33,14 @@ const Programs = () => {
           <p className="text-xl text-gray-200 max-w-2xl mb-8">
             Designed by industry experts to bridge the skills gap and accelerate your career.
           </p>
-          <a href="#program-details" className="inline-block px-8 py-3 border-2 border-accent text-accent font-bold rounded-lg hover:bg-accent hover:text-white transition-colors">Explore Courses</a>
+          <button
+            onClick={() => {
+              document.getElementById('program-details')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="inline-block px-8 py-3 border-2 border-accent text-accent font-bold rounded-lg hover:bg-accent hover:text-white transition-colors cursor-pointer"
+          >
+            Explore Courses
+          </button>
         </div>
       </section>
 
