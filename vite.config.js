@@ -6,7 +6,7 @@ export default defineConfig({
     base: '/', // Matches your repo name for GH Pages compatibility later
     define: {
         // Polyfill process.env.PUBLIC_URL for compatibility with CRA code
-        'process.env.PUBLIC_URL': JSON.stringify('/Hexhive'),
+        'process.env.PUBLIC_URL': JSON.stringify('/'),
     },
     server: {
         open: true, // Auto open browser
