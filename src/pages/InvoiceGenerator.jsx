@@ -85,32 +85,32 @@ const InvoiceGenerator = () => {
   // Calculate totals for Download Button (Instant)
   const downloadTotals = calculateTotals(data.items, gstMode, gstRate);
 
-  const inputClass = "w-full px-3 py-2 border border-gray-200 rounded-md text-sm transition-all focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10";
+  const inputClass = "w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md text-sm transition-all focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white";
 
   return (
     // Adjusted height to account for Navbar (h-20 = 5rem)
-    <div className="flex flex-col md:flex-row h-[calc(100vh-5rem)] font-sans bg-cream overflow-hidden">
+    <div className="flex flex-col md:flex-row h-[calc(100vh-5rem)] font-sans bg-cream dark:bg-gray-900 overflow-hidden transition-colors duration-300">
 
       {/* LEFT: FORM */}
-      <div className="w-full md:w-[40%] bg-white border-r shadow-xl z-10 flex flex-col h-full">
-        <div className="p-4 border-b bg-primary flex justify-between items-center text-white">
+      <div className="w-full md:w-[40%] bg-white/90 dark:bg-gray-800/80 backdrop-blur-md border-r border-white/20 dark:border-gray-700 shadow-xl z-10 flex flex-col h-full transition-colors duration-300">
+        <div className="p-4 border-b border-white/20 dark:border-gray-700 bg-primary/95 dark:bg-gray-900/95 flex justify-between items-center text-white transition-colors duration-300 backdrop-blur-md">
           <h2 className="text-xl font-heading font-bold flex items-center">
             <FileText className="mr-2 h-5 w-5" /> Invoice Generator
           </h2>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
 
           {/* Display Settings */}
-          <div className="bg-white p-4 rounded-lg border border-gray-200 mb-6 shadow-sm">
-            <h3 className="text-xs font-bold text-primary mb-3 uppercase tracking-wide flex items-center">
+          <div className="bg-white/50 dark:bg-gray-700/50 p-4 rounded-lg border border-gray-200/50 dark:border-gray-600/50 mb-6 shadow-sm transition-colors duration-300 backdrop-blur-sm">
+            <h3 className="text-xs font-bold text-primary dark:text-accent-light mb-3 uppercase tracking-wide flex items-center transition-colors">
               <Settings className="w-3 h-3 mr-1" /> Display Settings
             </h3>
             <div className="flex gap-4">
               <button
                 onClick={() => toggleOption('showBankDetails')}
                 type="button"
-                className={`flex items-center px-3 py-2 rounded text-xs font-medium border transition-colors ${displayOptions.showBankDetails ? 'bg-primary text-white border-primary' : 'bg-gray-50 text-gray-600 border-gray-200'}`}
+                className={`flex items-center px-3 py-2 rounded text-xs font-medium border transition-colors ${displayOptions.showBankDetails ? 'bg-primary text-white border-primary dark:bg-accent' : 'bg-gray-50/50 dark:bg-gray-600/50 text-gray-600 dark:text-gray-200 border-gray-200 dark:border-gray-500'}`}
               >
                 {displayOptions.showBankDetails ? <Eye className="w-3 h-3 mr-1" /> : <EyeOff className="w-3 h-3 mr-1" />}
                 Bank Details
@@ -118,7 +118,7 @@ const InvoiceGenerator = () => {
               <button
                 onClick={() => toggleOption('showBuyerGst')}
                 type="button"
-                className={`flex items-center px-3 py-2 rounded text-xs font-medium border transition-colors ${displayOptions.showBuyerGst ? 'bg-primary text-white border-primary' : 'bg-gray-50 text-gray-600 border-gray-200'}`}
+                className={`flex items-center px-3 py-2 rounded text-xs font-medium border transition-colors ${displayOptions.showBuyerGst ? 'bg-primary text-white border-primary dark:bg-accent' : 'bg-gray-50/50 dark:bg-gray-600/50 text-gray-600 dark:text-gray-200 border-gray-200 dark:border-gray-500'}`}
               >
                 {displayOptions.showBuyerGst ? <Eye className="w-3 h-3 mr-1" /> : <EyeOff className="w-3 h-3 mr-1" />}
                 Buyer GST
@@ -127,23 +127,23 @@ const InvoiceGenerator = () => {
           </div>
 
           {/* Tax Settings */}
-          <div className="bg-cream p-4 rounded-lg border border-accent/20 mb-6">
-            <h3 className="text-xs font-bold text-primary mb-3 uppercase tracking-wide">Tax Settings</h3>
+          <div className="bg-cream/50 dark:bg-gray-700/50 p-4 rounded-lg border border-accent/20 dark:border-gray-600/50 mb-6 transition-colors duration-300 backdrop-blur-sm">
+            <h3 className="text-xs font-bold text-primary dark:text-accent-light mb-3 uppercase tracking-wide transition-colors">Tax Settings</h3>
             <div className="flex gap-4 mb-3">
               <label className="flex items-center cursor-pointer">
                 <input type="radio" checked={gstMode === 'inclusive'} onChange={() => setGstMode('inclusive')} className="mr-2 accent-primary" />
-                <span className="text-sm font-medium text-gray-700 ml-2">Inclusive GST</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 ml-2">Inclusive GST</span>
               </label>
               <label className="flex items-center cursor-pointer">
                 <input type="radio" checked={gstMode === 'exclusive'} onChange={() => setGstMode('exclusive')} className="mr-2 accent-primary" />
-                <span className="text-sm font-medium text-gray-700 ml-2">Exclusive GST</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 ml-2">Exclusive GST</span>
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-gray-600">GST Slab:</span>
+              <span className="text-xs font-bold text-gray-600 dark:text-gray-300">GST Slab:</span>
               {[0, 5, 12, 18].map(rate => (
                 <button key={rate} onClick={() => setGstRate(rate)}
-                  className={`px-3 py-1 text-xs font-bold rounded border transition-colors ${gstRate === rate ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}`}>
+                  className={`px-3 py-1 text-xs font-bold rounded border transition-colors ${gstRate === rate ? 'bg-primary text-white border-primary dark:bg-accent' : 'bg-white/80 dark:bg-gray-600/80 text-gray-600 dark:text-gray-200 border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-500'}`}>
                   {rate}%
                 </button>
               ))}
@@ -153,11 +153,11 @@ const InvoiceGenerator = () => {
           {/* Inputs */}
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Inv. No</label>
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Inv. No</label>
               <input name="invNo" value={data.invNo} onChange={handleChange} className={inputClass} />
             </div>
             <div>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Date</label>
+              <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Date</label>
               <input type="date" name="date" value={data.date} onChange={handleChange} className={inputClass} />
             </div>
           </div>
@@ -172,11 +172,11 @@ const InvoiceGenerator = () => {
           {/* Items */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-3">
-              <h3 className="font-bold text-sm text-gray-700">Items List</h3>
+              <h3 className="font-bold text-sm text-gray-700 dark:text-gray-200">Items List</h3>
               <button onClick={addItem} className="flex items-center text-xs bg-accent text-white px-3 py-1 rounded hover:bg-primary transition"><Plus className="w-3 h-3 mr-1" /> Add Item</button>
             </div>
             {data.items.map((item, index) => (
-              <div key={item.id} className="bg-gray-50 p-3 rounded border border-gray-200 mb-2 group hover:border-accent/50 transition-colors">
+              <div key={item.id} className="bg-gray-50/50 dark:bg-gray-700/50 p-3 rounded border border-gray-200/50 dark:border-gray-600/50 mb-2 group hover:border-accent/50 transition-colors backdrop-blur-sm">
                 <div className="flex justify-between mb-1">
                   <span className="text-[10px] font-bold text-gray-400 uppercase">Item {index + 1}</span>
                   <button onClick={() => removeItem(index)} className="text-red-500 opacity-0 group-hover:opacity-100 transition"><Trash2 className="w-3 h-3" /></button>
@@ -199,7 +199,7 @@ const InvoiceGenerator = () => {
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 border-t bg-white">
+        <div className="p-4 border-t border-white/20 dark:border-gray-700 bg-white/95 dark:bg-gray-800/95 transition-colors duration-300">
           <DownloadButton
             data={data}
             totals={downloadTotals}

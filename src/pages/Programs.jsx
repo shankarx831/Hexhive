@@ -39,17 +39,17 @@ const Programs = () => {
 
       <section id="program-details" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="programs-heading">
         <div className="text-center mb-12">
-          <h2 id="programs-heading" className="text-3xl md:text-4xl font-black font-heading text-primary mb-4">In-Depth Program Details</h2>
-          <p className="text-xl text-gray-600">Choose the path that aligns with your career goals.</p>
+          <h2 id="programs-heading" className="text-3xl md:text-4xl font-black font-heading text-primary dark:text-accent-light mb-4 transition-colors">In-Depth Program Details</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 transition-colors">Choose the path that aligns with your career goals.</p>
         </div>
 
         <div className="space-y-4" id="programsAccordion">
 
           {/* DevOps Accordion */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow" id="devops">
+          <div className="glass-card overflow-hidden" id="devops">
             <h3 className="m-0">
               <button
-                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'devops' ? 'bg-primary text-white' : 'bg-white text-primary hover:bg-gray-50'}`}
+                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'devops' ? 'bg-primary/95 text-white backdrop-blur-md' : 'bg-transparent text-primary hover:bg-white/50 dark:text-white dark:hover:bg-white/10'}`}
                 type="button"
                 aria-expanded={activeAccordion === 'devops'}
                 aria-controls="devops-content"
@@ -57,16 +57,16 @@ const Programs = () => {
               >
                 <span className="flex-grow">DevOps Engineering</span>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-4 ${activeAccordion === 'devops' ? 'bg-accent/20 text-white' : 'bg-accent text-white'}`}>6 Months</span>
-                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'devops' ? 'rotate-180 text-white' : 'text-primary'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
+                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'devops' ? 'rotate-180 text-white' : 'text-primary dark:text-white'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
               </button>
             </h3>
             <div id="devops-content" className={`transition-all duration-300 ease-in-out overflow-hidden ${activeAccordion === 'devops' ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={activeAccordion !== 'devops'}>
-              <div className="p-6 md:p-8 border-t border-gray-100">
-                <p className="text-lg text-gray-700 mb-8 leading-relaxed">Master CI/CD pipelines, cloud infrastructure, and automation. Become the bridge between development and operations.</p>
+              <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-700">
+                <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed transition-colors">Master CI/CD pipelines, cloud infrastructure, and automation. Become the bridge between development and operations.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Curriculum Highlights</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Curriculum Highlights</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>Linux & Scripting (Bash, Python)</li>
                       <li>Git & GitHub Workflows</li>
                       <li>Containerization with Docker</li>
@@ -75,16 +75,16 @@ const Programs = () => {
                     </ul>
                   </div>
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Key Outcomes</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Key Outcomes</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>Build, test, and deploy scalable applications</li>
                       <li>Automate infrastructure provisioning</li>
                       <li>Manage cloud environments effectively</li>
                     </ul>
                     <div className="pt-4">
-                      <h4 className="text-lg font-bold text-primary mb-2">Ideal For</h4>
-                      <p className="text-gray-600 mb-6">Engineers seeking ops roles, SREs, or cloud specialists.</p>
-                      <Link to="/register?program=devops" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Enroll in DevOps</Link>
+                      <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2 transition-colors">Ideal For</h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Engineers seeking ops roles, SREs, or cloud specialists.</p>
+                      <Link to="/register?program=devops" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Enroll in DevOps</Link>
                     </div>
                   </div>
                 </div>
@@ -93,26 +93,26 @@ const Programs = () => {
           </div>
 
           {/* Full-Stack Accordion */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow" id="fullstack">
+          <div className="glass-card overflow-hidden" id="fullstack">
             <h3 className="m-0">
               <button
-                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'fullstack' ? 'bg-primary text-white' : 'bg-white text-primary hover:bg-gray-50'}`}
+                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'fullstack' ? 'bg-primary/95 text-white backdrop-blur-md' : 'bg-transparent text-primary hover:bg-white/50 dark:text-white dark:hover:bg-white/10'}`}
                 type="button"
                 aria-expanded={activeAccordion === 'fullstack'}
                 onClick={() => toggleAccordion('fullstack')}
               >
                 <span className="flex-grow">Full-Stack Development</span>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-4 ${activeAccordion === 'fullstack' ? 'bg-accent/20 text-white' : 'bg-accent text-white'}`}>6 Months</span>
-                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'fullstack' ? 'rotate-180 text-white' : 'text-primary'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
+                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'fullstack' ? 'rotate-180 text-white' : 'text-primary dark:text-white'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
               </button>
             </h3>
             <div id="fullstack-content" className={`transition-all duration-300 ease-in-out overflow-hidden ${activeAccordion === 'fullstack' ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={activeAccordion !== 'fullstack'}>
-              <div className="p-6 md:p-8 border-t border-gray-100">
-                <p className="text-lg text-gray-700 mb-8 leading-relaxed">Build dynamic, data-driven web applications from front to back. Master modern frameworks and databases.</p>
+              <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-700">
+                <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed transition-colors">Build dynamic, data-driven web applications from front to back. Master modern frameworks and databases.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Curriculum Highlights</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Curriculum Highlights</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>HTML5, CSS3, JavaScript (ES6+)</li>
                       <li>Frontend Frameworks (React / Vue.js)</li>
                       <li>Backend with Node.js & Express</li>
@@ -120,16 +120,16 @@ const Programs = () => {
                     </ul>
                   </div>
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Key Outcomes</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Key Outcomes</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>Create modern, responsive web applications</li>
                       <li>Work with both SQL and NoSQL databases</li>
                       <li>Understand the full development lifecycle</li>
                     </ul>
                     <div className="pt-4">
-                      <h4 className="text-lg font-bold text-primary mb-2">Ideal For</h4>
-                      <p className="text-gray-600 mb-6">Career changers, junior devs, or anyone wanting full-stack skills.</p>
-                      <Link to="/register?program=fullstack" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Enroll in Full-Stack</Link>
+                      <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2 transition-colors">Ideal For</h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Career changers, junior devs, or anyone wanting full-stack skills.</p>
+                      <Link to="/register?program=fullstack" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Enroll in Full-Stack</Link>
                     </div>
                   </div>
                 </div>
@@ -138,26 +138,26 @@ const Programs = () => {
           </div>
 
           {/* Internship Accordion */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow" id="internship">
+          <div className="glass-card overflow-hidden" id="internship">
             <h3 className="m-0">
               <button
-                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'internship' ? 'bg-primary text-white' : 'bg-white text-primary hover:bg-gray-50'}`}
+                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'internship' ? 'bg-primary/95 text-white backdrop-blur-md' : 'bg-transparent text-primary hover:bg-white/50 dark:text-white dark:hover:bg-white/10'}`}
                 type="button"
                 aria-expanded={activeAccordion === 'internship'}
                 onClick={() => toggleAccordion('internship')}
               >
                 <span className="program-name flex-grow">Tech Internship Program</span>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-4 ${activeAccordion === 'internship' ? 'bg-accent/20 text-white' : 'bg-accent text-white'}`}>3 Months</span>
-                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'internship' ? 'rotate-180 text-white' : 'text-primary'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
+                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'internship' ? 'rotate-180 text-white' : 'text-primary dark:text-white'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
               </button>
             </h3>
             <div id="internship-content" className={`transition-all duration-300 ease-in-out overflow-hidden ${activeAccordion === 'internship' ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={activeAccordion !== 'internship'}>
-              <div className="p-6 md:p-8 border-t border-gray-100">
-                <p className="text-lg text-gray-700 mb-8 leading-relaxed">Gain real-world experience with mentorship and career support. Work on live projects and build industry connections.</p>
+              <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-700">
+                <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed transition-colors">Gain real-world experience with mentorship and career support. Work on live projects and build industry connections.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Program Structure</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Program Structure</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>Initial Skills Assessment</li>
                       <li>Project Assignment with Client</li>
                       <li>Weekly Mentorship Sessions</li>
@@ -165,16 +165,16 @@ const Programs = () => {
                     </ul>
                   </div>
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary">Key Outcomes</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Key Outcomes</h4>
+                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
                       <li>Hands-on project experience on a resume</li>
                       <li>Professional mentorship and guidance</li>
                       <li>Industry connections and networking</li>
                     </ul>
                     <div className="pt-4">
-                      <h4 className="text-lg font-bold text-primary mb-2">Ideal For</h4>
-                      <p className="text-gray-600 mb-6">Recent graduates or early-career professionals seeking experience.</p>
-                      <Link to="/register?program=internship" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Apply for Internship</Link>
+                      <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2 transition-colors">Ideal For</h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Recent graduates or early-career professionals seeking experience.</p>
+                      <Link to="/register?program=internship" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Apply for Internship</Link>
                     </div>
                   </div>
                 </div>

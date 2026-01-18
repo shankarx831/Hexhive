@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white mt-auto border-t-4 border-accent" role="contentinfo">
+    <footer className="bg-primary/95 dark:bg-black/90 backdrop-blur-md text-white mt-auto border-t border-white/10 dark:border-gray-800 transition-colors duration-300" role="contentinfo">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="flex flex-col">
           {/* Logo link removed as per your HTML comments */}
@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bg-primary-dark border-t border-white/10">
+      <div className="bg-primary-dark dark:bg-black border-t border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400 text-center md:text-left">&copy; 2025 HexHive Solutions. All rights reserved.</p>
           <nav className="flex space-x-6 mt-4 md:mt-0">

@@ -72,8 +72,8 @@ const CertificateGenerator = () => {
             </section>
 
             <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-20">
-                <div className="bg-white rounded-xl shadow-2xl p-8 md:p-12 border border-gray-100">
-                    <h2 className="text-2xl font-bold text-primary border-b-2 border-gray-100 pb-4 mb-8">
+                <div className="glass-panel p-8 md:p-12 transition-colors duration-300">
+                    <h2 className="text-2xl font-bold text-primary dark:text-accent-light border-b-2 border-gray-100 dark:border-gray-700 pb-4 mb-8 transition-colors">
                         Enter Intern Details
                     </h2>
 
@@ -82,111 +82,111 @@ const CertificateGenerator = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Full Name (Auto-Caps)</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Full Name (Auto-Caps)</label>
                                     <input
                                         type="text"
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
                                         placeholder="DHINESH U"
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Register Number</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Register Number</label>
                                     <input
                                         type="text"
                                         name="regNo"
                                         value={formData.regNo}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">College Name</label>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">College Name</label>
                                 <input
                                     type="text"
                                     name="college"
                                     value={formData.college}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Start Date</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Start Date</label>
                                     <input
                                         type="date"
                                         name="startDate"
                                         value={formData.startDate}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">End Date</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">End Date</label>
                                     <input
                                         type="date"
                                         name="endDate"
                                         value={formData.endDate}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Internship Topic</label>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Internship Topic</label>
                                 <textarea
                                     name="topic"
                                     rows="2"
                                     value={formData.topic}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all resize-y"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all resize-y"
                                 />
                             </div>
 
                             {/* ROW: Date and Certificate ID */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Date of Issue</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Date of Issue</label>
                                     <input
                                         type="date"
                                         name="issueDate"
                                         value={formData.issueDate}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Certificate ID</label>
+                                    <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Certificate ID</label>
                                     <input
                                         type="text"
                                         name="certificateId"
                                         value={formData.certificateId}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
                                     />
                                 </div>
                             </div>
 
                             {/* ROW: Signatory */}
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Signatory (Tech Lead)</label>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Signatory (Tech Lead)</label>
                                 <div className="relative">
                                     <select
                                         name="signatory"
                                         value={formData.signatory}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none cursor-pointer"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all appearance-none cursor-pointer"
                                     >
                                         <option value="V. Durai Murugan">V. Durai Murugan</option>
                                         <option value="R. Devanath">R. Devanath</option>
                                     </select>
-                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
+                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700 dark:text-gray-300">
                                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                                     </div>
                                 </div>

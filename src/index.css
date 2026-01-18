@@ -4,11 +4,76 @@
 
 @layer base {
     body {
-        @apply antialiased text-gray-900 bg-cream;
-        background-image: radial-gradient(#4A9782 0.5px, transparent 0.5px), radial-gradient(#4A9782 0.5px, #FFF9E5 0.5px);
-        background-size: 20px 20px;
-        background-position: 0 0, 10px 10px;
+        @apply antialiased text-gray-900 bg-cream transition-colors duration-300;
+        background-image:
+            radial-gradient(at 0% 0%, rgba(74, 151, 130, 0.15) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(74, 151, 130, 0.1) 0px, transparent 50%),
+            radial-gradient(#4A9782 0.5px, transparent 0.5px),
+            radial-gradient(#4A9782 0.5px, #FFF9E5 0.5px);
+        background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+        background-position: 0 0, 0 0, 0 0, 10px 10px;
         background-attachment: fixed;
-        /* Parallax-like effect */
     }
+
+    .dark body {
+        @apply text-gray-100 bg-gray-900;
+        /* Dark mode background: subtly different radial gradients and dots */
+        background-image:
+            radial-gradient(at 0% 0%, rgba(74, 151, 130, 0.15) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(0, 64, 48, 0.3) 0px, transparent 50%),
+            radial-gradient(#4A9782 0.5px, transparent 0.5px),
+            radial-gradient(#4A9782 0.5px, #111827 0.5px);
+    }
+}
+
+@layer components {
+    .glass-card {
+        @apply bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl border border-white/40 dark:border-gray-700/50 shadow-lg rounded-2xl transition-all duration-300;
+    }
+
+    .glass-card:hover {
+        @apply bg-white/80 dark:bg-gray-800/60 shadow-xl transform -translate-y-1 border-accent/30;
+    }
+
+    .glass-panel {
+        @apply bg-white/80 dark:bg-gray-900/60 backdrop-blur-2xl border border-white/50 dark:border-gray-700/50 shadow-2xl rounded-2xl;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent dark:from-accent-light dark:to-white;
+    }
+}
+
+/* View Transitions API - Circular Ripple Effect support */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 2147483646;
+}
+
+/* Marquee Animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-scroll {
+    animation: scroll 20s linear infinite;
+}
+
+.animate-scroll:hover {
+    animation-play-state: paused;
 }
