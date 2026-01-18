@@ -223,50 +223,7 @@ const Programs = () => {
             </div>
           </div>
 
-          {/* Internship Accordion */}
-          <div className="glass-card overflow-hidden" id="internship">
-            <h3 className="m-0">
-              <button
-                className={`w-full flex justify-between items-center p-6 text-left font-bold text-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent ${activeAccordion === 'internship' ? 'bg-primary/95 text-white backdrop-blur-md' : 'bg-transparent text-primary hover:bg-white/50 dark:text-white dark:hover:bg-white/10'}`}
-                type="button"
-                aria-expanded={activeAccordion === 'internship'}
-                onClick={() => toggleAccordion('internship')}
-              >
-                <span className="program-name flex-grow">Tech Internship Program</span>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold mr-4 ${activeAccordion === 'internship' ? 'bg-accent/20 text-white' : 'bg-accent text-white'}`}>3 Months</span>
-                <svg className={`w-6 h-6 transform transition-transform duration-300 ${activeAccordion === 'internship' ? 'rotate-180 text-white' : 'text-primary dark:text-white'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" /></svg>
-              </button>
-            </h3>
-            <div id="internship-content" className={`transition-all duration-300 ease-in-out overflow-hidden ${activeAccordion === 'internship' ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`} aria-hidden={activeAccordion !== 'internship'}>
-              <div className="p-6 md:p-8 border-t border-gray-100 dark:border-gray-700">
-                <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed transition-colors">Gain real-world experience with mentorship and career support. Work on live projects and build industry connections.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Program Structure</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
-                      <li>Initial Skills Assessment</li>
-                      <li>Project Assignment with Client</li>
-                      <li>Weekly Mentorship Sessions</li>
-                      <li>Agile & Collaboration Training</li>
-                    </ul>
-                  </div>
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-primary dark:text-accent-light transition-colors">Key Outcomes</h4>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 transition-colors">
-                      <li>Hands-on project experience on a resume</li>
-                      <li>Professional mentorship and guidance</li>
-                      <li>Industry connections and networking</li>
-                    </ul>
-                    <div className="pt-4">
-                      <h4 className="text-lg font-bold text-primary dark:text-accent-light mb-2 transition-colors">Ideal For</h4>
-                      <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Recent graduates or early-career professionals seeking experience.</p>
-                      <Link to="/register?program=internship" className="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-bold rounded-lg text-white bg-accent hover:bg-accent-light transition-colors shadow-md">Apply for Internship</Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
         </div>
 

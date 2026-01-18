@@ -103,7 +103,6 @@ const Register = () => {
                   <option value="devops">DevOps Engineering (6 Months)</option>
                   <option value="fullstack">Full-Stack Development (6 Months)</option>
                   <option value="embedded">Embedded Systems & IoT (40 Hours)</option>
-                  <option value="internship">Tech Internship Program (3 Months)</option>
                 </select>
                 <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.program}</div>
               </div>
