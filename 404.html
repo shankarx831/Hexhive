@@ -5,33 +5,91 @@
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon_transparent.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
+  <meta name="theme-color" content="#004030" />
+  <meta name="description"
+    content="HexHive Solutions - Transform your passion into a high-growth tech career with expert-led programs in DevOps, Full-Stack Development, and Embedded Systems." />
+  <meta name="keywords"
+    content="tech education, DevOps, full-stack development, embedded systems, IoT, career training, bootcamp" />
+  <meta name="author" content="HexHive Solutions" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HexHive Solutions - Tech Career Accelerator" />
+  <meta property="og:description"
+    content="Transform your passion into a high-growth tech career with expert-led programs." />
+  <meta property="og:image" content="/logo_full.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HexHive Solutions" />
+  <meta name="twitter:description" content="Transform your passion into a high-growth tech career." />
+
   <link rel="apple-touch-icon" href="/logo_full.png" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
   <link rel="manifest" href="/manifest.json" />
 
-  <title>HexHive</title>
-  <script type="module" crossorigin src="/assets/index-CBRJbY_K.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Crtqhl6B.css">
+  <!-- Google Fonts - Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <title>HexHive Solutions | Tech Career Accelerator</title>
+
+  <!-- Preload critical assets -->
+  <style>
+    /* Critical CSS for initial render - prevents flash of unstyled content */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #root {
+      min-height: 100vh;
+    }
+
+    /* Loading screen styles */
+    .initial-loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #004030 0%, #007a5e 100%);
+    }
+
+    .loader-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #4A9782;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-6VT8pfFi.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CBnS_7s5.css">
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  <div id="root">
+    <!-- Initial loading state - will be replaced by React -->
+    <div class="initial-loader">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
 </body>
 
 </html>
