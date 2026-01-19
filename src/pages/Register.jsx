@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedSection from '../components/AnimatedSection';
 
 const Register = () => {
   const location = useLocation();
@@ -15,8 +17,9 @@ const Register = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [focusedField, setFocusedField] = useState(null);
 
-  // Pre-fill program based on URL query param (?program=devops)
+  // Pre-fill program based on URL query param
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const programParam = params.get('program');
@@ -28,7 +31,6 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -55,179 +57,350 @@ const Register = () => {
   const handleSubmit = (e) => {
     if (!validate()) {
       e.preventDefault();
-      // Focus first error
       const firstErrorKey = Object.keys(errors)[0];
       const element = document.getElementById(firstErrorKey);
       if (element) element.focus();
     }
-    // If valid, normal form submission happens (to formspree)
   };
 
+  // Form field animation variants
+  const fieldVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  // Input component with animations
+  const AnimatedInput = ({
+    label,
+    name,
+    type = 'text',
+    required,
+    placeholder,
+    error,
+    children,
+    ...props
+  }) => (
+    <motion.div
+      variants={fieldVariants}
+      className="relative"
+    >
+      <label
+        htmlFor={name}
+        className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors"
+      >
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <div className="relative">
+        {children || (
+          <input
+            type={type}
+            id={name}
+            name={name}
+            required={required}
+            placeholder={placeholder}
+            value={formData[name]}
+            onChange={handleChange}
+            onFocus={() => setFocusedField(name)}
+            onBlur={() => setFocusedField(null)}
+            aria-invalid={!!error}
+            className={`input-premium ${error ? 'error border-red-500' : ''} ${focusedField === name ? 'ring-4 ring-accent/20' : ''
+              }`}
+            {...props}
+          />
+        )}
+
+        {/* Focus indicator */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-0.5 bg-accent rounded-full"
+          initial={{ width: 0 }}
+          animate={{ width: focusedField === name ? '100%' : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </div>
+
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="text-red-500 text-sm mt-2 flex items-center gap-1 font-medium"
+            role="alert"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+
   return (
-    <main className="flex-grow">
-      <section className="relative bg-primary text-white py-20 text-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-light -z-10"></div>
+    <main className="flex-grow overflow-hidden">
+      {/* ========================================
+          HERO SECTION
+          ======================================== */}
+      <section className="relative py-20 md:py-24 hero-gradient overflow-hidden">
+        {/* Decorative elements */}
+        <motion.div
+          className="absolute top-0 right-0 w-96 h-96 rounded-full bg-accent/20 blur-3xl"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-primary-light/30 blur-3xl"
+          animate={{ scale: [1.2, 1, 1.2] }}
+          transition={{ duration: 6, repeat: Infinity }}
+        />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 id="register-hero-heading" className="text-4xl md:text-5xl font-black font-heading mb-6">Enroll in a HexHive Program</h1>
-          <center><p className="text-xl text-gray-200 max-w-2xl">Fill out the form below and a career advisor will contact you shortly.</p></center>
+          <AnimatedSection className="text-center">
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-sm font-medium text-white/90">Now Accepting Applications</span>
+            </motion.div>
+
+            <h1 className="text-4xl md:text-5xl font-black font-heading text-white mb-6">
+              Enroll in a HexHive <span className="text-accent-light">Program</span>
+            </h1>
+            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+              Fill out the form below and a career advisor will contact you within 24 hours.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
-      <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 flex justify-center transition-colors duration-300" aria-labelledby="register-heading">
-        <div className="glass-panel w-full max-w-2xl p-8 md:p-12 transition-colors duration-300">
-          <h2 id="register-heading" className="text-3xl font-bold font-heading text-primary dark:text-white text-center mb-10 transition-colors">Registration Form</h2>
-          <form
-            className="space-y-6"
-            id="registrationForm"
-            action="https://formspree.io/f/xandzywo"
-            method="POST"
-            onSubmit={handleSubmit}
-            noValidate
-          >
-            <fieldset className="space-y-6 m-0 p-0 border-none">
-              <legend className="sr-only">Registration Details</legend>
+      {/* ========================================
+          FORM SECTION
+          ======================================== */}
+      <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto">
+          <AnimatedSection direction="scale">
+            <motion.div
+              className="glass-panel p-8 md:p-12"
+              whileHover={{ boxShadow: '0 25px 50px -12px rgba(0, 64, 48, 0.25)' }}
+            >
+              <motion.h2
+                className="text-3xl font-bold font-heading text-primary dark:text-white text-center mb-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                Registration Form
+              </motion.h2>
+              <motion.p
+                className="text-gray-500 dark:text-gray-400 text-center mb-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                All fields marked with * are required
+              </motion.p>
 
-              <div>
-                <label htmlFor="program" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Select Program <span className="text-red-500">*</span></label>
-                <select
-                  id="program"
-                  name="program"
-                  required
-                  value={formData.program}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.program}
-                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.program ? 'border-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-accent'}`}
-                >
-                  <option value="" disabled>Choose a program to enroll in</option>
-                  <option value="advisor">Talk to an Advisor</option>
-                  <option value="devops">DevOps Engineering (6 Months)</option>
-                  <option value="fullstack">Full-Stack Development (6 Months)</option>
-                  <option value="embedded">Embedded Systems & IoT (40 Hours)</option>
-                </select>
-                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.program}</div>
-              </div>
+              <motion.form
+                className="space-y-6"
+                id="registrationForm"
+                action="https://formspree.io/f/xandzywo"
+                method="POST"
+                onSubmit={handleSubmit}
+                noValidate
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+                  }
+                }}
+              >
+                {/* Program Select */}
+                <AnimatedInput label="Select Program" name="program" required error={errors.program}>
+                  <select
+                    id="program"
+                    name="program"
+                    required
+                    value={formData.program}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('program')}
+                    onBlur={() => setFocusedField(null)}
+                    aria-invalid={!!errors.program}
+                    className={`input-premium cursor-pointer ${errors.program ? 'error border-red-500' : ''}`}
+                  >
+                    <option value="" disabled>Choose a program to enroll in</option>
+                    <option value="advisor">💬 Talk to an Advisor</option>
+                    <option value="devops">🔄 DevOps Engineering (6 Months)</option>
+                    <option value="fullstack">💻 Full-Stack Development (6 Months)</option>
+                    <option value="embedded">🔌 Embedded Systems & IoT (40 Hours)</option>
+                  </select>
+                </AnimatedInput>
 
-              <div>
-                <label htmlFor="name" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Full Name <span className="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  id="name"
+                {/* Name */}
+                <AnimatedInput
+                  label="Full Name"
                   name="name"
                   required
                   placeholder="e.g., Jane Doe"
-                  value={formData.name}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.name}
-                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-accent'}`}
+                  error={errors.name}
                 />
-                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.name}</div>
-              </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Email Address <span className="text-red-500">*</span></label>
-                <input
-                  type="email"
-                  id="email"
+                {/* Email */}
+                <AnimatedInput
+                  label="Email Address"
                   name="email"
+                  type="email"
                   required
                   placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.email}
-                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-accent'}`}
+                  error={errors.email}
                 />
-                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.email}</div>
-              </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
+                {/* Phone */}
+                <AnimatedInput
+                  label="Phone Number"
                   name="phone"
+                  type="tel"
                   placeholder="+91 98765 43210"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
                 />
-                <div className="h-5"></div>
-              </div>
 
-              <div>
-                <label htmlFor="education" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Highest Education</label>
-                <select
-                  id="education"
-                  name="education"
-                  value={formData.education}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
+                {/* Two column layout for Education and Experience */}
+                <motion.div
+                  variants={fieldVariants}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
                 >
-                  <option value="" disabled>Select your qualification</option>
-                  <option value="high-school">High School / Secondary</option>
-                  <option value="bachelor">Bachelor&apos;s Degree</option>
-                  <option value="master">Master&apos;s Degree</option>
-                  <option value="diploma">Diploma</option>
-                  <option value="other">Other</option>
-                </select>
-                <div className="h-5"></div>
-              </div>
+                  <div>
+                    <label htmlFor="education" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                      Highest Education
+                    </label>
+                    <select
+                      id="education"
+                      name="education"
+                      value={formData.education}
+                      onChange={handleChange}
+                      className="input-premium cursor-pointer"
+                    >
+                      <option value="" disabled>Select your qualification</option>
+                      <option value="high-school">High School / Secondary</option>
+                      <option value="bachelor">Bachelor&apos;s Degree</option>
+                      <option value="master">Master&apos;s Degree</option>
+                      <option value="diploma">Diploma</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
 
-              <div>
-                <label htmlFor="experience" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Relevant Experience (Years)</label>
-                <input
-                  type="number"
-                  id="experience"
-                  name="experience"
-                  min="0"
-                  max="50"
-                  placeholder="e.g., 2"
-                  value={formData.experience}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all"
-                />
-                <div className="h-5"></div>
-              </div>
+                  <div>
+                    <label htmlFor="experience" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                      Relevant Experience (Years)
+                    </label>
+                    <input
+                      type="number"
+                      id="experience"
+                      name="experience"
+                      min="0"
+                      max="50"
+                      placeholder="e.g., 2"
+                      value={formData.experience}
+                      onChange={handleChange}
+                      className="input-premium"
+                    />
+                  </div>
+                </motion.div>
 
-              <div>
-                <label htmlFor="goals" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">Your Career Goals <span className="text-red-500">*</span></label>
-                <textarea
-                  id="goals"
-                  name="goals"
-                  rows="4"
-                  required
-                  placeholder="Tell us about your aspirations..."
-                  value={formData.goals}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.goals}
-                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.goals ? 'border-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-accent'}`}
-                ></textarea>
-                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.goals}</div>
-              </div>
+                {/* Goals */}
+                <AnimatedInput label="Your Career Goals" name="goals" required error={errors.goals}>
+                  <textarea
+                    id="goals"
+                    name="goals"
+                    rows="4"
+                    required
+                    placeholder="Tell us about your aspirations and what you hope to achieve..."
+                    value={formData.goals}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('goals')}
+                    onBlur={() => setFocusedField(null)}
+                    aria-invalid={!!errors.goals}
+                    className={`input-premium resize-none ${errors.goals ? 'error border-red-500' : ''}`}
+                  />
+                </AnimatedInput>
 
-              <div>
-                <label htmlFor="source" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors">How did you hear about us? <span className="text-red-500">*</span></label>
-                <select
-                  id="source"
-                  name="source"
-                  required
-                  value={formData.source}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.source}
-                  className={`w-full px-4 py-3 rounded-lg border-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-4 focus:ring-accent/10 transition-all ${errors.source ? 'border-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-accent'}`}
+                {/* Source */}
+                <AnimatedInput label="How did you hear about us?" name="source" required error={errors.source}>
+                  <select
+                    id="source"
+                    name="source"
+                    required
+                    value={formData.source}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('source')}
+                    onBlur={() => setFocusedField(null)}
+                    aria-invalid={!!errors.source}
+                    className={`input-premium cursor-pointer ${errors.source ? 'error border-red-500' : ''}`}
+                  >
+                    <option value="" disabled>Select an option</option>
+                    <option value="search">🔍 Search Engine (Google, etc.)</option>
+                    <option value="social">📱 Social Media</option>
+                    <option value="referral">👥 Referral</option>
+                    <option value="event">🎤 Event/Webinar</option>
+                    <option value="advertisement">📺 Advertisement</option>
+                    <option value="other">📝 Other</option>
+                  </select>
+                </AnimatedInput>
+
+                {/* Submit Button */}
+                <motion.div variants={fieldVariants}>
+                  <motion.button
+                    type="submit"
+                    className="w-full btn-accent text-lg py-5 relative overflow-hidden group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Shimmer effect */}
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                    <span className="relative flex items-center justify-center gap-2">
+                      Submit Application
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </span>
+                  </motion.button>
+                </motion.div>
+
+                {/* Privacy note */}
+                <motion.p
+                  variants={fieldVariants}
+                  className="text-center text-sm text-gray-500 dark:text-gray-400"
                 >
-                  <option value="" disabled>Select an option</option>
-                  <option value="search">Search Engine (Google, etc.)</option>
-                  <option value="social">Social Media</option>
-                  <option value="referral">Referral</option>
-                  <option value="event">Event/Webinar</option>
-                  <option value="advertisement">Advertisement</option>
-                  <option value="other">Other</option>
-                </select>
-                <div className="text-red-500 text-sm mt-1 h-5 font-medium" role="alert">{errors.source}</div>
+                  By submitting, you agree to our{' '}
+                  <a href="#" className="text-accent hover:underline">Privacy Policy</a>
+                  {' '}and{' '}
+                  <a href="#" className="text-accent hover:underline">Terms of Service</a>.
+                </motion.p>
+              </motion.form>
+            </motion.div>
+          </AnimatedSection>
+
+          {/* Trust indicators */}
+          <motion.div
+            className="mt-12 flex flex-wrap justify-center gap-8 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            {[
+              { icon: '🔒', text: 'Secure Form' },
+              { icon: '⚡', text: '24hr Response' },
+              { icon: '🎯', text: 'No Spam' },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <span className="text-xl">{item.icon}</span>
+                <span className="text-sm font-medium">{item.text}</span>
               </div>
-            </fieldset>
-            <button type="submit" className="w-full bg-accent text-white font-bold py-4 px-6 rounded-lg hover:bg-accent-light transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"> Submit Application </button>
-          </form>
+            ))}
+          </motion.div>
         </div>
       </section>
     </main>

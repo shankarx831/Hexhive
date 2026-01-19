@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth(); // Hooks must be inside component
+  const [scrolled, setScrolled] = useState(false);
+  const { user, logout } = useAuth();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -14,116 +25,229 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Programs', path: '/programs' },
-    // Show tools only if user is logged in
     ...(user ? [
       { name: 'Certificate', path: '/certificate' },
       { name: 'Invoice', path: '/invoice' }
     ] : []),
-    { name: 'Enroll Now', path: '/register' },
+    { name: 'Enroll Now', path: '/register', highlight: true },
   ];
 
+  // Animation variants for mobile menu
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.22, 1, 0.36, 1],
+        when: 'afterChildren',
+      },
+    },
+    open: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
+        when: 'beforeChildren',
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const menuItemVariants = {
+    closed: { opacity: 0, x: -20 },
+    open: { opacity: 1, x: 0 },
+  };
+
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md dark:bg-gray-900/80 shadow-md font-sans transition-colors duration-300">
+    <motion.nav
+      className={`sticky top-0 z-50 transition-all duration-500 ${scrolled
+        ? 'nav-glass shadow-lg'
+        : 'bg-white/60 dark:bg-gray-900/60 backdrop-blur-md border-b border-white/20 dark:border-gray-800/50'
+        }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex justify-between h-20 items-center">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80" onClick={closeMenu}>
+          <motion.div
+            className="flex-shrink-0"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Link to="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
               <img
-                src={process.env.PUBLIC_URL + '/favicon_transparent.png'}
+                src={`${import.meta.env.BASE_URL}favicon_transparent.png`}
                 alt="HexHive"
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="text-3xl font-bold text-primary dark:text-accent-light transition-colors">HexHive</span> {/* Bigger text */}
+              <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent dark:from-accent-light dark:to-white">
+                HexHive
+              </span>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navLinks.map((link) => (
-              <NavLink
+          <div className="hidden md:flex md:items-center md:space-x-1">
+            {navLinks.map((link, index) => (
+              <motion.div
                 key={link.path}
-                to={link.path}
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${isActive
-                    ? 'text-primary bg-accent/10 ring-1 ring-accent dark:text-accent-light dark:bg-accent/20 dark:ring-accent-light'
-                    : 'text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-300 dark:hover:text-accent-light dark:hover:bg-gray-800'
-                  }`
-                }
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + index * 0.05 }}
               >
-                {link.name}
-              </NavLink>
+                <NavLink
+                  to={link.path}
+                  className={({ isActive }) =>
+                    `relative px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 inline-flex items-center ${link.highlight
+                      ? 'bg-accent text-white hover:bg-accent-light shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30'
+                      : isActive
+                        ? 'text-primary dark:text-accent-light bg-accent/10 dark:bg-accent/20'
+                        : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      {link.name}
+                      {isActive && !link.highlight && (
+                        <motion.span
+                          className="absolute bottom-1 left-1/2 w-1 h-1 rounded-full bg-accent"
+                          layoutId="activeIndicator"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              </motion.div>
             ))}
 
-            <div className="flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200 dark:border-gray-700">
-              <ThemeToggle />
+            {/* Divider */}
+            <div className="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-2" />
 
-              {!user && (
-                <NavLink to="/login" className="px-3 py-2 rounded-md text-sm font-semibold text-gray-700 hover:text-primary hover:bg-gray-50 dark:text-gray-300 dark:hover:text-accent-light dark:hover:bg-gray-800">
+            {/* Theme Toggle */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <ThemeToggle />
+            </motion.div>
+
+            {/* Auth Buttons */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="ml-2"
+            >
+              {!user ? (
+                <NavLink
+                  to="/login"
+                  className="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+                >
                   Login
                 </NavLink>
-              )}
-              {user && (
-                <button
+              ) : (
+                <motion.button
                   onClick={logout}
-                  className="px-3 py-2 rounded-md text-sm font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-900/20 dark:hover:text-red-300 transition-colors"
+                  className="px-4 py-2.5 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 transition-all"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   title={`Logged in as ${user.username}`}
                 >
                   Logout
-                </button>
+                </motion.button>
               )}
-            </div>
+            </motion.div>
           </div>
 
-          {/* Mobile Menu Button - Left side of right section */}
-          <div className="flex items-center md:hidden gap-4">
+          {/* Mobile Menu Button */}
+          <div className="flex items-center md:hidden gap-3">
             <ThemeToggle />
-            <button
+            <motion.button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-accent hover:bg-gray-100 dark:text-accent-light dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary dark:focus:ring-accent"
+              className="inline-flex items-center justify-center p-2.5 rounded-xl text-primary dark:text-accent-light bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800 transition-all"
+              whileTap={{ scale: 0.9 }}
               aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
-              {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={isOpen ? 'close' : 'menu'}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                </motion.div>
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu Panel */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg dark:shadow-none">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              onClick={closeMenu}
-              className={({ isActive }) =>
-                `block px-3 py-4 rounded-md text-base font-medium transition-colors ${isActive
-                  ? 'bg-primary text-white dark:bg-accent-dark'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-accent-light'
-                }`
-              }
-            >
-              {link.name}
-            </NavLink>
-          ))}
-          {!user && (
-            <NavLink to="/login" onClick={closeMenu} className="block px-3 py-4 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-accent-light">
-              Login
-            </NavLink>
-          )}
-          {user && (
-            <button
-              onClick={() => { logout(); closeMenu(); }}
-              className="block w-full text-left px-3 py-4 rounded-md text-base font-medium text-red-600 hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
-            >
-              Logout
-            </button>
-          )}
-        </div>
-      </div>
-    </nav>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden overflow-hidden"
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+          >
+            <motion.div className="px-4 pt-2 pb-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 space-y-1">
+              {navLinks.map((link) => (
+                <motion.div key={link.path} variants={menuItemVariants}>
+                  <NavLink
+                    to={link.path}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `block px-4 py-4 rounded-xl text-base font-medium transition-all ${link.highlight
+                        ? 'bg-accent text-white shadow-md'
+                        : isActive
+                          ? 'bg-accent/10 text-primary dark:text-accent-light'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                      }`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                </motion.div>
+              ))}
+
+              {/* Auth buttons in mobile */}
+              <motion.div variants={menuItemVariants} className="pt-2 border-t border-gray-100 dark:border-gray-800 mt-2">
+                {!user ? (
+                  <NavLink
+                    to="/login"
+                    onClick={closeMenu}
+                    className="block px-4 py-4 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  >
+                    Login
+                  </NavLink>
+                ) : (
+                  <button
+                    onClick={() => { logout(); closeMenu(); }}
+                    className="block w-full text-left px-4 py-4 rounded-xl text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  >
+                    Logout
+                  </button>
+                )}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
