@@ -511,10 +511,14 @@
      FORM INPUTS
      ======================================== */
     .input-premium {
-        @apply w-full px-5 py-4 rounded-xl font-medium transition-all duration-300;
+        @apply w-full px-5 py-4 rounded-xl font-medium;
         background: rgba(255, 255, 255, 0.8);
         border: 2px solid rgba(203, 213, 225, 0.8);
         box-shadow: var(--shadow-inner);
+        transition: border-color 0.3s var(--ease-premium),
+            box-shadow 0.3s var(--ease-premium),
+            background-color 0.3s var(--ease-premium),
+            color 0.3s var(--ease-premium);
     }
 
     .input-premium:focus {

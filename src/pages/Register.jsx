@@ -1,10 +1,95 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useForm, ValidationError } from '@formspree/react';
 import AnimatedSection from '../components/AnimatedSection';
+
+// Form field animation variants moved outside to prevent recreation
+const fieldVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+// Hoisted AnimatedInput component to prevent full remounts on focus/state changes
+const AnimatedInput = ({
+  label,
+  name,
+  type = 'text',
+  required,
+  placeholder,
+  error,
+  formData,
+  handleChange,
+  focusedField,
+  setFocusedField,
+  state,
+  children,
+  ...props
+}) => (
+  <motion.div
+    variants={fieldVariants}
+    className="relative"
+  >
+    <label
+      htmlFor={name}
+      className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors"
+    >
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <div className="relative">
+      {children || (
+        <input
+          type={type}
+          id={name}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          value={formData[name]}
+          onChange={handleChange}
+          onFocus={() => setFocusedField(name)}
+          onBlur={() => setFocusedField(null)}
+          aria-invalid={!!error}
+          className={`input-premium ${error ? 'error border-red-500' : ''}`}
+          {...props}
+        />
+      )}
+
+      {/* Focus indicator */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-0.5 bg-accent rounded-full"
+        initial={{ width: 0 }}
+        animate={{ width: focusedField === name ? '100%' : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+    </div>
+
+    <AnimatePresence>
+      {(error || (state.errors && state.errors.filter(e => e.field === name).length > 0)) && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="text-red-500 text-sm mt-2 flex items-center gap-1 font-medium"
+          role="alert"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <ValidationError
+            prefix={label}
+            field={name}
+            errors={state.errors}
+          />
+          {error && !(state.errors && state.errors.find(e => e.field === name)) && <span>{error}</span>}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </motion.div>
+);
 
 const Register = () => {
   const location = useLocation();
+  const [state, handleSubmit] = useForm("xeeegbkp");
   const [formData, setFormData] = useState({
     program: '',
     name: '',
@@ -54,88 +139,16 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    if (!validate()) {
+  const handleFormSubmit = (e) => {
+    if (validate()) {
+      handleSubmit(e);
+    } else {
       e.preventDefault();
       const firstErrorKey = Object.keys(errors)[0];
       const element = document.getElementById(firstErrorKey);
       if (element) element.focus();
     }
   };
-
-  // Form field animation variants
-  const fieldVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  // Input component with animations
-  const AnimatedInput = ({
-    label,
-    name,
-    type = 'text',
-    required,
-    placeholder,
-    error,
-    children,
-    ...props
-  }) => (
-    <motion.div
-      variants={fieldVariants}
-      className="relative"
-    >
-      <label
-        htmlFor={name}
-        className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 transition-colors"
-      >
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <div className="relative">
-        {children || (
-          <input
-            type={type}
-            id={name}
-            name={name}
-            required={required}
-            placeholder={placeholder}
-            value={formData[name]}
-            onChange={handleChange}
-            onFocus={() => setFocusedField(name)}
-            onBlur={() => setFocusedField(null)}
-            aria-invalid={!!error}
-            className={`input-premium ${error ? 'error border-red-500' : ''} ${focusedField === name ? 'ring-4 ring-accent/20' : ''
-              }`}
-            {...props}
-          />
-        )}
-
-        {/* Focus indicator */}
-        <motion.div
-          className="absolute bottom-0 left-0 h-0.5 bg-accent rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: focusedField === name ? '100%' : 0 }}
-          transition={{ duration: 0.3 }}
-        />
-      </div>
-
-      <AnimatePresence>
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="text-red-500 text-sm mt-2 flex items-center gap-1 font-medium"
-            role="alert"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            {error}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
 
   return (
     <main className="flex-grow overflow-hidden">
@@ -205,9 +218,7 @@ const Register = () => {
               <motion.form
                 className="space-y-6"
                 id="registrationForm"
-                action="https://formspree.io/f/xandzywo"
-                method="POST"
-                onSubmit={handleSubmit}
+                onSubmit={handleFormSubmit}
                 noValidate
                 initial="hidden"
                 animate="visible"
@@ -218,167 +229,243 @@ const Register = () => {
                   }
                 }}
               >
-                {/* Program Select */}
-                <AnimatedInput label="Select Program" name="program" required error={errors.program}>
-                  <select
-                    id="program"
+                {state.succeeded && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-6 bg-green-500/10 border border-green-500/20 rounded-2xl text-center mb-8"
+                  >
+                    <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-green-600 dark:text-green-400 mb-2">Registration Successful!</h3>
+                    <p className="text-gray-600 dark:text-gray-400">Thanks for joining HexHive! Our advisor will contact you soon.</p>
+                  </motion.div>
+                )}
+
+                <div className={state.succeeded ? "hidden" : "space-y-6"}>
+                  {/* Program Select */}
+                  <AnimatedInput
+                    label="Select Program"
                     name="program"
                     required
-                    value={formData.program}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('program')}
-                    onBlur={() => setFocusedField(null)}
-                    aria-invalid={!!errors.program}
-                    className={`input-premium cursor-pointer ${errors.program ? 'error border-red-500' : ''}`}
+                    error={errors.program}
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
                   >
-                    <option value="" disabled>Choose a program to enroll in</option>
-                    <option value="advisor">💬 Talk to an Advisor</option>
-                    <option value="devops">🔄 DevOps Engineering (6 Months)</option>
-                    <option value="fullstack">💻 Full-Stack Development (6 Months)</option>
-                    <option value="embedded">🔌 Embedded Systems & IoT (40 Hours)</option>
-                  </select>
-                </AnimatedInput>
-
-                {/* Name */}
-                <AnimatedInput
-                  label="Full Name"
-                  name="name"
-                  required
-                  placeholder="e.g., Jane Doe"
-                  error={errors.name}
-                />
-
-                {/* Email */}
-                <AnimatedInput
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  error={errors.email}
-                />
-
-                {/* Phone */}
-                <AnimatedInput
-                  label="Phone Number"
-                  name="phone"
-                  type="tel"
-                  placeholder="+91 98765 43210"
-                />
-
-                {/* Two column layout for Education and Experience */}
-                <motion.div
-                  variants={fieldVariants}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                >
-                  <div>
-                    <label htmlFor="education" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                      Highest Education
-                    </label>
                     <select
-                      id="education"
-                      name="education"
-                      value={formData.education}
+                      id="program"
+                      name="program"
+                      required
+                      value={formData.program}
                       onChange={handleChange}
-                      className="input-premium cursor-pointer"
+                      onFocus={() => setFocusedField('program')}
+                      onBlur={() => setFocusedField(null)}
+                      aria-invalid={!!errors.program}
+                      className={`input-premium cursor-pointer ${errors.program ? 'error border-red-500' : ''}`}
                     >
-                      <option value="" disabled>Select your qualification</option>
-                      <option value="high-school">High School / Secondary</option>
-                      <option value="bachelor">Bachelor&apos;s Degree</option>
-                      <option value="master">Master&apos;s Degree</option>
-                      <option value="diploma">Diploma</option>
-                      <option value="other">Other</option>
+                      <option value="" disabled>Choose a program to enroll in</option>
+                      <option value="advisor">💬 Talk to an Advisor</option>
+                      <option value="devops">🔄 DevOps Engineering (6 Months)</option>
+                      <option value="fullstack">💻 Full-Stack Development (6 Months)</option>
+                      <option value="embedded">🔌 Embedded Systems & IoT (40 Hours)</option>
                     </select>
-                  </div>
+                  </AnimatedInput>
 
-                  <div>
-                    <label htmlFor="experience" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                      Relevant Experience (Years)
-                    </label>
-                    <input
-                      type="number"
-                      id="experience"
-                      name="experience"
-                      min="0"
-                      max="50"
-                      placeholder="e.g., 2"
-                      value={formData.experience}
-                      onChange={handleChange}
-                      className="input-premium"
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Goals */}
-                <AnimatedInput label="Your Career Goals" name="goals" required error={errors.goals}>
-                  <textarea
-                    id="goals"
-                    name="goals"
-                    rows="4"
+                  {/* Name */}
+                  <AnimatedInput
+                    label="Full Name"
+                    name="name"
                     required
-                    placeholder="Tell us about your aspirations and what you hope to achieve..."
-                    value={formData.goals}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('goals')}
-                    onBlur={() => setFocusedField(null)}
-                    aria-invalid={!!errors.goals}
-                    className={`input-premium resize-none ${errors.goals ? 'error border-red-500' : ''}`}
+                    placeholder="e.g., Jane Doe"
+                    error={errors.name}
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
                   />
-                </AnimatedInput>
 
-                {/* Source */}
-                <AnimatedInput label="How did you hear about us?" name="source" required error={errors.source}>
-                  <select
-                    id="source"
+                  {/* Email */}
+                  <AnimatedInput
+                    label="Email Address"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@example.com"
+                    error={errors.email}
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
+                  />
+
+                  {/* Phone */}
+                  <AnimatedInput
+                    label="Phone Number"
+                    name="phone"
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
+                  />
+
+                  {/* Two column layout for Education and Experience */}
+                  <motion.div
+                    variants={fieldVariants}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                  >
+                    <div>
+                      <label htmlFor="education" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                        Highest Education
+                      </label>
+                      <select
+                        id="education"
+                        name="education"
+                        value={formData.education}
+                        onChange={handleChange}
+                        className="input-premium cursor-pointer"
+                      >
+                        <option value="" disabled>Select your qualification</option>
+                        <option value="high-school">High School / Secondary</option>
+                        <option value="bachelor">Bachelor&apos;s Degree</option>
+                        <option value="master">Master&apos;s Degree</option>
+                        <option value="diploma">Diploma</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label htmlFor="experience" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                        Relevant Experience (Years)
+                      </label>
+                      <input
+                        type="number"
+                        id="experience"
+                        name="experience"
+                        min="0"
+                        max="50"
+                        placeholder="e.g., 2"
+                        value={formData.experience}
+                        onChange={handleChange}
+                        className="input-premium"
+                      />
+                    </div>
+                  </motion.div>
+
+                  {/* Goals */}
+                  <AnimatedInput
+                    label="Your Career Goals"
+                    name="goals"
+                    required
+                    error={errors.goals}
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
+                  >
+                    <textarea
+                      id="goals"
+                      name="goals"
+                      rows="4"
+                      required
+                      placeholder="Tell us about your aspirations and what you hope to achieve..."
+                      value={formData.goals}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('goals')}
+                      onBlur={() => setFocusedField(null)}
+                      aria-invalid={!!errors.goals}
+                      className={`input-premium resize-none ${errors.goals ? 'error border-red-500' : ''}`}
+                    />
+                  </AnimatedInput>
+
+                  {/* Source */}
+                  <AnimatedInput
+                    label="How did you hear about us?"
                     name="source"
                     required
-                    value={formData.source}
-                    onChange={handleChange}
-                    onFocus={() => setFocusedField('source')}
-                    onBlur={() => setFocusedField(null)}
-                    aria-invalid={!!errors.source}
-                    className={`input-premium cursor-pointer ${errors.source ? 'error border-red-500' : ''}`}
+                    error={errors.source}
+                    formData={formData}
+                    handleChange={handleChange}
+                    focusedField={focusedField}
+                    setFocusedField={setFocusedField}
+                    state={state}
                   >
-                    <option value="" disabled>Select an option</option>
-                    <option value="search">🔍 Search Engine (Google, etc.)</option>
-                    <option value="social">📱 Social Media</option>
-                    <option value="referral">👥 Referral</option>
-                    <option value="event">🎤 Event/Webinar</option>
-                    <option value="advertisement">📺 Advertisement</option>
-                    <option value="other">📝 Other</option>
-                  </select>
-                </AnimatedInput>
+                    <select
+                      id="source"
+                      name="source"
+                      required
+                      value={formData.source}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('source')}
+                      onBlur={() => setFocusedField(null)}
+                      aria-invalid={!!errors.source}
+                      className={`input-premium cursor-pointer ${errors.source ? 'error border-red-500' : ''}`}
+                    >
+                      <option value="" disabled>Select an option</option>
+                      <option value="search">🔍 Search Engine (Google, etc.)</option>
+                      <option value="social">📱 Social Media</option>
+                      <option value="referral">👥 Referral</option>
+                      <option value="event">🎤 Event/Webinar</option>
+                      <option value="advertisement">📺 Advertisement</option>
+                      <option value="other">📝 Other</option>
+                    </select>
+                  </AnimatedInput>
 
-                {/* Submit Button */}
-                <motion.div variants={fieldVariants}>
-                  <motion.button
-                    type="submit"
-                    className="w-full btn-accent text-lg py-5 relative overflow-hidden group"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                  {/* Submit Button */}
+                  <motion.div variants={fieldVariants}>
+                    <motion.button
+                      type="submit"
+                      disabled={state.submitting}
+                      className={`w-full btn-accent text-lg py-5 relative overflow-hidden group ${state.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                      whileHover={!state.submitting ? { scale: 1.02 } : {}}
+                      whileTap={!state.submitting ? { scale: 0.98 } : {}}
+                    >
+                      {/* Shimmer effect */}
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                      <span className="relative flex items-center justify-center gap-2">
+                        {state.submitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" border-radius="50%" border="3px solid transparent" border-top-color="white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            Submit Application
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </>
+                        )}
+                      </span>
+                    </motion.button>
+                  </motion.div>
+
+                  {/* Privacy note */}
+                  <motion.p
+                    variants={fieldVariants}
+                    className="text-center text-sm text-gray-500 dark:text-gray-400"
                   >
-                    {/* Shimmer effect */}
-                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-
-                    <span className="relative flex items-center justify-center gap-2">
-                      Submit Application
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </span>
-                  </motion.button>
-                </motion.div>
-
-                {/* Privacy note */}
-                <motion.p
-                  variants={fieldVariants}
-                  className="text-center text-sm text-gray-500 dark:text-gray-400"
-                >
-                  By submitting, you agree to our{' '}
-                  <a href="#" className="text-accent hover:underline">Privacy Policy</a>
-                  {' '}and{' '}
-                  <a href="#" className="text-accent hover:underline">Terms of Service</a>.
-                </motion.p>
+                    By submitting, you agree to our{' '}
+                    <a href="#" className="text-accent hover:underline">Privacy Policy</a>
+                    {' '}and{' '}
+                    <a href="#" className="text-accent hover:underline">Terms of Service</a>.
+                  </motion.p>
+                </div>
               </motion.form>
             </motion.div>
           </AnimatedSection>
