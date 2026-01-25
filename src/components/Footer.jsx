@@ -208,13 +208,13 @@ const Footer = () => {
             © {currentYear} HexHive Solutions. All rights reserved.
           </p>
           <nav className="flex flex-wrap justify-center gap-6">
-            <Link to="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <Link to="/legal" className="text-sm text-gray-400 hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link to="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <Link to="/legal" className="text-sm text-gray-400 hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <Link to="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+            <Link to="/legal" className="text-sm text-gray-400 hover:text-white transition-colors">
               Cookie Policy
             </Link>
           </nav>

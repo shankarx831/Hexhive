@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = (username, password) => {
         // HARDCODED CREDENTIALS (Client-side only)
-        if (username === 'admin' && password === 'shivu31') {
+        if (username === 'Durai' && password === 'Shivu@37') {
             const userData = { username, role: 'admin' };
             setUser(userData);
             Cookies.set('hexhive_user', JSON.stringify(userData), { expires: 30 }); // 30 day expiry

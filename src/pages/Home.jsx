@@ -298,6 +298,112 @@ const Home = () => {
       </section>
 
       {/* ========================================
+          CONTACT SECTION
+          ======================================== */}
+      <section id="contact" className="py-24 bg-primary/5 dark:bg-primary/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black font-heading text-primary dark:text-white mb-4">
+              Get in <span className="text-gradient">Touch</span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Have questions? We'd love to hear from you.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Contact Cards */}
+            <div className="space-y-6">
+              {/* Visit Us */}
+              <AnimatedSection>
+                <div className="glass-card p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-primary dark:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Visit Us</h3>
+                      <p className="text-gray-600 dark:text-gray-400">No.58, Canteen Street</p>
+                      <p className="text-gray-600 dark:text-gray-400">First Floor</p>
+                      <p className="text-gray-600 dark:text-gray-400">Pondicherry - 605001</p>
+                      <p className="text-gray-600 dark:text-gray-400">India</p>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              {/* Call Us */}
+              <AnimatedSection delay={0.1}>
+                <div className="glass-card p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-primary dark:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Call Us</h3>
+                      <p className="text-gray-600 dark:text-gray-400">+97513 97500</p>
+                      <p className="text-gray-500 dark:text-gray-500 text-sm">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                      <a href="tel:+9751397500" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
+                        Call Now
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              {/* Email Us */}
+              <AnimatedSection delay={0.2}>
+                <div className="glass-card p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-accent/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-primary dark:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Email Us</h3>
+                      <p className="text-gray-600 dark:text-gray-400">contact@hexhive.solutions</p>
+                      <p className="text-gray-500 dark:text-gray-500 text-sm">We respond within 24 hours</p>
+                      <a href="mailto:contact@hexhive.solutions" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
+                        Send Email
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+
+            {/* Map */}
+            <AnimatedSection direction="right">
+              <div className="glass-card p-4 h-full min-h-[500px]">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 px-2">Our Location</h3>
+                <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 h-[450px]">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.4876244766474!2d79.82777897507825!3d11.936093688256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5361ab8e49cfcf%3A0xcc6bd326d2f201d4!2sCanteen%20Street%2C%20Puducherry%2C%20India!5e0!3m2!1sen!2sus!4v1705681234567!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="HexHive Location"
+                    className="w-full h-full rounded-xl dark:invert dark:hue-rotate-180 dark:contrast-75 transition-all duration-300"
+                  />
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================
           CTA SECTION
           ======================================== */}
       <section className="py-24">

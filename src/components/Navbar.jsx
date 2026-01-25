@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import ThemeToggle from './ThemeToggle';
@@ -8,6 +8,7 @@ import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const { user, logout } = useAuth();
 
   // Handle scroll effect
@@ -25,6 +26,15 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Programs', path: '/programs' },
+    {
+      name: 'Business',
+      children: [
+        { name: 'What We Do', path: '/business/what-we-do' },
+        { name: 'Why Hexhive', path: '/business/why-hexhive' },
+        { name: 'Hire Talent', path: '/business/hire' },
+        { name: 'Become Instructor', path: '/business/become-instructor' },
+      ]
+    },
     ...(user ? [
       { name: 'Certificate', path: '/certificate' },
       { name: 'Invoice', path: '/invoice' }
@@ -93,39 +103,88 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex md:items-center md:space-x-1">
             {navLinks.map((link, index) => (
-              <motion.div
-                key={link.path}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.05 }}
+              <div
+                key={link.name}
+                className="relative"
+                onMouseEnter={() => link.children && setActiveDropdown(link.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <NavLink
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `relative px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 inline-flex items-center ${link.highlight
-                      ? 'bg-accent text-white hover:bg-accent-light shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30'
-                      : isActive
+                {link.children ? (
+                  <>
+                    <button
+                      className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 inline-flex items-center gap-1 ${activeDropdown === link.name
                         ? 'text-primary dark:text-accent-light bg-accent/10 dark:bg-accent/20'
                         : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
+                        }`}
+                    >
                       {link.name}
-                      {isActive && !link.highlight && (
-                        <motion.span
-                          className="absolute bottom-1 left-1/2 w-1 h-1 rounded-full bg-accent"
-                          layoutId="activeIndicator"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        />
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    <AnimatePresence>
+                      {activeDropdown === link.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 mt-2 w-56 rounded-xl bg-white dark:bg-gray-900 shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden"
+                        >
+                          <div className="p-2 space-y-1">
+                            {link.children.map((child) => (
+                              <NavLink
+                                key={child.path}
+                                to={child.path}
+                                className={({ isActive }) =>
+                                  `block px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
+                                    ? 'bg-accent/10 text-primary dark:text-accent-light'
+                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-accent-light'
+                                  }`
+                                }
+                              >
+                                {child.name}
+                              </NavLink>
+                            ))}
+                          </div>
+                        </motion.div>
                       )}
-                    </>
-                  )}
-                </NavLink>
-              </motion.div>
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
+                  >
+                    <NavLink
+                      to={link.path}
+                      className={({ isActive }) =>
+                        `relative px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 inline-flex items-center ${link.highlight
+                          ? 'bg-accent text-white hover:bg-accent-light shadow-md shadow-accent/20 hover:shadow-lg hover:shadow-accent/30'
+                          : isActive
+                            ? 'text-primary dark:text-accent-light bg-accent/10 dark:bg-accent/20'
+                            : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`
+                      }
+                    >
+                      {({ isActive }) => (
+                        <>
+                          {link.name}
+                          {isActive && !link.highlight && (
+                            <motion.span
+                              className="absolute bottom-1 left-1/2 w-1 h-1 rounded-full bg-accent"
+                              layoutId="activeIndicator"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                            />
+                          )}
+                        </>
+                      )}
+                    </NavLink>
+                  </motion.div>
+                )}
+              </div>
             ))}
 
             {/* Divider */}
@@ -206,21 +265,46 @@ const Navbar = () => {
           >
             <motion.div className="px-4 pt-2 pb-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 space-y-1">
               {navLinks.map((link) => (
-                <motion.div key={link.path} variants={menuItemVariants}>
-                  <NavLink
-                    to={link.path}
-                    onClick={closeMenu}
-                    className={({ isActive }) =>
-                      `block px-4 py-4 rounded-xl text-base font-medium transition-all ${link.highlight
-                        ? 'bg-accent text-white shadow-md'
-                        : isActive
-                          ? 'bg-accent/10 text-primary dark:text-accent-light'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                      }`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
+                <motion.div key={link.name} variants={menuItemVariants}>
+                  {link.children ? (
+                    <div className="space-y-1">
+                      <div className="px-4 py-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        {link.name}
+                      </div>
+                      <div className="pl-2 space-y-1 border-l-2 border-gray-100 dark:border-gray-800 ml-4">
+                        {link.children.map((child) => (
+                          <NavLink
+                            key={child.path}
+                            to={child.path}
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                              `block px-4 py-3 rounded-xl text-base font-medium transition-all ${isActive
+                                ? 'bg-accent/10 text-primary dark:text-accent-light'
+                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                              }`
+                            }
+                          >
+                            {child.name}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <NavLink
+                      to={link.path}
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        `block px-4 py-4 rounded-xl text-base font-medium transition-all ${link.highlight
+                          ? 'bg-accent text-white shadow-md'
+                          : isActive
+                            ? 'bg-accent/10 text-primary dark:text-accent-light'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        }`
+                      }
+                    >
+                      {link.name}
+                    </NavLink>
+                  )}
                 </motion.div>
               ))}
 

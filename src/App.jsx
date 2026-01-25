@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import PrivateRoute from './components/PrivateRoute';
 
 // Lazy Load Pages for Performance Optimization
 const Home = lazy(() => import('./pages/Home'));
@@ -12,6 +13,14 @@ const Register = lazy(() => import('./pages/Register'));
 const CertificateGenerator = lazy(() => import('./pages/CertificateGenerator'));
 const Login = lazy(() => import('./pages/Login'));
 const InvoiceGenerator = lazy(() => import('./pages/InvoiceGenerator'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+const BecomeInstructor = lazy(() => import('./pages/business/BecomeInstructor'));
+const HireFromHexhive = lazy(() => import('./pages/business/HireFromHexhive'));
+const WhatWeDo = lazy(() => import('./pages/business/WhatWeDo'));
+const WhyHexhive = lazy(() => import('./pages/business/WhyHexhive'));
+const Legal = lazy(() => import('./pages/Legal'));
+
+// Force refresh
 
 // Premium Loading Component with Animation
 const PageLoader = () => (
@@ -134,19 +143,64 @@ function App() {
                 </AnimatedPage>
               }
             />
+            {/* PROTECTED ROUTES */}
             <Route
               path="/certificate"
               element={
-                <AnimatedPage>
-                  <CertificateGenerator />
-                </AnimatedPage>
+                <PrivateRoute>
+                  <AnimatedPage>
+                    <CertificateGenerator />
+                  </AnimatedPage>
+                </PrivateRoute>
               }
             />
             <Route
               path="/invoice"
               element={
+                <PrivateRoute>
+                  <AnimatedPage>
+                    <InvoiceGenerator />
+                  </AnimatedPage>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/business/become-instructor"
+              element={
                 <AnimatedPage>
-                  <InvoiceGenerator />
+                  <BecomeInstructor />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/business/hire"
+              element={
+                <AnimatedPage>
+                  <HireFromHexhive />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/business/what-we-do"
+              element={
+                <AnimatedPage>
+                  <WhatWeDo />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/business/why-hexhive"
+              element={
+                <AnimatedPage>
+                  <WhyHexhive />
+                </AnimatedPage>
+              }
+            />
+            <Route
+              path="/legal"
+              element={
+                <AnimatedPage>
+                  <Legal />
                 </AnimatedPage>
               }
             />
@@ -156,42 +210,7 @@ function App() {
               path="*"
               element={
                 <AnimatedPage>
-                  <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
-                    <motion.div
-                      initial={{ scale: 0.5, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                      className="text-center"
-                    >
-                      <motion.h1
-                        className="text-9xl font-black text-gradient mb-4"
-                        animate={{
-                          textShadow: [
-                            '0 0 20px rgba(74, 151, 130, 0.3)',
-                            '0 0 40px rgba(74, 151, 130, 0.5)',
-                            '0 0 20px rgba(74, 151, 130, 0.3)',
-                          ]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        404
-                      </motion.h1>
-                      <h2 className="text-3xl font-bold text-primary dark:text-white mb-4">
-                        Page Not Found
-                      </h2>
-                      <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md">
-                        The page you&apos;re looking for doesn&apos;t exist or has been moved.
-                      </p>
-                      <motion.a
-                        href="/"
-                        className="btn-accent text-lg"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Back to Home
-                      </motion.a>
-                    </motion.div>
-                  </div>
+                  <NotFound />
                 </AnimatedPage>
               }
             />
