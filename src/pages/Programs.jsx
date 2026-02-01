@@ -172,17 +172,19 @@ const Programs = () => {
               Designed by industry experts to bridge the skills gap and accelerate your career in tech.
             </p>
 
-            <motion.button
-              onClick={() => document.getElementById('program-details')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-outline text-white border-white/30 hover:bg-white hover:text-primary px-8 py-4"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Explore Courses
-              <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </motion.button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.button
+                onClick={() => document.getElementById('program-details')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn-outline text-white border-white/30 hover:bg-white hover:text-primary px-8 py-4 w-full sm:w-auto flex items-center justify-center font-bold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Explore Courses
+                <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </motion.button>
+            </div>
           </AnimatedSection>
         </div>
       </section>
@@ -212,8 +214,8 @@ const Programs = () => {
                   {/* Accordion Header */}
                   <motion.button
                     className={`w-full flex items-center gap-4 p-6 md:p-8 text-left transition-all duration-300 ${activeAccordion === program.id
-                        ? 'bg-gradient-to-r ' + program.color + ' text-white'
-                        : 'bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                      ? 'bg-gradient-to-r ' + program.color + ' text-white'
+                      : 'bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800/50'
                       }`}
                     onClick={() => toggleAccordion(program.id)}
                     aria-expanded={activeAccordion === program.id}
@@ -221,8 +223,8 @@ const Programs = () => {
                     {/* Icon */}
                     <motion.div
                       className={`p-3 rounded-xl ${activeAccordion === program.id
-                          ? 'bg-white/20'
-                          : 'bg-gradient-to-r ' + program.color + ' text-white'
+                        ? 'bg-white/20'
+                        : 'bg-gradient-to-r ' + program.color + ' text-white'
                         }`}
                       whileHover={{ rotate: 10 }}
                     >
@@ -232,14 +234,14 @@ const Programs = () => {
                     {/* Title & Duration */}
                     <div className="flex-grow">
                       <h3 className={`text-xl md:text-2xl font-bold ${activeAccordion === program.id
-                          ? 'text-white'
-                          : 'text-primary dark:text-white'
+                        ? 'text-white'
+                        : 'text-primary dark:text-white'
                         }`}>
                         {program.title}
                       </h3>
                       <p className={`text-sm mt-1 ${activeAccordion === program.id
-                          ? 'text-white/80'
-                          : 'text-gray-500 dark:text-gray-400'
+                        ? 'text-white/80'
+                        : 'text-gray-500 dark:text-gray-400'
                         }`}>
                         {program.duration} • Hands-on Training
                       </p>
@@ -247,8 +249,8 @@ const Programs = () => {
 
                     {/* Duration Badge */}
                     <span className={`hidden sm:inline-block px-4 py-2 rounded-full text-sm font-semibold ${activeAccordion === program.id
-                        ? 'bg-white/20 text-white'
-                        : 'bg-accent/10 text-accent'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-accent/10 text-accent'
                       }`}>
                       {program.duration}
                     </span>
@@ -390,17 +392,35 @@ const Programs = () => {
                               <h4 className="font-bold text-primary dark:text-accent-light mb-1">Ideal For</h4>
                               <p className="text-gray-600 dark:text-gray-300">{program.idealFor}</p>
                             </div>
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                              <Link
-                                to={`/register?program=${program.id}`}
-                                className="btn-accent px-6 py-3 text-base whitespace-nowrap"
-                              >
-                                Enroll in {program.title.split(' ')[0]}
-                                <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                              </Link>
-                            </motion.div>
+                            <div className="flex flex-wrap items-center gap-4">
+                              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <Link
+                                  to={`/register?program=${program.id}`}
+                                  className="btn-accent px-6 py-3 text-base whitespace-nowrap font-bold"
+                                >
+                                  Enroll in {program.title.split(' ')[0]}
+                                  <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                  </svg>
+                                </Link>
+                              </motion.div>
+
+                              {program.id === 'devops' && (
+                                <motion.a
+                                  href="https://drive.google.com/file/d/1LC94eZkjOTo6cs02UUQHnNN10SSW49jt/view?usp=sharing"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn-outline px-6 py-3 text-base whitespace-nowrap flex items-center border-accent/30 text-accent hover:bg-accent hover:text-white transition-all font-bold"
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                                >
+                                  Full Course PDF
+                                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  </svg>
+                                </motion.a>
+                              )}
+                            </div>
                           </motion.div>
                         </div>
                       </motion.div>

@@ -22,7 +22,7 @@ const Legal = lazy(() => import('./pages/Legal'));
 
 // Force refresh
 
-// Premium Loading Component with Animation
+
 const PageLoader = () => (
   <motion.div
     className="flex justify-center items-center h-[60vh]"

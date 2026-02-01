@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | HexHive</title>
+    <meta name="description" content="The page you're looking for doesn't exist.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon_transparent.png">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 nav-glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <img src="assets/favicon_transparent.png" alt="HexHive" class="h-12 w-auto">
+                        <span class="text-2xl font-bold text-gradient">HexHive</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-1">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="programs.html" class="nav-link">Programs</a>
+                    <a href="register.html" class="btn-accent text-sm px-4 py-2 ml-2">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex flex-col items-center justify-center min-h-[80vh] px-4 text-center">
+        <div class="max-w-lg mx-auto">
+            <!-- Icon -->
+            <div class="inline-block mb-6">
+                <svg class="w-24 h-24 text-accent/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    style="animation: wiggle 2s ease-in-out infinite;">
+                    <circle cx="12" cy="12" r="10" stroke-width="2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01" />
+                </svg>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
+                404 <span class="text-gray-300 dark:text-gray-700">|</span> Page Not Found
+            </h1>
+
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                The page you're looking for doesn't exist or has been moved. We apologize for the inconvenience.
+            </p>
+
+            <div
+                class="bg-primary/5 dark:bg-accent/5 rounded-2xl p-6 mb-8 border border-primary/10 dark:border-accent/10">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Automatic Redirect</p>
+                <div class="text-2xl font-bold text-primary dark:text-accent">
+                    Returning to Home in <span id="countdown">5</span>s
+                </div>
+            </div>
+
+            <a href="index.html"
+                class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-primary-light text-white font-bold shadow-lg transition-all hover:scale-105">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home Immediately
+            </a>
+        </div>
+    </main>
+
+    <style>
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-10deg);
+            }
+
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+    </style>
+
+    <script src="js/main.js"></script>
+    <script>
+        let count = 5;
+        const countdownEl = document.getElementById('countdown');
+
+        const timer = setInterval(() => {
+            count--;
+            countdownEl.textContent = count;
+
+            if (count <= 0) {
+                clearInterval(timer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>

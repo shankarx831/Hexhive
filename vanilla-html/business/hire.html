@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Talent | HexHive</title>
+    <meta name="description"
+        content="Find skilled developers trained in modern tech stacks. Hire pre-screened, project-ready candidates.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#004030', light: '#007a5e', dark: '#00221a' },
+                        accent: { DEFAULT: '#4A9782', light: '#7bb8a6', dark: '#2a6d5a' },
+                        cream: '#FFF9E5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        heading: ['Outfit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/png" href="../assets/favicon_transparent.png">
+</head>
+
+<body class="antialiased text-gray-900 dark:text-gray-100 transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="nav-glass fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center space-x-3 group">
+                        <img src="../assets/favicon_transparent.png" alt="HexHive"
+                            class="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <span class="text-2xl font-bold text-gradient">HexHive</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex md:items-center md:space-x-1">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="../programs.html" class="nav-link">Programs</a>
+
+                    <div class="relative group">
+                        <button class="nav-link active inline-flex items-center gap-1">
+                            Business
+                            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div
+                            class="absolute top-full left-0 mt-2 w-56 rounded-xl bg-white dark:bg-gray-900 shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1">
+                                <a href="what-we-do.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">What
+                                    We Do</a>
+                                <a href="why-hexhive.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Why
+                                    Hexhive</a>
+                                <a href="hire.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium bg-accent/10 text-accent">Hire
+                                    Talent</a>
+                                <a href="become-instructor.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Become
+                                    Instructor</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="../register.html" class="btn-accent text-sm px-5 py-2.5 ml-3">Enroll Now</a>
+                    <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-3"></div>
+
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <div class="theme-toggle-icons">
+                            <svg class="theme-icon sun-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                            </svg>
+                            <svg class="theme-icon moon-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </button>
+
+                    <a href="../login.html"
+                        class="ml-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Login</a>
+                </div>
+
+                <div class="flex items-center md:hidden gap-3">
+                    <button id="mobile-theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <div class="theme-toggle-icons">
+                            <svg class="theme-icon sun-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                            </svg>
+                            <svg class="theme-icon moon-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="p-2.5 rounded-xl text-primary dark:text-accent-light bg-white/50 dark:bg-gray-800/50">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="overflow-hidden">
+        <!-- Hero Section -->
+        <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-tr from-primary to-accent opacity-90 dark:opacity-80"></div>
+            <div class="absolute inset-0 opacity-20"
+                style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+
+            <div class="relative z-10 text-center px-4 max-w-5xl mx-auto py-32">
+                <div
+                    class="inline-flex items-center gap-2 border border-accent-light/30 rounded-full px-6 py-2 bg-white/10 backdrop-blur-md text-white font-semibold mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>Hiring Partners</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight leading-tight font-heading">
+                    Find Skilled <br><span class="text-accent-light">Developers.</span>
+                </h1>
+                <p class="text-2xl text-accent-light/90 font-light max-w-2xl mx-auto leading-relaxed mb-8">
+                    Connect with developers who have been trained on practical, project-based learning and are ready to
+                    contribute.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="../register.html"
+                        class="px-8 py-4 bg-white text-primary font-bold rounded-xl shadow-2xl flex items-center gap-2 hover:-translate-y-1 transition-transform">
+                        Talk to Us
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                    <a href="#process"
+                        class="px-8 py-4 bg-transparent text-white font-bold rounded-xl border-2 border-white/30 hover:bg-white/10 transition-colors">Our
+                        Process</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Pipeline -->
+        <section id="process" class="py-24 bg-primary/5 dark:bg-primary/10">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 font-heading">How We Prepare
+                        Candidates</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400">A structured approach to building job-ready
+                        skills.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="glass-card p-8 h-full text-center hover:-translate-y-2 transition-transform">
+                        <div class="text-5xl font-black text-accent/20 mb-4">01</div>
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary/10 text-primary dark:text-accent flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Structured Training</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Comprehensive curriculum covering full-stack
+                            development</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="glass-card p-8 h-full text-center hover:-translate-y-2 transition-transform">
+                        <div class="text-5xl font-black text-accent/20 mb-4">02</div>
+                        <div
+                            class="w-14 h-14 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Project-Based Learning</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Hands-on experience with real-world applications</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="glass-card p-8 h-full text-center hover:-translate-y-2 transition-transform">
+                        <div class="text-5xl font-black text-accent/20 mb-4">03</div>
+                        <div
+                            class="w-14 h-14 rounded-xl bg-primary-light/10 text-primary-light dark:text-accent-light flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Soft Skills</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Communication, collaboration, and professional
+                            practices</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="glass-card p-8 h-full text-center hover:-translate-y-2 transition-transform">
+                        <div class="text-5xl font-black text-accent/20 mb-4">04</div>
+                        <div
+                            class="w-14 h-14 rounded-xl bg-accent-light/10 text-accent-dark dark:text-accent flex items-center justify-center mb-4 mx-auto">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Interview Prep</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Technical and behavioral interview preparation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="py-24 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black text-gray-900 dark:text-white mb-4 font-heading">Technologies Our
+                        Candidates Learn</h2>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 h-full">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-accent/10 dark:bg-accent/20 p-3 rounded-xl text-accent">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Frontend</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">React</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Next.js</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Vue</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Tailwind</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">TypeScript</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 h-full">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-accent/10 dark:bg-accent/20 p-3 rounded-xl text-accent">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Backend</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Node.js</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Express</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Python</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">PostgreSQL</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">MongoDB</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 h-full">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-accent/10 dark:bg-accent/20 p-3 rounded-xl text-accent">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">DevOps</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Docker</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Kubernetes</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">AWS</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">CI/CD</span>
+                            <span
+                                class="px-3 py-1.5 bg-primary/5 dark:bg-primary/10 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">Git</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 bg-primary relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+            <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4 font-heading">Looking for Talent?</h2>
+                <p class="text-xl text-accent-light mb-8">Let's discuss how we can help you find the right candidates.
+                </p>
+                <a href="../register.html"
+                    class="px-10 py-5 bg-cream text-primary text-lg font-bold rounded-xl shadow-2xl inline-block hover:-translate-y-1 transition-transform">Contact
+                    Us</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative bg-primary dark:bg-gray-950 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="inline-flex items-center gap-3 mb-6">
+                        <div class="p-2 rounded-xl bg-white shadow-md">
+                            <img src="../assets/favicon_transparent.png" alt="HexHive" class="h-8 w-8">
+                        </div>
+                        <span class="text-2xl font-bold">HexHive</span>
+                    </div>
+                    <p class="text-gray-300 mb-6">Building the next generation of tech leaders.</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Quick Links</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="../index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="../programs.html" class="hover:text-white transition-colors">Programs</a></li>
+                        <li><a href="../register.html" class="hover:text-white transition-colors">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Contact</h3>
+                    <p class="text-gray-300">contact@hexhive.solutions</p>
+                    <p class="text-gray-300">+91 97513 97500</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Follow Us</h3>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 py-6 text-center text-sm text-gray-400">
+            © 2024 HexHive Solutions. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

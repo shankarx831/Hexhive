@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | HexHive</title>
+    <meta name="description"
+        content="Enroll in HexHive's programs. Fill out the form and a career advisor will contact you within 24 hours.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#004030', light: '#007a5e', dark: '#00221a' },
+                        accent: { DEFAULT: '#4A9782', light: '#7bb8a6', dark: '#2a6d5a' },
+                        cream: '#FFF9E5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        heading: ['Outfit', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/favicon_transparent.png">
+</head>
+
+<body class="antialiased text-gray-900 dark:text-gray-100 transition-colors duration-500 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="nav-glass fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center space-x-3 group">
+                        <img src="assets/favicon_transparent.png" alt="HexHive"
+                            class="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <span class="text-2xl font-bold text-gradient">HexHive</span>
+                    </a>
+                </div>
+
+                <div class="hidden md:flex md:items-center md:space-x-1">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="programs.html" class="nav-link">Programs</a>
+
+                    <div class="relative group">
+                        <button class="nav-link inline-flex items-center gap-1">
+                            Business
+                            <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div
+                            class="absolute top-full left-0 mt-2 w-56 rounded-xl bg-white dark:bg-gray-900 shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="p-2 space-y-1">
+                                <a href="business/what-we-do.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">What
+                                    We Do</a>
+                                <a href="business/why-hexhive.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Why
+                                    Hexhive</a>
+                                <a href="business/hire.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Hire
+                                    Talent</a>
+                                <a href="business/become-instructor.html"
+                                    class="block px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Become
+                                    Instructor</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="register.html" class="btn-accent text-sm px-5 py-2.5 ml-3">Enroll Now</a>
+                    <div class="w-px h-8 bg-gray-200 dark:bg-gray-700 mx-3"></div>
+
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <div class="theme-toggle-icons">
+                            <svg class="theme-icon sun-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                            </svg>
+                            <svg class="theme-icon moon-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </button>
+
+                    <a href="login.html"
+                        class="ml-3 px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-light hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">Login</a>
+                </div>
+
+                <div class="flex items-center md:hidden gap-3">
+                    <button id="mobile-theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                        <div class="theme-toggle-icons">
+                            <svg class="theme-icon sun-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" />
+                            </svg>
+                            <svg class="theme-icon moon-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </button>
+                    <button id="mobile-menu-btn"
+                        class="p-2.5 rounded-xl text-primary dark:text-accent-light bg-white/50 dark:bg-gray-800/50">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu"
+            class="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-t border-gray-100 dark:border-gray-800 absolute w-full left-0 overflow-hidden transition-all duration-300"
+            style="max-height: 0;">
+            <div class="px-4 py-6 space-y-3">
+                <a href="index.html"
+                    class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300">Home</a>
+                <a href="programs.html"
+                    class="block px-4 py-3 rounded-xl text-base font-medium text-gray-700 dark:text-gray-300">Programs</a>
+                <a href="register.html"
+                    class="block px-4 py-3 rounded-xl text-base font-bold bg-accent text-white text-center">Enroll
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="overflow-hidden">
+        <!-- Hero Section -->
+        <section class="relative py-24 md:py-32 hero-gradient overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-accent/20 blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-primary-light/30 blur-3xl"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        <span class="text-sm font-medium text-white/90">Now Accepting Applications</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-black font-heading text-white mb-6">
+                        Enroll in a HexHive <span class="text-accent-light">Program</span>
+                    </h1>
+                    <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+                        Fill out the form below and a career advisor will contact you within 24 hours.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto">
+                <div class="glass-panel p-8 md:p-12">
+                    <h2 class="text-3xl font-bold font-heading text-primary dark:text-white text-center mb-2">
+                        Registration Form
+                    </h2>
+                    <p class="text-gray-500 dark:text-gray-400 text-center mb-10">
+                        All fields marked with * are required
+                    </p>
+
+                    <!-- Success Message (hidden by default) -->
+                    <div id="success-message"
+                        class="hidden p-6 bg-green-500/10 border border-green-500/20 rounded-2xl text-center mb-8">
+                        <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-green-600 dark:text-green-400 mb-2">Registration Successful!
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400">Thanks for joining HexHive! Our advisor will contact
+                            you soon.</p>
+                    </div>
+
+                    <form id="registrationForm" action="https://formspree.io/f/xeeegbkp" method="POST"
+                        class="space-y-6">
+                        <!-- Program Select -->
+                        <div>
+                            <label for="program" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Select Program <span class="text-red-500">*</span>
+                            </label>
+                            <select id="program" name="program" required class="input-premium cursor-pointer">
+                                <option value="" disabled selected>Choose a program to enroll in</option>
+                                <option value="advisor">💬 Talk to an Advisor</option>
+                                <option value="devops">🔄 DevOps Engineering (6 Months)</option>
+                                <option value="fullstack">💻 Full-Stack Development (6 Months)</option>
+                                <option value="embedded">🔌 Embedded Systems & IoT (40 Hours)</option>
+                            </select>
+                        </div>
+
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Full Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="name" name="name" required placeholder="e.g., Jane Doe"
+                                class="input-premium">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Email Address <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" id="email" name="email" required placeholder="you@example.com"
+                                class="input-premium">
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="phone" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Phone Number
+                            </label>
+                            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210"
+                                class="input-premium">
+                        </div>
+
+                        <!-- Education & Experience -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="education"
+                                    class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                    Highest Education
+                                </label>
+                                <select id="education" name="education" class="input-premium cursor-pointer">
+                                    <option value="" disabled selected>Select your qualification</option>
+                                    <option value="high-school">High School / Secondary</option>
+                                    <option value="bachelor">Bachelor's Degree</option>
+                                    <option value="master">Master's Degree</option>
+                                    <option value="diploma">Diploma</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="experience"
+                                    class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                    Relevant Experience (Years)
+                                </label>
+                                <input type="number" id="experience" name="experience" min="0" max="50"
+                                    placeholder="e.g., 2" class="input-premium">
+                            </div>
+                        </div>
+
+                        <!-- Goals -->
+                        <div>
+                            <label for="goals" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                Your Career Goals <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="goals" name="goals" rows="4" required
+                                placeholder="Tell us about your aspirations and what you hope to achieve..."
+                                class="input-premium resize-none"></textarea>
+                        </div>
+
+                        <!-- Source -->
+                        <div>
+                            <label for="source" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                                How did you hear about us? <span class="text-red-500">*</span>
+                            </label>
+                            <select id="source" name="source" required class="input-premium cursor-pointer">
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="search">🔍 Search Engine (Google, etc.)</option>
+                                <option value="social">📱 Social Media</option>
+                                <option value="referral">👥 Referral</option>
+                                <option value="event">🎤 Event/Webinar</option>
+                                <option value="advertisement">📺 Advertisement</option>
+                                <option value="other">📝 Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submit-btn"
+                            class="w-full btn-accent text-lg py-5 relative overflow-hidden group">
+                            <span
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                            <span class="relative flex items-center justify-center gap-2">
+                                Submit Application
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- Privacy note -->
+                        <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+                            By submitting, you agree to our <a href="legal.html"
+                                class="text-accent hover:underline">Privacy Policy</a> and <a href="legal.html"
+                                class="text-accent hover:underline">Terms of Service</a>.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Trust indicators -->
+                <div class="mt-12 flex flex-wrap justify-center gap-8 text-center">
+                    <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                        <span class="text-xl">🔒</span>
+                        <span class="text-sm font-medium">Secure Form</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                        <span class="text-xl">⚡</span>
+                        <span class="text-sm font-medium">24hr Response</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                        <span class="text-xl">🎯</span>
+                        <span class="text-sm font-medium">No Spam</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative bg-primary dark:bg-gray-950 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="inline-flex items-center gap-3 mb-6">
+                        <div class="p-2 rounded-xl bg-white shadow-md">
+                            <img src="assets/favicon_transparent.png" alt="HexHive" class="h-8 w-8">
+                        </div>
+                        <span class="text-2xl font-bold">HexHive</span>
+                    </div>
+                    <p class="text-gray-300 mb-6">Building the next generation of tech leaders.</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Quick Links</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="programs.html" class="hover:text-white transition-colors">Programs</a></li>
+                        <li><a href="register.html" class="hover:text-white transition-colors">Enroll Now</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Contact</h3>
+                    <p class="text-gray-300">contact@hexhive.solutions</p>
+                    <p class="text-gray-300">+91 97513 97500</p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-accent uppercase tracking-wider mb-6">Follow Us</h3>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-accent transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 py-6 text-center text-sm text-gray-400">
+            © 2024 HexHive Solutions. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Pre-fill program from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const program = urlParams.get('program');
+        if (program) {
+            document.getElementById('program').value = program;
+        }
+
+        // Form submission handling
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = '<span class="relative flex items-center justify-center gap-2"><svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...</span>';
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('registrationForm').classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
+                } else {
+                    alert('Oops! There was a problem submitting your form. Please try again.');
+                    btn.innerHTML = '<span class="relative flex items-center justify-center gap-2">Submit Application<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></span>';
+                    btn.disabled = false;
+                }
+            }).catch(() => {
+                alert('Oops! There was a problem submitting your form. Please try again.');
+                btn.innerHTML = '<span class="relative flex items-center justify-center gap-2">Submit Application<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg></span>';
+                btn.disabled = false;
+            });
+        });
+    </script>
+</body>
+
+</html>
