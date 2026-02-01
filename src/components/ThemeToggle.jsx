@@ -24,7 +24,8 @@ const ThemeToggle = () => {
 
     // Optimized toggle using View Transitions API (native, performant)
     const toggleTheme = async (e) => {
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        const isDark = theme === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
 
         // Use View Transitions API if supported - this is GPU-accelerated
         if (document.startViewTransition) {
@@ -35,26 +36,61 @@ const ThemeToggle = () => {
                 Math.max(y, window.innerHeight - y)
             );
 
+            // If switching from dark to light, we use the "Suck" effect
+            // which requires the old state to be on top of the new state.
+            if (isDark) {
+                document.documentElement.classList.add('theme-transition-reverse');
+            }
+
             const transition = document.startViewTransition(() => {
                 setTheme(newTheme);
             });
 
-            await transition.ready;
+            try {
+                await transition.ready;
 
-            // Native CSS animation - very performant
-            document.documentElement.animate(
-                {
-                    clipPath: [
-                        `circle(0px at ${x}px ${y}px)`,
-                        `circle(${endRadius}px at ${x}px ${y}px)`,
-                    ],
-                },
-                {
-                    duration: 400,
-                    easing: 'ease-out',
-                    pseudoElement: '::view-transition-new(root)',
+                let animation;
+                if (isDark) {
+                    // SUCK EFFECT: Dark mode (old) shrinks to reveal Light mode (new)
+                    animation = document.documentElement.animate(
+                        {
+                            clipPath: [
+                                `circle(${endRadius}px at ${x}px ${y}px)`,
+                                `circle(0px at ${x}px ${y}px)`,
+                            ],
+                        },
+                        {
+                            duration: 500,
+                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            pseudoElement: '::view-transition-old(root)',
+                            fill: 'forwards'
+                        }
+                    );
+                } else {
+                    // WIPE EFFECT: Dark mode (new) expands over Light mode (old)
+                    animation = document.documentElement.animate(
+                        {
+                            clipPath: [
+                                `circle(0px at ${x}px ${y}px)`,
+                                `circle(${endRadius}px at ${x}px ${y}px)`,
+                            ],
+                        },
+                        {
+                            duration: 500,
+                            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            pseudoElement: '::view-transition-new(root)',
+                            fill: 'forwards'
+                        }
+                    );
                 }
-            );
+
+                // Explicitly wait for the animation to complete
+                await animation.finished;
+                // Then wait for the transition to finish
+                await transition.finished;
+            } finally {
+                document.documentElement.classList.remove('theme-transition-reverse');
+            }
         } else {
             setTheme(newTheme);
         }

@@ -752,18 +752,31 @@
     /* ========================================
      VIEW TRANSITIONS API
      ======================================== */
+    ::view-transition-group(root) {
+        animation-duration: 0.5s;
+    }
+
     ::view-transition-old(root),
     ::view-transition-new(root) {
         animation: none;
         mix-blend-mode: normal;
+        display: block;
+        height: 100%;
+        width: 100%;
     }
 
-    ::view-transition-old(root) {
+    /* Support for "Suck" transition where the old state contracts to reveal the new state */
+    .theme-transition-reverse::view-transition-old(root) {
+        z-index: 2147483646;
+    }
+
+    .theme-transition-reverse::view-transition-new(root) {
         z-index: 1;
     }
 
-    ::view-transition-new(root) {
-        z-index: 2147483646;
+    /* Prevent interaction during transition */
+    ::view-transition {
+        pointer-events: none;
     }
 
     /* ========================================
