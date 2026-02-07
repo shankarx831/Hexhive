@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -824,16 +822,17 @@
 
     /* Small to medium devices */
     @media (max-width: 768px) {
-        .glass-card {
-            border-radius: 20px;
+
+        .glass-card,
+        .glass-panel,
+        .nav-glass {
+            backdrop-filter: blur(8px) saturate(120%);
+            -webkit-backdrop-filter: blur(8px) saturate(120%);
         }
 
-        .glass-panel {
-            border-radius: 24px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
+        .glass-card:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
         }
 
         /* Better touch targets for mobile */
@@ -842,16 +841,13 @@
             min-height: 44px;
         }
 
-        /* Reduced hover effects on touch devices */
-        .glass-card:hover {
-            transform: none;
-        }
-
         /* Optimize marquee for mobile */
         .animate-scroll {
             animation-duration: 15s;
+            will-change: transform;
         }
     }
+
 
     /* Tablet devices */
     @media (min-width: 769px) and (max-width: 1024px) {

@@ -53,13 +53,13 @@ const PageLoader = () => (
   </motion.div>
 );
 
-// Page transition variants - Premium MAANG-level animations
-const pageVariants = {
+// Page transition variants - Responsive Performance Optimization
+const getPageVariants = (isMobile) => ({
   initial: {
     opacity: 0,
-    y: 20,
-    scale: 0.98,
-    filter: 'blur(10px)',
+    y: isMobile ? 0 : 20, // No layout shift on mobile
+    scale: isMobile ? 1 : 0.98, // No scale on mobile
+    filter: isMobile ? 'none' : 'blur(10px)', // No expensive blur on mobile
   },
   in: {
     opacity: 1,
@@ -69,11 +69,11 @@ const pageVariants = {
   },
   out: {
     opacity: 0,
-    y: -20,
-    scale: 1.02,
-    filter: 'blur(10px)',
+    y: isMobile ? 0 : -20,
+    scale: isMobile ? 1 : 1.02,
+    filter: isMobile ? 'none' : 'blur(10px)',
   },
-};
+});
 
 const pageTransition = {
   type: 'spring',
@@ -83,18 +83,23 @@ const pageTransition = {
 };
 
 // Animated page wrapper component
-const AnimatedPage = ({ children }) => (
-  <motion.div
-    initial="initial"
-    animate="in"
-    exit="out"
-    variants={pageVariants}
-    transition={pageTransition}
-    className="page-transition-wrapper"
-  >
-    {children}
-  </motion.div>
-);
+const AnimatedPage = ({ children }) => {
+  const isMobile = typeof window !== 'undefined' ? window.matchMedia('(max-width: 768px)').matches : false;
+
+  return (
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={getPageVariants(isMobile)}
+      transition={isMobile ? { duration: 0.3 } : pageTransition}
+      style={{ willChange: 'opacity, transform' }}
+      className="page-transition-wrapper"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 function App() {
   const location = useLocation();

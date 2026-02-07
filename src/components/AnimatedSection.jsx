@@ -10,17 +10,21 @@ const AnimatedSection = ({
     direction = 'up', // 'up', 'down', 'left', 'right', 'scale'
     duration = 0.6,
     once = true,
-    amount = 0.2,
+    amount = 0.2, // Reduced threshold for mobile
 }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once, amount });
 
+    // Check if mobile for lighter animations
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+    const offset = isMobile ? 30 : 60; // Reduced movement on mobile
+
     const directionVariants = {
-        up: { y: 60, x: 0 },
-        down: { y: -60, x: 0 },
-        left: { x: 60, y: 0 },
-        right: { x: -60, y: 0 },
-        scale: { scale: 0.8, y: 0, x: 0 },
+        up: { y: offset, x: 0 },
+        down: { y: -offset, x: 0 },
+        left: { x: offset, y: 0 },
+        right: { x: -offset, y: 0 },
+        scale: { scale: 0.9, y: 0, x: 0 }, // Less scaling on mobile
     };
 
     const initialProps = {
@@ -39,10 +43,11 @@ const AnimatedSection = ({
                 scale: 1,
             } : initialProps}
             transition={{
-                duration,
-                delay,
-                ease: [0.22, 1, 0.36, 1], // Custom easing for premium feel
+                duration: isMobile ? 0.4 : duration, // Faster on mobile
+                delay: isMobile ? 0 : delay, // No delay on mobile for responsiveness
+                ease: [0.22, 1, 0.36, 1],
             }}
+            style={{ willChange: 'opacity, transform' }} // GPU acceleration
             className={className}
         >
             {children}
@@ -89,12 +94,15 @@ export const StaggerItem = ({
     className = '',
     direction = 'up',
 }) => {
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+    const offset = isMobile ? 20 : 40;
+
     const directionVariants = {
-        up: { y: 40, x: 0 },
-        down: { y: -40, x: 0 },
-        left: { x: 40, y: 0 },
-        right: { x: -40, y: 0 },
-        scale: { scale: 0.85, y: 0, x: 0 },
+        up: { y: offset, x: 0 },
+        down: { y: -offset, x: 0 },
+        left: { x: offset, y: 0 },
+        right: { x: -offset, y: 0 },
+        scale: { scale: isMobile ? 0.95 : 0.85, y: 0, x: 0 },
     };
 
     return (
@@ -115,6 +123,7 @@ export const StaggerItem = ({
                     },
                 },
             }}
+            style={{ willChange: 'opacity, transform' }}
             className={className}
         >
             {children}

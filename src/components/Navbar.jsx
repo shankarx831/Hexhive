@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback, memo } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,17 +13,23 @@ const Navbar = () => {
 
   // Handle scroll effect
   useEffect(() => {
+    let lastScrollY = window.scrollY;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      const isScrolled = currentScrollY > 20;
+      if (scrolled !== isScrolled) {
+        setScrolled(isScrolled);
+      }
+      lastScrollY = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [scrolled]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const toggleMenu = useCallback(() => setIsOpen(prev => !prev), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: 'Home', path: '/' },
     { name: 'Programs', path: '/programs' },
     {
@@ -40,7 +46,8 @@ const Navbar = () => {
       { name: 'Invoice', path: '/invoice' }
     ] : []),
     { name: 'Enroll Now', path: '/register', highlight: true },
-  ];
+  ], [user]);
+
 
   // Animation variants for mobile menu
   const menuVariants = {
@@ -335,4 +342,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

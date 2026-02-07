@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 
-const ThemeToggle = () => {
+const ThemeToggle = memo(() => {
     const [theme, setTheme] = useState(() => {
+
         if (localStorage.getItem('theme')) {
             return localStorage.getItem('theme');
         }
@@ -125,6 +126,6 @@ const ThemeToggle = () => {
             </div>
         </button>
     );
-};
+});
 
 export default ThemeToggle;

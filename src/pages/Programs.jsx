@@ -4,6 +4,113 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../components/AnimatedSection';
 import SEO from '../components/SEO';
 
+const programs = [
+  {
+    id: 'devops',
+    title: 'DevOps Engineering',
+    duration: '6 Months',
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+    ),
+    description: 'Master CI/CD pipelines, cloud infrastructure, and automation. Become the bridge between development and operations.',
+    curriculum: [
+      'Linux & Scripting (Bash, Python)',
+      'Git & GitHub Workflows',
+      'Containerization with Docker',
+      'Orchestration with Kubernetes',
+      'Cloud Platforms (AWS / Azure)',
+    ],
+    outcomes: [
+      'Build, test, and deploy scalable applications',
+      'Automate infrastructure provisioning',
+      'Manage cloud environments effectively',
+    ],
+    idealFor: 'Engineers seeking ops roles, SREs, or cloud specialists.',
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    id: 'fullstack',
+    title: 'Full-Stack Development',
+    duration: '6 Months',
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+    description: 'Build dynamic, data-driven web applications from front to back. Master modern frameworks and databases.',
+    curriculum: [
+      'HTML5, CSS3, JavaScript (ES6+)',
+      'Frontend Frameworks (React / Vue.js)',
+      'Backend with Node.js & Express',
+      'Databases (MongoDB, PostgreSQL)',
+    ],
+    outcomes: [
+      'Create modern, responsive web applications',
+      'Work with both SQL and NoSQL databases',
+      'Understand the full development lifecycle',
+    ],
+    idealFor: 'Career changers, junior devs, or anyone wanting full-stack skills.',
+    color: 'from-purple-500 to-pink-500',
+  },
+  {
+    id: 'embedded',
+    title: 'Embedded Systems & IoT',
+    duration: '40 Hours',
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+      </svg>
+    ),
+    description: 'Master the hardware-software interface. Dive into microcontrollers, real-time operating systems, and IoT protocols.',
+    modules: [
+      {
+        title: 'Module 1: Foundations of Embedded Systems (8 hours)',
+        topics: [
+          'Introduction: What is an embedded system?, Applications in IoT, automotive, robotics',
+          'Basic Electronics: Voltage, current, resistance, Ohm\'s law, Digital vs. analog signals',
+          'Microcontroller Basics: Architecture overview, GPIO, timers, interrupts',
+          'Lab: LED blinking, button input',
+        ],
+      },
+      {
+        title: 'Module 2: Programming for Embedded Systems (10 hours)',
+        topics: [
+          'Embedded C Fundamentals: Variables, loops, functions, Standard C vs embedded C',
+          'Development Tools: IDEs (Arduino IDE, Keil, MPLAB), Compilers and debuggers',
+          'Hands-on Labs: Sensor interfacing (temperature, light), PWM for motor control',
+        ],
+      },
+      {
+        title: 'Module 3: Communication & Interfaces (8 hours)',
+        topics: [
+          'Protocols: UART, SPI, I2C, CAN bus basics',
+          'Peripheral Interfacing: ADC/DAC, LCD/OLED displays',
+          'Lab: Multi-sensor integration, Display + input project',
+        ],
+      },
+      {
+        title: 'Module 4: Real-Time Systems & RTOS (8 hours)',
+        topics: [
+          'Real-Time Concepts: Polling vs. interrupts, Task scheduling',
+          'RTOS Basics: FreeRTOS introduction, Tasks, semaphores, queues',
+          'Lab: Implement multitasking with FreeRTOS',
+        ],
+      },
+      {
+        title: 'Module 5: Capstone & Industry Practices (6 hours)',
+        topics: [
+          'Capstone Project: IoT device with cloud backend, Robotics control system, or Industrial automation prototype',
+          'Professional Practices: Documentation & design patterns, Agile/DevOps in embedded development',
+        ],
+      },
+    ],
+    idealFor: 'Electronics engineers, hobbyists, computer science students interested in hardware.',
+    color: 'from-green-500 to-emerald-500',
+  },
+];
+
 const Programs = () => {
 
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -26,113 +133,6 @@ const Programs = () => {
   const toggleAccordion = (id) => {
     setActiveAccordion(activeAccordion === id ? null : id);
   };
-
-  const programs = [
-    {
-      id: 'devops',
-      title: 'DevOps Engineering',
-      duration: '6 Months',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-        </svg>
-      ),
-      description: 'Master CI/CD pipelines, cloud infrastructure, and automation. Become the bridge between development and operations.',
-      curriculum: [
-        'Linux & Scripting (Bash, Python)',
-        'Git & GitHub Workflows',
-        'Containerization with Docker',
-        'Orchestration with Kubernetes',
-        'Cloud Platforms (AWS / Azure)',
-      ],
-      outcomes: [
-        'Build, test, and deploy scalable applications',
-        'Automate infrastructure provisioning',
-        'Manage cloud environments effectively',
-      ],
-      idealFor: 'Engineers seeking ops roles, SREs, or cloud specialists.',
-      color: 'from-blue-500 to-cyan-500',
-    },
-    {
-      id: 'fullstack',
-      title: 'Full-Stack Development',
-      duration: '6 Months',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ),
-      description: 'Build dynamic, data-driven web applications from front to back. Master modern frameworks and databases.',
-      curriculum: [
-        'HTML5, CSS3, JavaScript (ES6+)',
-        'Frontend Frameworks (React / Vue.js)',
-        'Backend with Node.js & Express',
-        'Databases (MongoDB, PostgreSQL)',
-      ],
-      outcomes: [
-        'Create modern, responsive web applications',
-        'Work with both SQL and NoSQL databases',
-        'Understand the full development lifecycle',
-      ],
-      idealFor: 'Career changers, junior devs, or anyone wanting full-stack skills.',
-      color: 'from-purple-500 to-pink-500',
-    },
-    {
-      id: 'embedded',
-      title: 'Embedded Systems & IoT',
-      duration: '40 Hours',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-        </svg>
-      ),
-      description: 'Master the hardware-software interface. Dive into microcontrollers, real-time operating systems, and IoT protocols.',
-      modules: [
-        {
-          title: 'Module 1: Foundations of Embedded Systems (8 hours)',
-          topics: [
-            'Introduction: What is an embedded system?, Applications in IoT, automotive, robotics',
-            'Basic Electronics: Voltage, current, resistance, Ohm\'s law, Digital vs. analog signals',
-            'Microcontroller Basics: Architecture overview, GPIO, timers, interrupts',
-            'Lab: LED blinking, button input',
-          ],
-        },
-        {
-          title: 'Module 2: Programming for Embedded Systems (10 hours)',
-          topics: [
-            'Embedded C Fundamentals: Variables, loops, functions, Standard C vs embedded C',
-            'Development Tools: IDEs (Arduino IDE, Keil, MPLAB), Compilers and debuggers',
-            'Hands-on Labs: Sensor interfacing (temperature, light), PWM for motor control',
-          ],
-        },
-        {
-          title: 'Module 3: Communication & Interfaces (8 hours)',
-          topics: [
-            'Protocols: UART, SPI, I2C, CAN bus basics',
-            'Peripheral Interfacing: ADC/DAC, LCD/OLED displays',
-            'Lab: Multi-sensor integration, Display + input project',
-          ],
-        },
-        {
-          title: 'Module 4: Real-Time Systems & RTOS (8 hours)',
-          topics: [
-            'Real-Time Concepts: Polling vs. interrupts, Task scheduling',
-            'RTOS Basics: FreeRTOS introduction, Tasks, semaphores, queues',
-            'Lab: Implement multitasking with FreeRTOS',
-          ],
-        },
-        {
-          title: 'Module 5: Capstone & Industry Practices (6 hours)',
-          topics: [
-            'Capstone Project: IoT device with cloud backend, Robotics control system, or Industrial automation prototype',
-            'Professional Practices: Documentation & design patterns, Agile/DevOps in embedded development',
-          ],
-        },
-      ],
-      idealFor: 'Electronics engineers, hobbyists, computer science students interested in hardware.',
-      color: 'from-green-500 to-emerald-500',
-    },
-  ];
 
   return (
     <>

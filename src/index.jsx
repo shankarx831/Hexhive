@@ -29,3 +29,9 @@ root.render(
     </HelmetProvider>
   </React.StrictMode>
 );
+
+// Dispatch custom event for pre-rendering (help Puppeteer know when to capture)
+setTimeout(() => {
+  document.dispatchEvent(new Event('custom-render-trigger'));
+}, 1000);
+
