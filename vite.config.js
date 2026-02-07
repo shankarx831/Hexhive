@@ -1,8 +1,27 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import Sitemap from 'vite-plugin-sitemap';
+import compression from 'vite-plugin-compression';
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        Sitemap({
+            hostname: 'https://hexhive.solutions',
+            dynamicRoutes: [
+                '/',
+                '/programs',
+                '/register',
+                '/login',
+                '/business/become-instructor',
+                '/business/hire',
+                '/business/what-we-do',
+                '/business/why-hexhive',
+                '/legal'
+            ]
+        }),
+        compression({ algorithm: 'brotliCompress' }),
+    ],
     base: '/', // Matches your repo name for GH Pages compatibility later
     define: {
         'process.env.PUBLIC_URL': JSON.stringify(''),
@@ -13,5 +32,6 @@ export default defineConfig({
     },
     build: {
         outDir: 'build', // CRA outputs to 'build', maintaining this for scripts
+
     },
 });
