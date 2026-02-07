@@ -8,6 +8,7 @@ export default defineConfig({
         react(),
         Sitemap({
             hostname: 'https://hexhive.solutions',
+            outDir: 'build',
             dynamicRoutes: [
                 '/',
                 '/programs',
