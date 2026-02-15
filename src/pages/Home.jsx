@@ -390,7 +390,7 @@ const Home = () => {
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 px-2">Our Location</h3>
                   <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 h-[450px]">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.4876244766474!2d79.82777897507825!3d11.936093688256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5361ab8e49cfcf%3A0xcc6bd326d2f201d4!2sCanteen%20Street%2C%20Puducherry%2C%20India!5e0!3m2!1sen!2sus!4v1705681234567!5m2!1sen!2sus"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.555663496674!2d79.82685828209068!3d11.935980058104667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a536334f6111ab7%3A0xa1f480feb7152fef!2sHexhive%20Solutions!5e0!3m2!1sen!2sin!4v1771152460912!5m1!2sen!2sin"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
