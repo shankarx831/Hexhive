@@ -70,8 +70,8 @@ const InvoiceDocument = ({ data, totals, options }) => {
           <View style={styles.titleSection}>
             <Text style={styles.companyName}>HEXHIVE SOLUTIONS</Text>
             <Text style={{ ...styles.companyAddress, fontFamily: 'Helvetica-Bold' }}>Pondicherry - 605001,No.58, Canteen Street, First Floor</Text>
-            <Text style={styles.companyAddress}>Ph: +91 9751 397500 | Email: contact@hexhive.solutions</Text>
-            <Text style={styles.companyAddress}>GSTIN : 34AAAAA0000A1Z5   State Code : 34</Text>
+            <Text style={styles.companyAddress}>Ph: +91 9751 397500 | Email: contact@hexhivesolutions.com</Text>
+            <Text style={styles.companyAddress}>GSTIN : 34HYFPK1653H1ZE   State Code : 34</Text>
           </View>
         </View>
         <Text style={styles.taxTitle}>TAX INVOICE</Text>
