@@ -350,9 +350,9 @@ const Home = () => {
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Call Us</h3>
-                        <p className="text-gray-600 dark:text-gray-400">+97513 97500</p>
+                        <p className="text-gray-600 dark:text-gray-400">+91 9751 397500</p>
                         <p className="text-gray-500 dark:text-gray-500 text-sm">Mon - Sat: 9:00 AM - 6:00 PM</p>
-                        <a href="tel:+9751397500" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
+                        <a href="tel:+919751397500" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
                           Call Now
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </a>
@@ -372,9 +372,9 @@ const Home = () => {
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Email Us</h3>
-                        <p className="text-gray-600 dark:text-gray-400">contact@hexhive.solutions</p>
+                        <p className="text-gray-600 dark:text-gray-400">contact@hexhivesolutions.com</p>
                         <p className="text-gray-500 dark:text-gray-500 text-sm">We respond within 24 hours</p>
-                        <a href="mailto:contact@hexhive.solutions" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
+                        <a href="mailto:contact@hexhivesolutions.com" className="inline-flex items-center gap-1 mt-2 text-accent hover:text-accent-dark dark:hover:text-accent-light font-semibold text-sm transition-colors">
                           Send Email
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </a>

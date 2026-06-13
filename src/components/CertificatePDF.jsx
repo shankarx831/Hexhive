@@ -227,7 +227,7 @@ const CertificatePDF = ({ data }) => {
         <View style={styles.footerContainer}>
           <Text style={styles.addressText}>NO.58, CANTEEN STREET, FIRST FLOOR, PONDICHERRY - 605001</Text>
           <Text style={styles.regText}>GSTIN: 34HYFPK1653H1ZE</Text>
-          <Text style={styles.contactText}>9751 397500  | hexhive.solutions | hexhivesolutions@gmail.com</Text>
+          <Text style={styles.contactText}>+91 9751 397500  | hexhivesolutions.com | contact@hexhivesolutions.com</Text>
           <View style={styles.colorBar} />
         </View>
 

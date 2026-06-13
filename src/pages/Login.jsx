@@ -224,8 +224,8 @@ const Login = () => {
                         transition={{ delay: 0.6 }}
                     >
                         Need access? Contact{' '}
-                        <a href="mailto:admin@hexhive.solutions" className="text-accent hover:underline font-medium">
-                            admin@hexhive.solutions
+                        <a href="mailto:admin@hexhivesolutions.com" className="text-accent hover:underline font-medium">
+                            admin@hexhivesolutions.com
                         </a>
                     </motion.p>
                 </motion.div>

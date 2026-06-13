@@ -12,7 +12,7 @@ export default defineConfig({
     plugins: [
         react(),
         Sitemap({
-            hostname: 'https://hexhive.solutions',
+            hostname: 'https://hexhivesolutions.com',
             outDir: 'build',
             dynamicRoutes: [
                 '/',

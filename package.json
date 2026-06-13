@@ -2,7 +2,7 @@
   "name": "hexhive-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://hexhive.solutions",
+  "homepage": "https://hexhivesolutions.com",
   "dependencies": {
     "@formspree/react": "^3.0.0",
     "@react-pdf/renderer": "^3.1.14",

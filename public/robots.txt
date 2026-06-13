@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://hexhive.solutions/sitemap.xml
+Sitemap: https://hexhivesolutions.com/sitemap.xml

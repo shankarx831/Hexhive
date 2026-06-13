@@ -111,7 +111,7 @@ const Legal = () => {
 
                                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">5. Contact Us</h3>
                                             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                                If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@hexhive.solutions" className="text-accent hover:underline">privacy@hexhive.solutions</a>.
+                                                If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@hexhivesolutions.com" className="text-accent hover:underline">privacy@hexhivesolutions.com</a>.
                                             </p>
                                         </article>
                                     )}

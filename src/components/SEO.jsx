@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function SEO({ title, description, keywords, image }) {
     const { pathname } = useLocation();
-    const siteUrl = "https://hexhive.solutions";
+    const siteUrl = "https://hexhivesolutions.com";
     const siteTitle = "HexHive Solutions";
     const defaultDescription = "Transform your passion into a high-growth tech career with expert-led programs.";
     const defaultKeywords = "tech education, DevOps, full-stack, embedded systems";
