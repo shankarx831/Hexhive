@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { PDFViewer, usePDF } from '@react-pdf/renderer';
 import InvoiceDocument from '../components/InvoiceDocument';
+import InvoiceHtmlPreview from '../components/InvoiceHtmlPreview';
 import { FileText, Download, Plus, Trash2, Settings, Eye, EyeOff } from 'lucide-react';
 
 const InvoiceGenerator = () => {
   const [gstMode, setGstMode] = useState('inclusive');
   const [gstRate, setGstRate] = useState(18);
+  const [taxType, setTaxType] = useState('cgst_sgst');
+  const [previewMode, setPreviewMode] = useState('html'); // 'html' or 'pdf'
 
   const [displayOptions, setDisplayOptions] = useState({
     showBankDetails: true,
@@ -20,7 +23,7 @@ const InvoiceGenerator = () => {
     customerPhone: '',
     buyerGst: '',
     items: [
-      { id: 1, desc: 'Web Development Services', qty: 1, total: 1000 }
+      { id: 1, desc: 'Web Development Services', hsn: '998314', qty: 1, total: 1000 }
     ]
   });
 
@@ -29,15 +32,16 @@ const InvoiceGenerator = () => {
     data,
     gstMode,
     gstRate,
+    taxType,
     displayOptions
   });
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedState({ data, gstMode, gstRate, displayOptions });
+      setDebouncedState({ data, gstMode, gstRate, taxType, displayOptions });
     }, 800); // 800ms delay to stop flickering while typing
     return () => clearTimeout(timer);
-  }, [data, gstMode, gstRate, displayOptions]);
+  }, [data, gstMode, gstRate, taxType, displayOptions]);
 
   // --- HANDLERS ---
   const handleChange = (e) => setData({ ...data, [e.target.name]: e.target.value });
@@ -48,7 +52,7 @@ const InvoiceGenerator = () => {
     setData({ ...data, items: newItems });
   };
 
-  const addItem = () => setData({ ...data, items: [...data.items, { id: Date.now(), desc: '', qty: '', total: 0 }] });
+  const addItem = () => setData({ ...data, items: [...data.items, { id: Date.now(), desc: '', hsn: '', qty: '', total: 0 }] });
 
   const removeItem = (index) => {
     const newItems = data.items.filter((_, i) => i !== index);
@@ -59,7 +63,7 @@ const InvoiceGenerator = () => {
     setDisplayOptions(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const calculateTotals = (items, mode, rate) => {
+  const calculateTotals = (items, mode, rate, type = 'cgst_sgst') => {
     const rawTotal = items.reduce((acc, item) => acc + Number(item.total), 0);
     let subTotal, taxAmount, grandTotal;
 
@@ -73,17 +77,24 @@ const InvoiceGenerator = () => {
       taxAmount = subTotal * (rate / 100);
       grandTotal = Math.round(subTotal + taxAmount);
     }
-    return { subTotal, cgst: taxAmount / 2, sgst: taxAmount / 2, grandTotal, gstRate: rate };
+    
+    subTotal = Number(subTotal.toFixed(2));
+    taxAmount = Number(taxAmount.toFixed(2));
+    const cgst = type === 'igst' ? 0 : Number((taxAmount / 2).toFixed(2));
+    const sgst = type === 'igst' ? 0 : Number((taxAmount / 2).toFixed(2));
+    const igst = type === 'igst' ? Number(taxAmount.toFixed(2)) : 0;
+
+    return { subTotal, cgst, sgst, igst, totalTax: taxAmount, grandTotal, gstRate: rate, taxType: type };
   };
 
   // Calculate totals for Live Preview (Debounced)
   const previewTotals = useMemo(() =>
-    calculateTotals(debouncedState.data.items, debouncedState.gstMode, debouncedState.gstRate),
+    calculateTotals(debouncedState.data.items, debouncedState.gstMode, debouncedState.gstRate, debouncedState.taxType),
     [debouncedState]
   );
 
   // Calculate totals for Download Button (Instant)
-  const downloadTotals = calculateTotals(data.items, gstMode, gstRate);
+  const downloadTotals = calculateTotals(data.items, gstMode, gstRate, taxType);
 
   const inputClass = "w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md text-sm transition-all focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 bg-white dark:bg-gray-700 text-gray-900 dark:text-white";
 
@@ -129,17 +140,28 @@ const InvoiceGenerator = () => {
           {/* Tax Settings */}
           <div className="bg-cream/50 dark:bg-gray-700/50 p-4 rounded-lg border border-accent/20 dark:border-gray-600/50 mb-6 transition-colors duration-300 backdrop-blur-sm">
             <h3 className="text-xs font-bold text-primary dark:text-accent-light mb-3 uppercase tracking-wide transition-colors">Tax Settings</h3>
-            <div className="flex gap-4 mb-3">
+            <div className="flex flex-wrap gap-4 mb-3">
               <label className="flex items-center cursor-pointer">
                 <input type="radio" checked={gstMode === 'inclusive'} onChange={() => setGstMode('inclusive')} className="mr-2 accent-primary" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 ml-2">Inclusive GST</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Inclusive GST</span>
               </label>
               <label className="flex items-center cursor-pointer">
                 <input type="radio" checked={gstMode === 'exclusive'} onChange={() => setGstMode('exclusive')} className="mr-2 accent-primary" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 ml-2">Exclusive GST</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">Exclusive GST</span>
               </label>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap gap-4 mb-3 border-t border-gray-200 dark:border-gray-600 pt-3">
+              <span className="text-xs font-bold text-gray-600 dark:text-gray-300 self-center">Tax Type:</span>
+              <label className="flex items-center cursor-pointer">
+                <input type="radio" checked={taxType === 'cgst_sgst'} onChange={() => setTaxType('cgst_sgst')} className="mr-2 accent-primary" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">CGST + SGST (9% + 9%)</span>
+              </label>
+              <label className="flex items-center cursor-pointer">
+                <input type="radio" checked={taxType === 'igst'} onChange={() => setTaxType('igst')} className="mr-2 accent-primary" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">IGST (18% Inter-state)</span>
+              </label>
+            </div>
+            <div className="flex items-center gap-2 border-t border-gray-200 dark:border-gray-600 pt-3">
               <span className="text-xs font-bold text-gray-600 dark:text-gray-300">GST Slab:</span>
               {[0, 5, 12, 18].map(rate => (
                 <button key={rate} onClick={() => setGstRate(rate)}
@@ -185,16 +207,28 @@ const InvoiceGenerator = () => {
                   className={`${inputClass} mb-2 font-mono`} />
                 <div className="flex gap-2">
                   <div className="w-1/3">
+                    <label className="text-[10px] uppercase font-bold text-gray-400">HSN/SAC</label>
+                    <input list="hsn-codes" value={item.hsn || ''} onChange={(e) => handleItemChange(index, 'hsn', e.target.value)} className={inputClass} placeholder="Code" />
+                  </div>
+                  <div className="w-1/3">
                     <label className="text-[10px] uppercase font-bold text-gray-400">Qty</label>
                     <input type="number" value={item.qty} onChange={(e) => handleItemChange(index, 'qty', e.target.value)} className={inputClass} />
                   </div>
-                  <div className="w-2/3">
-                    <label className="text-[10px] uppercase font-bold text-gray-400">{gstMode === 'inclusive' ? 'Total (Inc. Tax)' : 'Price (Exc. Tax)'}</label>
+                  <div className="w-1/3">
+                    <label className="text-[10px] uppercase font-bold text-gray-400">{gstMode === 'inclusive' ? 'Total (Inc. Tax)' : 'Total (Exc. Tax)'}</label>
                     <input type="number" value={item.total} onChange={(e) => handleItemChange(index, 'total', e.target.value)} className={inputClass} />
                   </div>
                 </div>
               </div>
             ))}
+            
+            <datalist id="hsn-codes">
+              <option value="999293">Commercial training and coaching services (18% GST)</option>
+              <option value="999294">Other education and training services (18% GST)</option>
+              <option value="998313">IT consulting and support services (18% GST)</option>
+              <option value="998314">IT design and development services (18% GST)</option>
+              <option value="998319">Other IT services (18% GST)</option>
+            </datalist>
           </div>
         </div>
 
@@ -209,43 +243,77 @@ const InvoiceGenerator = () => {
         </div>
       </div>
 
-      {/* RIGHT: LIVE PREVIEW (Uses PDFViewer directly to avoid crashes) */}
-      <div className="hidden md:block w-[60%] h-full bg-gray-800">
-        <PDFViewer width="100%" height="100%" className="border-none w-full h-full" showToolbar={true}>
-          <InvoiceDocument
-            data={debouncedState.data}
-            totals={previewTotals}
-            options={debouncedState.displayOptions}
-          />
-        </PDFViewer>
+      {/* RIGHT: LIVE PREVIEW */}
+      <div className="hidden md:flex flex-col w-[60%] h-full bg-gray-800 border-l border-gray-700">
+        <div className="flex justify-between items-center px-4 py-2 bg-gray-900 border-b border-gray-700">
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">Preview Mode</span>
+          <div className="flex bg-gray-800 rounded p-1 border border-gray-700">
+            <button
+              type="button"
+              onClick={() => setPreviewMode('html')}
+              className={`px-3 py-1 rounded text-xs font-bold transition-all ${previewMode === 'html' ? 'bg-primary text-white shadow' : 'text-gray-400 hover:text-white'}`}
+            >
+              ⚡ Live Paper (No Blink)
+            </button>
+            <button
+              type="button"
+              onClick={() => setPreviewMode('pdf')}
+              className={`px-3 py-1 rounded text-xs font-bold transition-all ${previewMode === 'pdf' ? 'bg-primary text-white shadow' : 'text-gray-400 hover:text-white'}`}
+            >
+              📄 PDF Viewer
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 overflow-hidden">
+          {previewMode === 'html' ? (
+            <InvoiceHtmlPreview
+              data={data}
+              totals={downloadTotals}
+              options={displayOptions}
+            />
+          ) : (
+            <PDFViewer width="100%" height="100%" className="border-none w-full h-full" showToolbar={true}>
+              <InvoiceDocument
+                data={debouncedState.data}
+                totals={previewTotals}
+                options={debouncedState.displayOptions}
+              />
+            </PDFViewer>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-// --- ISOLATED DOWNLOAD BUTTON COMPONENT ---
+// --- ISOLATED DOWNLOAD BUTTON COMPONENT (No Blink / No Flash) ---
 const DownloadButton = ({ data, totals, invNo, options }) => {
   const [instance, updateInstance] = usePDF({
     document: <InvoiceDocument data={data} totals={totals} options={options} />
   });
 
-  // Force update when data changes
+  // Debounce background PDF generation so it doesn't thrash while typing
   useEffect(() => {
-    updateInstance(<InvoiceDocument data={data} totals={totals} options={options} />);
+    const timer = setTimeout(() => {
+      updateInstance(<InvoiceDocument data={data} totals={totals} options={options} />);
+    }, 500);
+    return () => clearTimeout(timer);
   }, [data, totals, options, updateInstance]);
 
-  if (instance.loading) {
-    return <button disabled className="w-full bg-gray-300 text-gray-500 font-bold py-3 rounded-lg cursor-wait">Preparing PDF...</button>;
-  }
-
-  if (instance.error) {
-    return <button disabled className="w-full bg-red-100 text-red-500 font-bold py-3 rounded-lg">Error Generating PDF</button>;
-  }
-
   return (
-    <a href={instance.url} download={`Invoice_${invNo}.pdf`}
-      className="flex justify-center items-center w-full bg-primary hover:bg-primary-light text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
-      <Download className="mr-2 h-5 w-5" /> Download Final PDF
+    <a
+      href={instance.url || '#'}
+      download={`Invoice_${invNo || 'draft'}.pdf`}
+      onClick={(e) => {
+        if (!instance.url || instance.loading) {
+          e.preventDefault();
+          updateInstance(<InvoiceDocument data={data} totals={totals} options={options} />);
+        }
+      }}
+      className="flex justify-center items-center w-full bg-primary hover:bg-primary-light text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer select-none"
+    >
+      <Download className={`mr-2 h-5 w-5 ${instance.loading ? 'animate-pulse opacity-75' : ''}`} />
+      Download Final PDF
     </a>
   );
 };

@@ -56,7 +56,7 @@ The application is a **Single Page Application (SPA)** that runs entirely in the
 
 ### Prerequisites
 *   Node.js (v16+)
-*   npm
+*   Bun (v1.0+)
 
 ### Installation
 
@@ -68,7 +68,7 @@ git clone https://github.com/shankarx831/Hexhive.git
 cd hexhive-app
 
 # Install dependencies
-npm install
+bun install
 ```
 
 ### Development Server
@@ -76,9 +76,9 @@ npm install
 Start the fast Vite development server:
 
 ```bash
-npm start
+bun start
 # OR
-npm run dev
+bun run dev
 ```
 
 Runs on [http://localhost:3000](http://localhost:3000).
@@ -88,7 +88,7 @@ Runs on [http://localhost:3000](http://localhost:3000).
 Create an optimized build in the `build/` directory:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ---
@@ -128,15 +128,15 @@ We use a custom shell script to handle building, committing, and deploying in on
 1.  Prompts for a commit message.
 2.  Commits all changes to the `main` branch.
 3.  Pushes to GitHub.
-4.  Runs `npm run build` (Vite build).
-5.  Runs `gh-pages -d build` to publish to the `gh-pages` branch.
+4.  Runs `bun run build` (Vite build).
+5.  Runs `bun run deploy` (or `gh-pages -d build`) to publish to the `gh-pages` branch.
 
 ### Manual Deployment
 If you prefer manual deployment:
 
 ```bash
-npm run build
-npm run deploy
+bun run build
+bun run deploy
 ```
 
 ---

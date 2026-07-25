@@ -1,5 +1,8 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+
+// Disable hyphenation completely
+Font.registerHyphenationCallback(word => [word]);
 
 // HexHive Theme Colors
 const COLOR_DARK = '#0F3D3E';
@@ -181,8 +184,8 @@ const CertificatePDF = ({ data }) => {
         <View style={styles.header}>
           <Image src={process.env.PUBLIC_URL + "/favicon_transparent.png"} style={styles.logoImage} />
           <View style={styles.logoTextCol}>
-            <Text style={styles.logoTitle}>hexhive</Text>
-            <Text style={styles.logoSubtitle}>solutions</Text>
+            <Text style={styles.logoTitle}>HEXHIVE</Text>
+            <Text style={styles.logoSubtitle}>SOLUTIONS</Text>
           </View>
         </View>
 

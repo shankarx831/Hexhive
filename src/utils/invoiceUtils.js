@@ -17,5 +17,5 @@ export const numberToWords = (num) => {
   str += (Number(n[4]) !== 0) ? (a[Number(n[4])] || b[n[4][0]] + " " + a[n[4][1]]) + "Hundred " : "";
   str += (Number(n[5]) !== 0) ? ((str !== "") ? "and " : "") + (a[Number(n[5])] || b[n[5][0]] + " " + a[n[5][1]]) : "";
 
-  return str.trim() + " only";
+  return str.trim();
 };

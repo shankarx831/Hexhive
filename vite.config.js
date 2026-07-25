@@ -31,7 +31,6 @@ export default defineConfig({
             routes: ['/', '/programs', '/register', '/login'],
             renderer: new Renderer({
                 renderAfterDocumentEvent: 'custom-render-trigger',
-                renderAfterTime: 10000,
                 headless: true,
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
             }),

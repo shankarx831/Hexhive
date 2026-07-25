@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import { numberToWords } from '../utils/invoiceUtils';
 
 // Register standard fonts
@@ -12,168 +12,372 @@ Font.register({
   ]
 });
 
-const COLOR_PRIMARY = '#004030';
-const COLOR_ACCENT = '#4A9782';
-
 const styles = StyleSheet.create({
-  page: { padding: 30, paddingTop: 120, fontFamily: 'Helvetica', fontSize: 10, lineHeight: 1.2 },
-  header: { position: 'absolute', top: 30, left: 30, right: 30, height: 90, flexDirection: 'row' },
-  separator: { height: 2, backgroundColor: COLOR_PRIMARY, marginTop: 5, marginBottom: 15 },
-  logoImage: { width: 70, height: 70, objectFit: 'contain', marginRight: 20 },
-  titleSection: { flexGrow: 1, justifyContent: 'center', alignItems: 'flex-end' },
-  companyName: { fontSize: 24, fontFamily: 'Helvetica-Bold', textTransform: 'uppercase', color: COLOR_PRIMARY, marginBottom: -1 },
-  companyAddress: { fontSize: 9, color: '#444', textAlign: 'right', marginBottom: 2 },
-  taxTitle: { fontSize: 14, fontFamily: 'Helvetica-Bold', color: COLOR_ACCENT, marginTop: 15, textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center', width: '100%' },
-  metaContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 10 },
-  metaGroup: { width: '48%' },
-  row: { flexDirection: 'row', marginBottom: 4 },
-  label: { width: 70, fontFamily: 'Helvetica-Bold', fontSize: 9, color: '#555' },
-  value: { flex: 1, fontSize: 9, fontFamily: 'Helvetica' },
-  gstBar: { borderTopWidth: 1, borderBottomWidth: 1, borderColor: '#e5e7eb', backgroundColor: '#f9fafb', flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4, paddingHorizontal: 4, marginBottom: 10 },
-  gstText: { fontSize: 9, color: '#333' },
-  tableContainer: { marginTop: 0, borderWidth: 1, borderColor: '#e5e7eb' },
-  tableHeader: { flexDirection: 'row', backgroundColor: COLOR_PRIMARY, color: 'white', height: 24, alignItems: 'center', textAlign: 'center', fontFamily: 'Helvetica-Bold', fontSize: 9 },
-  col1: { width: '8%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4 },
-  col2: { width: '62%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4, textAlign: 'left' },
-  col3: { width: '12%', borderRightWidth: 1, borderColor: '#e5e7eb', height: '100%', padding: 4 },
-  col4: { width: '18%', height: '100%', padding: 4, textAlign: 'right' },
-  rowStyle: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#f3f4f6', alignItems: 'flex-start', fontSize: 10, paddingVertical: 0 },
-  footerSection: { flexDirection: 'row', borderTopWidth: 2, borderTopColor: COLOR_PRIMARY, paddingTop: 10, marginTop: 0 },
-  footerLeft: { width: '60%', paddingRight: 20 },
-  bankBox: { backgroundColor: '#f9fafb', padding: 8, borderRadius: 4, borderWidth: 1, borderColor: '#e5e7eb' },
-  bankTitle: { fontFamily: 'Helvetica-Bold', fontSize: 9, color: COLOR_PRIMARY, marginBottom: 4, textTransform: 'uppercase' },
-  bankText: { fontSize: 9, marginBottom: 2, color: '#333' },
-  footerRight: { width: '40%' },
-  totalRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 3, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-  totalLabel: { fontFamily: 'Helvetica', fontSize: 10, color: '#555' },
-  totalValue: { fontFamily: 'Helvetica-Bold', fontSize: 10, color: '#000' },
-  grandTotalRow: { flexDirection: 'row', justifyContent: 'space-between', backgroundColor: COLOR_PRIMARY, padding: 6, marginTop: 5, borderRadius: 2 },
-  grandTotalText: { color: 'white', fontFamily: 'Helvetica-Bold', fontSize: 12 },
-  signatureArea: { marginTop: 30, alignItems: 'flex-end', paddingRight: 10 }
+  page: { padding: 20, fontFamily: 'Helvetica', fontSize: 8, lineHeight: 1.2 },
+  title: { fontSize: 12, fontFamily: 'Helvetica-Bold', textAlign: 'center', marginBottom: 5 },
+  box: { borderWidth: 1, borderColor: '#000', flexGrow: 1, display: 'flex', flexDirection: 'column' },
+  row: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#000' },
+  colHalf: { width: '50%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  colHalfNoBorder: { width: '50%' },
+  
+  gridRow: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#000', flexGrow: 1 },
+  gridCell: { width: '50%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  gridCellLast: { width: '50%', padding: 4 },
+  
+  bold: { fontFamily: 'Helvetica-Bold' },
+  
+  // Table
+  tableHeader: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#000', textAlign: 'center', fontFamily: 'Helvetica-Bold' },
+  th1: { width: '5%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th2: { width: '45%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th3: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th4: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th5: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th6: { width: '5%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  th7: { width: '15%', padding: 4 },
+  
+  // Table Row
+  tr: { flexDirection: 'row' },
+  td1: { width: '5%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'center' },
+  td2: { width: '45%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  td3: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'center' },
+  td4: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'center' },
+  td5: { width: '10%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'right' },
+  td6: { width: '5%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'center' },
+  td7: { width: '15%', padding: 4, textAlign: 'right' },
+  tdGst: { width: '80%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'right', fontFamily: 'Helvetica-Bold', fontStyle: 'italic', paddingRight: 12 },
+  
+  // Table Fill (to stretch the borders to bottom)
+  tableFill: { flexDirection: 'row', flexGrow: 1, borderBottomWidth: 1, borderColor: '#000' },
+  tf1: { width: '5%', borderRightWidth: 1, borderColor: '#000' },
+  tf2: { width: '45%', borderRightWidth: 1, borderColor: '#000' },
+  tf3: { width: '10%', borderRightWidth: 1, borderColor: '#000' },
+  tf4: { width: '10%', borderRightWidth: 1, borderColor: '#000' },
+  tf5: { width: '10%', borderRightWidth: 1, borderColor: '#000' },
+  tf6: { width: '5%', borderRightWidth: 1, borderColor: '#000' },
+  tf7: { width: '15%' },
+
+  // Tax Table
+  taxTableHeader: { flexDirection: 'row', borderBottomWidth: 1, borderColor: '#000' },
+  taxTh1: { width: '25%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'center', fontFamily: 'Helvetica-Bold' },
+  taxTh2: { width: '15%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'right', fontFamily: 'Helvetica-Bold' },
+  taxTh3: { width: '20%', borderRightWidth: 1, borderColor: '#000' },
+  taxTh5: { width: '20%', padding: 4, textAlign: 'right', fontFamily: 'Helvetica-Bold', alignSelf: 'center' },
+  
+  taxTd1: { width: '25%', borderRightWidth: 1, borderColor: '#000', padding: 4 },
+  taxTd2: { width: '15%', borderRightWidth: 1, borderColor: '#000', padding: 4, textAlign: 'right' },
+  taxTd3: { width: '20%', borderRightWidth: 1, borderColor: '#000', flexDirection: 'row' },
+  taxTd5: { width: '20%', padding: 4, textAlign: 'right' },
+  
+  taxSubTh: { borderBottomWidth: 1, borderColor: '#000', width: '100%', textAlign: 'center', paddingVertical: 2, fontFamily: 'Helvetica-Bold' },
+  taxSubThRow: { flexDirection: 'row', flexGrow: 1 },
+  taxSubThRate: { width: '40%', borderRightWidth: 1, borderColor: '#000', textAlign: 'center', paddingVertical: 2, fontFamily: 'Helvetica-Bold' },
+  taxSubThAmt: { width: '60%', textAlign: 'center', paddingVertical: 2, fontFamily: 'Helvetica-Bold' },
+  
+  taxSubTdRate: { width: '40%', borderRightWidth: 1, borderColor: '#000', textAlign: 'center', padding: 4 },
+  taxSubTdAmt: { width: '60%', textAlign: 'right', padding: 4 },
 });
 
 const InvoiceDocument = ({ data, totals, options }) => {
   const halfRate = totals.gstRate / 2;
-  // Construct absolute URL for the logo, compatible with local and production (GitHub Pages)
-  const logoUrl = window.location.origin + (process.env.PUBLIC_URL || '') + '/favicon_transparent.png';
+  const showBank = options?.showBankDetails !== false;
+  const showGst = options?.showBuyerGst !== false;
 
-  // Fallback if options are undefined (prevents crash)
-  const showBank = options?.showBankDetails !== false; // Default true
-  const showGst = options?.showBuyerGst !== false;     // Default true
+  const totalQty = data.items.reduce((acc, item) => acc + Number(item.qty || 0), 0);
+  const primaryHsn = data.items.length > 0 ? (data.items[0].hsn || '') : '';
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-
-        <View style={styles.header} fixed>
-          <Image src={logoUrl} style={styles.logoImage} />
-          <View style={styles.titleSection}>
-            <Text style={styles.companyName}>HEXHIVE SOLUTIONS</Text>
-            <Text style={{ ...styles.companyAddress, fontFamily: 'Helvetica-Bold' }}>Pondicherry - 605001,No.58, Canteen Street, First Floor</Text>
-            <Text style={styles.companyAddress}>Ph: +91 9751 397500 | Email: contact@hexhivesolutions.com</Text>
-            <Text style={styles.companyAddress}>GSTIN : 34HYFPK1653H1ZE   State Code : 34</Text>
-          </View>
-        </View>
-        <Text style={styles.taxTitle}>TAX INVOICE</Text>
-        <View style={styles.separator} />        <View style={styles.metaContainer}>
-          <View style={styles.metaGroup}>
-            <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>BILL TO:</Text>
-            <View style={styles.row}><Text style={styles.label}>Name:</Text><Text style={styles.value}>{data.customerName}</Text></View>
-            <View style={styles.row}><Text style={styles.label}>Address:</Text><Text style={styles.value}>{data.customerAddr}</Text></View>
-            {data.customerPhone && (
-              <View style={styles.row}><Text style={styles.label}>Phone:</Text><Text style={styles.value}>{data.customerPhone}</Text></View>
-            )}
-
-            {showGst && (
-              <View style={styles.row}><Text style={styles.label}>GSTIN:</Text><Text style={styles.value}>{data.buyerGst}</Text></View>
-            )}
-          </View>
-          <View style={styles.metaGroup}>
-            <Text style={{ fontFamily: 'Helvetica-Bold', color: COLOR_PRIMARY, fontSize: 11, marginBottom: 5 }}>INVOICE DETAILS:</Text>
-            <View style={styles.row}><Text style={styles.label}>Invoice No:</Text><Text style={styles.value}>{data.invNo}</Text></View>
-            <View style={styles.row}><Text style={styles.label}>Date:</Text><Text style={styles.value}>{data.date.split('-').reverse().join('.')} {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</Text></View>
-            <View style={styles.row}><Text style={styles.label}>Place of Supply:</Text><Text style={styles.value}>Pondicherry (34)</Text></View>
-          </View>
-        </View>
-
-        <View style={styles.gstBar}>
-          <View style={{ flexDirection: 'row' }}>
-            {showGst ? (
-              <>
-                <Text style={styles.gstText}>Buyer GSTIN:  </Text>
-                <Text style={{ ...styles.gstText, fontFamily: 'Helvetica-Bold' }}>{data.buyerGst}</Text>
-              </>
-            ) : (
-              <Text style={styles.gstText}>Consumer Invoice</Text>
-            )}
-          </View>
-          <View>
-            <Text style={styles.gstText}>State Code: <Text style={{ fontFamily: 'Helvetica-Bold' }}>34</Text></Text>
-          </View>
-        </View>
-
-        <View style={styles.tableContainer}>
-          <View style={styles.tableHeader}>
-            <Text style={styles.col1}>#</Text>
-            <Text style={styles.col2}>Description</Text>
-            <Text style={styles.col3}>Qty</Text>
-            <Text style={styles.col4}>Amount</Text>
-          </View>
-
-          {data.items.map((item, idx) => (
-            <View key={idx} style={styles.rowStyle}>
-              <Text style={[styles.col1]}>{idx + 1}</Text>
-              <Text style={[styles.col2]}>{item.desc}</Text>
-              <Text style={[styles.col3, { textAlign: 'center' }]}>{item.qty}</Text>
-              <Text style={[styles.col4]}>{Number(item.total).toLocaleString('en-IN')}</Text>
+        <Text style={styles.title}>Tax Invoice</Text>
+        
+        <View style={styles.box}>
+          {/* Row 1: Seller Info & Invoice Meta */}
+          <View style={styles.row}>
+            <View style={styles.colHalf}>
+              <Text style={styles.bold}>HEXHIVE SOLUTIONS</Text>
+              <Text>First Floor, No. 58, Canteen Street, Heritage Town,</Text>
+              <Text>Puducherry, Puducherry, 605001</Text>
+              <Text>GSTIN/UIN : 34HYFPK1653H1ZE</Text>
+              <Text>State Name : Puducherry, Code : 34</Text>
+              <Text>Contact : +91 9751 397500</Text>
+              <Text>E-Mail : contact@hexhivesolutions.com</Text>
             </View>
-          ))}
-        </View>
-
-        <View style={{ flexGrow: 1 }} />
-
-        <View style={styles.footerSection} wrap={false}>
-          <View style={styles.footerLeft}>
-            {showBank && (
-              <View style={styles.bankBox}>
-                <Text style={styles.bankTitle}>Bank Details</Text>
-                <View style={styles.row}><Text style={styles.label}>Bank:</Text><Text style={styles.bankText}>Indian Bank</Text></View>
-                <View style={styles.row}><Text style={styles.label}>A/C No:</Text><Text style={styles.bankText}>7894561230</Text></View>
-                <View style={styles.row}><Text style={styles.label}>IFSC:</Text><Text style={styles.bankText}>IDIB000P042</Text></View>
-                <View style={styles.row}><Text style={styles.label}>Branch:</Text><Text style={styles.bankText}>Pondicherry Main</Text></View>
+            <View style={styles.colHalfNoBorder}>
+              <View style={styles.gridRow}>
+                <View style={styles.gridCell}>
+                  <Text>Invoice No.</Text>
+                  <Text style={styles.bold}>{data.invNo}</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Dated</Text>
+                  <Text style={styles.bold}>{data.date ? data.date.split('-').reverse().join('-') : ''}</Text>
+                </View>
               </View>
-            )}
-            <Text style={{ marginTop: 10, fontSize: 9, fontStyle: 'italic' }}>
-              Amount in words: {numberToWords(totals.grandTotal)}
-            </Text>
-          </View>
-
-          <View style={styles.footerRight}>
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>Sub Total</Text>
-              <Text style={styles.totalValue}>{totals.subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Text>
-            </View>
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>CGST ({halfRate}%)</Text>
-              <Text style={styles.totalValue}>{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Text>
-            </View>
-            <View style={styles.totalRow}>
-              <Text style={styles.totalLabel}>SGST ({halfRate}%)</Text>
-              <Text style={styles.totalValue}>{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</Text>
-            </View>
-            <View style={styles.grandTotalRow}>
-              <Text style={styles.grandTotalText}>Grand Total</Text>
-              <Text style={styles.grandTotalText}>Rs. {totals.grandTotal.toLocaleString('en-IN')}</Text>
+              <View style={styles.gridRow}>
+                <View style={styles.gridCell}>
+                  <Text>Delivery Note</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Mode/Terms of Payment</Text>
+                </View>
+              </View>
+              <View style={[styles.gridRow, { borderBottomWidth: 0 }]}>
+                <View style={styles.gridCell}>
+                  <Text>Reference No. &amp; Date.</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Other References</Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
+          
+          {/* Row 2: Buyer Info & Delivery Meta */}
+          <View style={styles.row}>
+            <View style={styles.colHalf}>
+              <Text>Buyer (Bill to)</Text>
+              <Text style={styles.bold}>{data.customerName}</Text>
+              <Text>{data.customerAddr}</Text>
+              {data.customerPhone ? <Text>Contact : {data.customerPhone}</Text> : null}
+              {showGst && data.buyerGst ? <Text>GSTIN/UIN : {data.buyerGst}</Text> : null}
+              {showGst && data.buyerGst ? <Text>State Name : Puducherry, Code : 34</Text> : null}
+            </View>
+            <View style={styles.colHalfNoBorder}>
+              <View style={styles.gridRow}>
+                <View style={styles.gridCell}>
+                  <Text>Buyer's Order No.</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Dated</Text>
+                </View>
+              </View>
+              <View style={styles.gridRow}>
+                <View style={styles.gridCell}>
+                  <Text>Dispatch Doc No.</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Delivery Note Date</Text>
+                </View>
+              </View>
+              <View style={styles.gridRow}>
+                <View style={styles.gridCell}>
+                  <Text>Dispatched through</Text>
+                </View>
+                <View style={styles.gridCellLast}>
+                  <Text>Destination</Text>
+                </View>
+              </View>
+              <View style={[styles.gridRow, { borderBottomWidth: 0 }]}>
+                <View style={{ padding: 4 }}>
+                  <Text>Terms of Delivery</Text>
+                </View>
+              </View>
+            </View>
+          </View>
 
-        <View style={styles.signatureArea} wrap={false}>
-          <Text style={{ fontFamily: 'Helvetica-Bold', fontSize: 10, color: COLOR_PRIMARY }}>For HEXHIVE SOLUTIONS</Text>
-          <View style={{ height: 40 }} />
-          <Text style={{ fontSize: 8 }}>Authorized Signatory</Text>
-        </View>
+          {/* Table Header */}
+          <View style={styles.tableHeader}>
+            <Text style={styles.th1}>SI{'\n'}No.</Text>
+            <Text style={styles.th2}>Description of Goods</Text>
+            <Text style={styles.th3}>HSN/SAC</Text>
+            <Text style={styles.th4}>Quantity</Text>
+            <Text style={styles.th5}>Rate</Text>
+            <Text style={styles.th6}>per</Text>
+            <Text style={styles.th7}>Amount</Text>
+          </View>
 
+          {/* Table Items */}
+          {data.items.map((item, idx) => {
+             const rate = Number(item.qty) > 0 ? (Number(item.total) / Number(item.qty)) : Number(item.total);
+             return (
+              <View key={idx} style={styles.tr}>
+                <Text style={styles.td1}>{idx + 1}</Text>
+                <Text style={[styles.td2, styles.bold]}>{item.desc}</Text>
+                <Text style={styles.td3}>{item.hsn}</Text>
+                <Text style={[styles.td4, styles.bold]}>{item.qty} NOS</Text>
+                <Text style={styles.td5}>{rate.toFixed(2)}</Text>
+                <Text style={styles.td6}>NOS</Text>
+                <Text style={[styles.td7, styles.bold]}>{Number(item.total).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+             );
+          })}
+          
+          {/* GST lines inside the table right after items */}
+          {totals.igst > 0 ? (
+            <View style={styles.tr}>
+              <Text style={styles.td1}></Text>
+              <Text style={styles.tdGst}>IGST OUTPUT</Text>
+              <Text style={[styles.td7, styles.bold]}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+            </View>
+          ) : (totals.cgst > 0 && (
+            <>
+              <View style={styles.tr}>
+                <Text style={styles.td1}></Text>
+                <Text style={styles.tdGst}>CGST OUTPUT</Text>
+                <Text style={[styles.td7, styles.bold]}>{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+              <View style={styles.tr}>
+                <Text style={styles.td1}></Text>
+                <Text style={styles.tdGst}>SGST OUTPUT</Text>
+                <Text style={[styles.td7, styles.bold]}>{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+            </>
+          ))}
+
+          <View style={styles.tableFill}>
+            <View style={styles.tf1}></View>
+            <View style={styles.tf2}></View>
+            <View style={styles.tf3}></View>
+            <View style={styles.tf4}></View>
+            <View style={styles.tf5}></View>
+            <View style={styles.tf6}></View>
+            <View style={styles.tf7}></View>
+          </View>
+
+          {/* Table Totals */}
+          <View style={styles.row}>
+            <Text style={styles.td1}></Text>
+            <Text style={[styles.td2, styles.bold, { textAlign: 'right' }]}>Total</Text>
+            <Text style={styles.td3}></Text>
+            <Text style={[styles.td4, styles.bold]}>{totalQty} NOS</Text>
+            <Text style={styles.td5}></Text>
+            <Text style={styles.td6}></Text>
+            <Text style={[styles.td7, styles.bold]}>₹{totals.grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+          </View>
+
+          {/* Amount in words */}
+          <View style={[styles.row, { padding: 4, flexDirection: 'column' }]}>
+            <Text>Amount Chargeable (in words)</Text>
+            <Text style={[styles.bold, { marginTop: 2 }]}>RUPEES {numberToWords(totals.grandTotal).toUpperCase()} ONLY</Text>
+          </View>
+
+          {/* Tax Table */}
+          {totals.igst > 0 ? (
+            <>
+              <View style={styles.taxTableHeader}>
+                <Text style={styles.taxTh1}>HSN/SAC</Text>
+                <Text style={styles.taxTh2}>Taxable{'\n'}Value</Text>
+                <View style={[styles.taxTh3, { width: '46%' }]}>
+                  <Text style={styles.taxSubTh}>Integrated Tax</Text>
+                  <View style={styles.taxSubThRow}>
+                    <Text style={styles.taxSubThRate}>Rate</Text>
+                    <Text style={styles.taxSubThAmt}>Amount</Text>
+                  </View>
+                </View>
+                <Text style={styles.taxTh5}>Total{'\n'}Tax Amount</Text>
+              </View>
+              
+              <View style={styles.tr}>
+                <Text style={styles.taxTd1}>{primaryHsn}</Text>
+                <Text style={styles.taxTd2}>{totals.subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                <View style={[styles.taxTd3, { width: '46%' }]}>
+                  <Text style={styles.taxSubTdRate}>{totals.gstRate}%</Text>
+                  <Text style={styles.taxSubTdAmt}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <Text style={styles.taxTd5}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+
+              {/* Tax Totals Row */}
+              <View style={[styles.tr, { borderBottomWidth: 1, borderColor: '#000' }]}>
+                <Text style={[styles.taxTd1, styles.bold, { textAlign: 'right' }]}>Total</Text>
+                <Text style={[styles.taxTd2, styles.bold]}>{totals.subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                <View style={[styles.taxTd3, { width: '46%' }]}>
+                  <Text style={styles.taxSubTdRate}></Text>
+                  <Text style={[styles.taxSubTdAmt, styles.bold]}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <Text style={[styles.taxTd5, styles.bold]}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.taxTableHeader}>
+                <Text style={styles.taxTh1}>HSN/SAC</Text>
+                <Text style={styles.taxTh2}>Taxable{'\n'}Value</Text>
+                <View style={styles.taxTh3}>
+                  <Text style={styles.taxSubTh}>Central Tax</Text>
+                  <View style={styles.taxSubThRow}>
+                    <Text style={styles.taxSubThRate}>Rate</Text>
+                    <Text style={styles.taxSubThAmt}>Amount</Text>
+                  </View>
+                </View>
+                <View style={styles.taxTh3}>
+                  <Text style={styles.taxSubTh}>State Tax</Text>
+                  <View style={styles.taxSubThRow}>
+                    <Text style={styles.taxSubThRate}>Rate</Text>
+                    <Text style={styles.taxSubThAmt}>Amount</Text>
+                  </View>
+                </View>
+                <Text style={styles.taxTh5}>Total{'\n'}Tax Amount</Text>
+              </View>
+              
+              <View style={styles.tr}>
+                <Text style={styles.taxTd1}>{primaryHsn}</Text>
+                <Text style={styles.taxTd2}>{totals.subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                <View style={styles.taxTd3}>
+                  <Text style={styles.taxSubTdRate}>{halfRate}%</Text>
+                  <Text style={styles.taxSubTdAmt}>{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <View style={styles.taxTd3}>
+                  <Text style={styles.taxSubTdRate}>{halfRate}%</Text>
+                  <Text style={styles.taxSubTdAmt}>{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <Text style={styles.taxTd5}>{(totals.cgst + totals.sgst).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+
+              {/* Tax Totals Row */}
+              <View style={[styles.tr, { borderBottomWidth: 1, borderColor: '#000' }]}>
+                <Text style={[styles.taxTd1, styles.bold, { textAlign: 'right' }]}>Total</Text>
+                <Text style={[styles.taxTd2, styles.bold]}>{totals.subTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                <View style={styles.taxTd3}>
+                  <Text style={styles.taxSubTdRate}></Text>
+                  <Text style={[styles.taxSubTdAmt, styles.bold]}>{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <View style={styles.taxTd3}>
+                  <Text style={styles.taxSubTdRate}></Text>
+                  <Text style={[styles.taxSubTdAmt, styles.bold]}>{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                </View>
+                <Text style={[styles.taxTd5, styles.bold]}>{(totals.cgst + totals.sgst).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+              </View>
+            </>
+          )}
+
+          {/* Tax Amount in words */}
+          <View style={[styles.row, { padding: 4 }]}>
+            <Text>Tax Amount (in words) : <Text style={styles.bold}>RUPEES {numberToWords(Math.round(totals.totalTax || (totals.cgst + totals.sgst + (totals.igst || 0)))).toUpperCase()} ONLY</Text></Text>
+          </View>
+
+          {/* Footer Info */}
+          <View style={{ flexDirection: 'row' }}>
+            <View style={[styles.colHalf, { borderRightWidth: 1, borderColor: '#000', padding: 4, display: 'flex', flexDirection: 'column' }]}>
+              <Text style={{ marginBottom: 15 }}>Company's PAN : <Text style={styles.bold}>HYFPK1653H</Text></Text>
+              <Text style={{ textDecoration: 'underline' }}>Declaration</Text>
+              <Text>We declare that this invoice shows the actual price of the</Text>
+              <Text>goods described and that all particulars are true and correct.</Text>
+            </View>
+            <View style={styles.colHalfNoBorder}>
+              {showBank ? (
+                <View style={{ borderBottomWidth: 1, borderColor: '#000', padding: 4 }}>
+                  <Text style={[styles.bold, { textDecoration: 'underline', marginBottom: 2 }]}>Company's Bank Details</Text>
+                  <View style={{ flexDirection: 'row' }}><Text style={{ width: 85 }}>Bank Name</Text><Text style={styles.bold}>: Axis Bank</Text></View>
+                  <View style={{ flexDirection: 'row' }}><Text style={{ width: 85 }}>A/c No.</Text><Text style={styles.bold}>: 926020005853817</Text></View>
+                  <View style={{ flexDirection: 'row' }}><Text style={{ width: 85 }}>Branch</Text><Text style={styles.bold}>: PONDICHERRY MAIN BRANCH</Text></View>
+                  <View style={{ flexDirection: 'row' }}><Text style={{ width: 85 }}>IFS Code</Text><Text style={styles.bold}>: UTIB0000209</Text></View>
+                  <View style={{ flexDirection: 'row' }}><Text style={{ width: 85 }}>SWIFT Code</Text><Text style={styles.bold}>: AXISINBBA19</Text></View>
+                </View>
+              ) : (
+                <View style={{ borderBottomWidth: 1, borderColor: '#000', padding: 4 }}>
+                </View>
+              )}
+              <View style={{ padding: 4 }}>
+                <Text style={[styles.bold, { textAlign: 'right' }]}>for HEXHIVE SOLUTIONS</Text>
+                <Text style={{ textAlign: 'right', marginTop: 35 }}>Authorised Signatory</Text>
+              </View>
+            </View>
+          </View>
+          
+        </View>
+        <Text style={{ textAlign: 'center', marginTop: 5 }}>This is a Computer Generated Invoice</Text>
       </Page>
     </Document>
   );
