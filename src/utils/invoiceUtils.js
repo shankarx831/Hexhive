@@ -2,9 +2,10 @@ export const numberToWords = (num) => {
   const a = ["", "One ", "Two ", "Three ", "Four ", "Five ", "Six ", "Seven ", "Eight ", "Nine ", "Ten ", "Eleven ", "Twelve ", "Thirteen ", "Fourteen ", "Fifteen ", "Sixteen ", "Seventeen ", "Eighteen ", "Nineteen "];
   const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
 
-  if (num === 0) return "Zero";
+  const integerNum = Math.round(Math.abs(Number(num) || 0));
+  if (integerNum === 0) return "Zero";
   
-  const numStr = num.toString();
+  const numStr = integerNum.toString();
   if (numStr.length > 9) return "Overflow"; 
 
   const n = ("000000000" + numStr).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);

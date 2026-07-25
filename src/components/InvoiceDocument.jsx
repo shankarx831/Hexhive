@@ -189,7 +189,12 @@ const InvoiceDocument = ({ data, totals, options }) => {
 
           {/* Table Items */}
           {data.items.map((item, idx) => {
-             const rate = Number(item.qty) > 0 ? (Number(item.total) / Number(item.qty)) : Number(item.total);
+             const rawTotal = Number(item.total || 0);
+             const itemAmount = (totals.mode === 'inclusive' && totals.gstRate > 0)
+               ? (rawTotal / (1 + totals.gstRate / 100))
+               : rawTotal;
+             const qty = Number(item.qty || 1);
+             const rate = qty > 0 ? (itemAmount / qty) : itemAmount;
              return (
               <View key={idx} style={styles.tr}>
                 <Text style={styles.td1}>{idx + 1}</Text>
@@ -198,28 +203,40 @@ const InvoiceDocument = ({ data, totals, options }) => {
                 <Text style={[styles.td4, styles.bold]}>{item.qty} NOS</Text>
                 <Text style={styles.td5}>{rate.toFixed(2)}</Text>
                 <Text style={styles.td6}>NOS</Text>
-                <Text style={[styles.td7, styles.bold]}>{Number(item.total).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                <Text style={[styles.td7, styles.bold]}>{itemAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
               </View>
              );
           })}
           
-          {/* GST lines inside the table right after items */}
+          {/* GST lines inside the table with 7 aligned columns */}
           {totals.igst > 0 ? (
             <View style={styles.tr}>
               <Text style={styles.td1}></Text>
-              <Text style={styles.tdGst}>IGST OUTPUT</Text>
+              <Text style={[styles.td2, styles.bold, { textAlign: 'right', fontStyle: 'italic' }]}>IGST OUTPUT</Text>
+              <Text style={styles.td3}></Text>
+              <Text style={styles.td4}></Text>
+              <Text style={styles.td5}></Text>
+              <Text style={styles.td6}></Text>
               <Text style={[styles.td7, styles.bold]}>{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
             </View>
           ) : (totals.cgst > 0 && (
             <>
               <View style={styles.tr}>
                 <Text style={styles.td1}></Text>
-                <Text style={styles.tdGst}>CGST OUTPUT</Text>
+                <Text style={[styles.td2, styles.bold, { textAlign: 'right', fontStyle: 'italic' }]}>CGST OUTPUT</Text>
+                <Text style={styles.td3}></Text>
+                <Text style={styles.td4}></Text>
+                <Text style={styles.td5}></Text>
+                <Text style={styles.td6}></Text>
                 <Text style={[styles.td7, styles.bold]}>{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
               </View>
               <View style={styles.tr}>
                 <Text style={styles.td1}></Text>
-                <Text style={styles.tdGst}>SGST OUTPUT</Text>
+                <Text style={[styles.td2, styles.bold, { textAlign: 'right', fontStyle: 'italic' }]}>SGST OUTPUT</Text>
+                <Text style={styles.td3}></Text>
+                <Text style={styles.td4}></Text>
+                <Text style={styles.td5}></Text>
+                <Text style={styles.td6}></Text>
                 <Text style={[styles.td7, styles.bold]}>{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
               </View>
             </>

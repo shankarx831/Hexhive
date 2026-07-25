@@ -112,7 +112,12 @@ const InvoiceHtmlPreview = ({ data, totals, options }) => {
             {/* Table Items */}
             <div className="flex flex-col flex-1 min-h-[220px]">
               {data.items.map((item, idx) => {
-                 const rate = Number(item.qty) > 0 ? (Number(item.total) / Number(item.qty)) : Number(item.total);
+                 const rawTotal = Number(item.total || 0);
+                 const itemAmount = (totals.mode === 'inclusive' && totals.gstRate > 0)
+                   ? (rawTotal / (1 + totals.gstRate / 100))
+                   : rawTotal;
+                 const qty = Number(item.qty || 1);
+                 const rate = qty > 0 ? (itemAmount / qty) : itemAmount;
                  return (
                   <div key={idx} className="flex">
                     <div className="w-[5%] border-r border-black p-1.5 text-center">{idx + 1}</div>
@@ -121,29 +126,41 @@ const InvoiceHtmlPreview = ({ data, totals, options }) => {
                     <div className="w-[10%] border-r border-black p-1.5 text-center font-bold">{item.qty} NOS</div>
                     <div className="w-[10%] border-r border-black p-1.5 text-right">{rate.toFixed(2)}</div>
                     <div className="w-[5%] border-r border-black p-1.5 text-center">NOS</div>
-                    <div className="w-[15%] p-1.5 text-right font-bold">{Number(item.total).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                    <div className="w-[15%] p-1.5 text-right font-bold">{itemAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                   </div>
                  );
               })}
               
-              {/* GST lines inside table right after items */}
+              {/* GST lines inside table maintaining 7 columns */}
               {totals.igst > 0 ? (
                 <div className="flex">
-                  <div className="w-[5%] border-r border-black"></div>
-                  <div className="w-[80%] border-r border-black p-1 font-bold text-right italic pr-3">IGST OUTPUT</div>
-                  <div className="w-[15%] p-1 text-right font-bold">{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div className="w-[5%] border-r border-black p-1.5"></div>
+                  <div className="w-[45%] border-r border-black p-1.5 font-bold text-right italic">IGST OUTPUT</div>
+                  <div className="w-[10%] border-r border-black p-1.5"></div>
+                  <div className="w-[10%] border-r border-black p-1.5"></div>
+                  <div className="w-[10%] border-r border-black p-1.5"></div>
+                  <div className="w-[5%] border-r border-black p-1.5"></div>
+                  <div className="w-[15%] p-1.5 text-right font-bold">{totals.igst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
               ) : (totals.cgst > 0 && (
                 <>
                   <div className="flex">
-                    <div className="w-[5%] border-r border-black"></div>
-                    <div className="w-[80%] border-r border-black p-1 font-bold text-right italic pr-3">CGST OUTPUT</div>
-                    <div className="w-[15%] p-1 text-right font-bold">{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                    <div className="w-[5%] border-r border-black p-1.5"></div>
+                    <div className="w-[45%] border-r border-black p-1.5 font-bold text-right italic">CGST OUTPUT</div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[5%] border-r border-black p-1.5"></div>
+                    <div className="w-[15%] p-1.5 text-right font-bold">{totals.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                   </div>
                   <div className="flex">
-                    <div className="w-[5%] border-r border-black"></div>
-                    <div className="w-[80%] border-r border-black p-1 font-bold text-right italic pr-3">SGST OUTPUT</div>
-                    <div className="w-[15%] p-1 text-right font-bold">{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                    <div className="w-[5%] border-r border-black p-1.5"></div>
+                    <div className="w-[45%] border-r border-black p-1.5 font-bold text-right italic">SGST OUTPUT</div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[10%] border-r border-black p-1.5"></div>
+                    <div className="w-[5%] border-r border-black p-1.5"></div>
+                    <div className="w-[15%] p-1.5 text-right font-bold">{totals.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                   </div>
                 </>
               ))}

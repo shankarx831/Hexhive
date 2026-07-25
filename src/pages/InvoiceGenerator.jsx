@@ -84,7 +84,7 @@ const InvoiceGenerator = () => {
     const sgst = type === 'igst' ? 0 : Number((taxAmount / 2).toFixed(2));
     const igst = type === 'igst' ? Number(taxAmount.toFixed(2)) : 0;
 
-    return { subTotal, cgst, sgst, igst, totalTax: taxAmount, grandTotal, gstRate: rate, taxType: type };
+    return { subTotal, cgst, sgst, igst, totalTax: taxAmount, grandTotal, gstRate: rate, taxType: type, mode };
   };
 
   // Calculate totals for Live Preview (Debounced)
